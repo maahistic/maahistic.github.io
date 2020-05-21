@@ -1,0 +1,213 @@
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* ============ Browsers reset ============ */
+
+html{
+	-ms-overflow-style: none;  /* IE 10+ */
+	overflow: -moz-scrollbars-none; /* should hide scroll bar */
+}
+/* no scroll bar for Safari and Chrome */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar{
+	display: none; /*  might be enough */
+	background: transparent;
+	visibility: visible;
+	width: 17px;
+}
+
+/* ============ Hide Scrollbar ============ */
+
+ /* rgba(19,0,57,1); */
+
+body
+{
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow-x: hidden;
+    font-family: sans-serif;
+}
+
+.row{
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+.container-fluid{
+	padding-left: 0px;
+	padding-right: 0px; 
+}
+
+
+
+/* =========== Down shift button =========== */
+
+.down{
+  text-align: center;
+  color: #fff;
+  font-size: 2.5vw;
+  font-weight: 100;
+  position :relative;
+  -webkit-animation: mymove 3s infinite; /* Safari 4.0 - 8.0 */
+  animation: mymove 3s infinite;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes mymove {
+    0% {top: -5px; color: #130039;}
+    40%,60% { top: 5px; color: #fff;}
+    100% {top:  15px;  color:#130039;}
+}
+
+/* Standard syntax */
+@keyframes mymove {
+    0% {top: -5px;  color: #130039;}
+    40%,60% { top: 5px; color: #fff;}
+    100% {top: 15px;  color: #130039;}
+}
+
+/* =========== Section =========== */
+
+
+#about{
+	height: 100vh;
+	width: 100%;
+	box-sizing: content-box;
+}
+
+.edu{
+	height: auto;
+	width: 100%;
+	background-color: rgba(19,0,57,0.3);
+	padding-top: 20px;
+	padding-bottom: 20px;
+	box-sizing: content-box;
+}
+
+.project{
+	height: auto;
+	width: 100%;
+	background-color: rgba(19,0,57,1);
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.skills{
+	height: auto;
+	width: 100%;
+	background-color: rgba(19,0,57,0.3);
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.certificate{
+	background-color: rgba(19,0,57,1);
+	height: auto;
+	width: 100%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.activity{
+	height: auto;
+	width: 100%;
+	background-color: rgba(19,0,57,0.3);
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.connect{
+	background-color: rgba(19,0,57,1);
+	height: auto;
+	width: 100%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+/* =========== Section Head =========== */
+
+.Head{
+	width: 100%;
+	height: auto;
+	text-align: center;
+}
+/* =========== Section Containet =========== */
+
+.content{
+	width: 100%;
+	height: auto;
+	padding: 10px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+
+/* =========== Progress Bar =========== */ 
+
+.progress {
+  position: relative;
+  height: 4px;
+  display: block;
+  width: 100%;
+  background-color: #7f8c8d;
+  border-radius: 2px;
+  background-clip: padding-box;
+  margin: 0.2rem 0 0.2rem 0;
+  overflow: hidden; 
+}
+.progress .prgComp {
+  position: absolute;
+  background-color: inherit;
+  top: 0;
+  bottom: 0;
+  background-color: #00df5d;
+  transition: width .3s linear; 
+}
+

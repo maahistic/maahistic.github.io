@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- CSS -->
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/const.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+	integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="css/typography.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js"></script>
+
+<script>
+      function copyEmail(){
+        var copyE = "Mahendra1729@yahoo.com"
+        copyE.select();
+        document.execCommand("copy");
+      }
+    </script>
+
+<title>Mahendra Nath</title>
+<link rel="icon" href="Assets/profile/icon.png" type="image/gif"
+	sizes="16x16" alt="Mahendra Nath">
+</head>
+
+<body>
+	<div id="particles-js">
+		<script type="text/javascript" src="js/particles.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<section class="font1"></section>
+	</div>
+	<!-- About Me Page -->
+	<section id="about">
+		<div class="row top">
+			<!-- <img src="Assets/profile/mahi.png" class="xenon" alt="Mahendra Nath"> -->
+			Mahendra Nath
+		</div>
+
+		<div class="row"
+			style="display: flex; height: 13vh; background-color: #130039;">
+			<div class="imgdiv">
+				<img src="Assets/profile/profile.jpg" alt="Mahendra Nath"
+					class="img" />
+			</div>
+		</div>
+
+		<div class="row abt">
+			<div class="para">
+				<h2 class="heading">About Me</h2>
+				<p class="about">Operations Executive at Infosys LTD. Experience
+					Associate with a devoted history of Client's Business Management
+					and analyse the Business in Communication Sector as well as IT
+					Industry. Hands on Experience with SpringBoot and Java tool and
+					technology. Empowered with Bachelor of Computer Application
+					Knowledge from Gujarat University.</p>
+			</div>
+		</div>
+
+		<a href="#edu" style="text-decoration: none;">
+			<div class="row"
+				style="display: flex; height: 10vh; background-color: #130039; justify-content: center; overflow: hidden;">
+				<div class="down">
+					<i class="fas fa-angle-double-down"></i>
+				</div>
+			</div>
+		</a>
+	</section>
+
+
+	<!-- Education Page -->
+	<section id="edu" class="container-fluid">
+		<div class="row edu">
+			<div class="col-12">
+				<h2 class="heading">Education Details</h2>
+				<!-- The Timeline -->
+				<ul class="timeline">
+					<!-- Item 1 -->
+					<li>
+						<div class="direction-r">
+							<div class="flag-wrapper">
+								<span class="flag">B.C.A</span> <span class="time-wrapper"><span
+									class="time">2015 - 2018</span></span>
+							</div>
+							<div class="desc">P D Pandya Institute Of Computer
+								Application</div>
+						</div>
+					</li>
+
+					<!-- Item 2 -->
+					<li>
+						<div class="direction-l">
+							<div class="flag-wrapper">
+								<span class="flag">HSC (Science)</span> <span
+									class="time-wrapper"><span class="time">2012 -
+										2014</span></span>
+							</div>
+							<div class="desc">Gujarat Board</div>
+						</div>
+					</li>
+
+					<!-- Item 3 -->
+					<li>
+						<div class="direction-r">
+							<div class="flag-wrapper">
+								<span class="flag">SSC</span> <span class="time-wrapper"><span
+									class="time">2011-2012</span></span>
+							</div>
+							<div class="desc">Gujarat Board</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- Projects Page -->
+	<section id="project" class="container-fluid project">
+		<div class="Head">
+			<h2 class="heading">Projects</h2>
+		</div>
+		<div class="content">
+			<script>
+            projectArray.forEach(elements => {
+                document.write(
+                  '<div class="projectMain">'
+                      +'<div class="pBG" style="background-image: url(Assets/'+elements.pImage+');">'
+                        +'<div class="pDisp">'
+                          + elements.disp +'<br>'
+                          +'Languages: '+ elements.language +'<br>'
+                          +'Purpose: '+ elements.purpose +
+                        '</div>'
+                      +'</div>'
+                      +'<h2 class="content">'+ elements.name +'</h2>'
+                      +'<a href="'+elements.link+'" class="fas fa-link pLink"  target="_blank"></a>'
+                  +'</div>'
+                );
+            });
+          </script>
+		</div>
+	</section>
+
+
+	<!-- Skill Page -->
+	<section id="skill" class="container-fluid skills">
+		<div class="Head">
+			<h2 class="heading">Skills</h2>
+		</div>
+		<div class="content">
+			<script>
+            skillArray.forEach(element => {
+                document.write(
+                  '<div class="skillMain">'
+                      +'<img src="Assets/skill/'+element.skillIcon+'" class="sImg">'
+                      +'<h2>'+ element.skill +'</h2>'
+                      +'<div class="progress">'
+                          +'<div class="prgComp" style="width: '+element.level+'%"></div>'
+                      +'</div>'
+                  +'</div>'
+                );            
+            });
+          </script>
+		</div>
+	</section>
+
+	<!-- Certificate Page -->
+	<section id="certificate" class="container-fluid certificate">
+		<div class="Head">
+			<h2 class="heading">Certificates</h2>
+		</div>
+		<div class="Head">
+			<h2 class="cCertiTitle">Cource Certificates</h2>
+		</div>
+		<div class="hScroll">
+			<script>
+            cCertiArray.forEach(element => {
+              document.write(
+                '<a href="#" class="cCerti" style="background-image: url(Assets/'+element.cCertiImg+');">'
+                  +'<div class="cCertiName">'
+                    +'<h2 class="contentD">'+element.cCertiName+'</h2>'
+                  +'</div>'
+                +'</a>'
+              );
+            });
+          </script>
+		</div>
+		<div class="Head">
+			<h2 class="cCertiTitle">Participation / Event Certificates</h2>
+		</div>
+		<div class="hScroll">
+			<script>
+            pCertiArray.forEach(element => {
+              document.write(
+                '<a href="#" class="cCerti" style="background-image: url(Assets/'+element.pCertiImg+');">'
+                  +'<div class="cCertiName">'
+                    +'<h2 class="contentD">'+element.pCertiName+'</h2>'
+                  +'</div>'
+                +'</a>'
+              );
+            });
+          </script>
+		</div>
+	</section>
+
+
+	<!-- Education Page -->
+	<section id="edu" class="container-fluid">
+		<div class="row edu">
+			<div class="col-12">
+				<h2 class="heading">Experience</h2>
+				<!-- The Timeline -->
+				<ul class="timeline">
+					<!-- Item 1 -->
+					<li>
+						<div class="direction-r">
+							<div class="flag-wrapper">
+								<span class="flag">Infosys LTD</span> <span class="time-wrapper"><span
+									class="time">2018 - 2020 (Running)</span></span>
+							</div>
+							<div class="desc">Associate Business Analyst</div>
+						</div>
+					</li>
+					
+					<li>
+						<div class="direction-l">
+							<div class="flag-wrapper">
+								<span class="flag">IMS People</span> <span class="time-wrapper"><span
+									class="time">2018(4 Months)</span></span>
+							</div>
+							<div class="desc">IT Consultant</div>
+						</div>
+					</li>
+					<li>
+						<div class="direction-r">
+							<div class="flag-wrapper">
+								<span class="flag">Tech Mahindra</span> <span class="time-wrapper"><span
+									class="time">2017 - 2018</span></span>
+							</div>
+							<div class="desc">Floor Walker and Advsor</div>
+						</div>
+					</li>
+
+					<!-- Item 2 -->
+					<li>
+						<div class="direction-l">
+							<div class="flag-wrapper">
+								<span class="flag">English Experts</span> <span
+									class="time-wrapper"><span class="time">2015 -
+										2017</span></span>
+							</div>
+							<div class="desc">Grammar and Personality Development Faculty</div>
+						</div>
+					</li>
+
+					<!-- Item 3 -->
+					<li>
+						<div class="direction-r">
+							<div class="flag-wrapper">
+								<span class="flag">Mukesh Indusries</span> <span class="time-wrapper"><span
+									class="time">2014-2015</span></span>
+							</div>
+							<div class="desc">Junior Data Handler</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+
+
+	<!--Connect Page -->
+	<section id="connect" class="container-fluid">
+		<div class="row connect">
+			<div class="col-12">
+				<h2 class="heading">Connect</h2>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-12 conMain">
+				<h2 onclick="copyEmail()">
+					<i class="fas fa-envelope-square"></i>&nbsp &nbsp
+					mahendra1729@yahoo.com
+				</h2>
+				<h2 onclick="copyPhone()">
+					<i class="fas fa-phone-square"></i>&nbsp &nbsp +91 8866045958
+				</h2>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-12 conMain2">
+				<a href="https://www.linkedin.com/in/mtech-chauhan/" target="_blank"
+					class="fab fa-linkedin"></a>&nbsp &nbsp <a
+					href="https://github.com/maahistic/" target="_blank"
+					class="fab fa-github-square"></a>&nbsp &nbsp <a
+					href="https://codepen.io/maahistic" target="_blank"
+					class="fab fa-codepen"></a>&nbsp &nbsp <a
+					href="https://twitter.com/tera_maahi" target="_blank"
+					class="fab fa-twitter-square"></a>&nbsp &nbsp <a
+					href="https://www.facebook.com/mahendra.chauhan.1729" target="_blank"
+					class="fab fa-facebook"></a>&nbsp &nbsp <a
+					href="https://www.instagram.com/maahistic/" target="_blank"
+					class="fab fa-instagram"></a>
+			</div>
+		</div>
+	</section>
+	<div class="col-12 copyR">
+		<h2>
+			Copyright &#169; 2020 <span>|</span> All Rights Reserved
+		</h2>
+	</div>
+
+	<!-- Loader
+https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_loader5 -->
+
+
+	<!-- Optional JavaScript -->
+
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="js/bootstrap.min.js"></script>
+
+
+
+</body>
+</html>
