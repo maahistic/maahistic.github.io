@@ -48,6 +48,7 @@ body
 }
 
 .particles-js-canvas-el {
+	background-color: #000000;
 	background-size: cover;
 	position: fixed;
 	bottom: 0;
