@@ -22,6 +22,7 @@ position: absolute;
 	justify-content: flex-end;
 }
 .gradient-heading {
+font-size : 30px;
 font-family: 'Milonga', cursive;
   background: linear-gradient(45deg,#ff8a00,#e52e71,#044bea,#7a00ff);
   -webkit-background-clip: text;
