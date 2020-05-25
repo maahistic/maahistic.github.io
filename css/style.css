@@ -23,7 +23,7 @@ position: absolute;
 }
 .gradient-heading {
 font-family: 'Milonga', cursive;
-  background: linear-gradient(45deg,#ff8a00,#e52e71,#044bea,#7a00ff);
+  background: linear-gradient(45deg,#fc4445,#ff8a00,#e52e71,#044bea,#7a00ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 300% 300%;
@@ -57,13 +57,6 @@ body
 }
 
 .xenon{
-  /* position: relative; */
-	/* background-color: #00ff00; */
-  /* color: #130039; */
-  /* font-size: 5vw;
-	line-height: 4.2vw;
-  font-weight: bolder; */
-  /* display: flex; */
 	width: 50vw;
 	height: auto;
 	margin-right: 5vw;
@@ -97,7 +90,7 @@ body
 		height: 47vh;
 		background-color: #130039;
 }
-
+ 
 /* ===Education=== */
 
 .timeline {
@@ -489,7 +482,6 @@ body
 }
 
 .copyR{
-  background-color: #000000;
   width: calc(100vw + 30px);
   height: auto;
   font-size: 14px;
