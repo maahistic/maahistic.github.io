@@ -20,7 +20,7 @@ var projectArray=[
         disp: "Web Application for Apply the service Disruption for FedEx.",
         language: "HTML, CSS, Java, SpringBoot, SQL Developer",
         purpose: "Project Requirement",
-        link: "https://github.com/XenonAman/CalculatorSaud",
+    /*    link: "https://github.com/XenonAman/CalculatorSaud",*/
         pImage: "bg.jpg"
     },
  /*   {
@@ -68,7 +68,7 @@ var projectArray=[
         disp: "Self Learning, getting grip on Different Languages and Contributions on Others Projects.",
         language: "____________",
         purpose: "Self Learning",
-        link: "https://github.com/XenonAman?tab=repositories",
+/*        link: "https://github.com/XenonAman?tab=repositories",*/
         pImage: "bg.jpg"
     },
 ]
@@ -99,11 +99,6 @@ var skillArray = [
         skill : "PHP",
         level : 60
     },
-    /*{
-        skillIcon: "springBoot.jpg",
-        skill : "SpringBoot",
-        level : 70
-    },*/
     {
         skillIcon: "sql.jpg",
         skill : "MySQL",
