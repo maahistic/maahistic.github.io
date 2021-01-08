@@ -30,9 +30,10 @@
 <link rel="icon" href="Assets/profile/icon.png" type="image/gif"
 	sizes="16x16" alt="Mahendra Nath">
 	
-	<audio autoplay>
-  <source src="sound.mp3" type="audio/mp3"  >
-</audio>
+	<audio id="audioID" loop> <source src="sound.mp3"  type="audio/mp3"></audio>
+<script>
+var myaudio = document.getElementById("audioID").autoplay = true;
+</script>
 
 
 </head>
