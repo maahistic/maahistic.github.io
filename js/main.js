@@ -96,7 +96,7 @@ var skillArray = [
         level : 65
     },
     {
-    	skillIcon: "boot.jpg",
+    	skillIcon: "springBoot.jpg",
     	skill : "Sprig Boot",
     	level : 90
     },
