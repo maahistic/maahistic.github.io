@@ -3,34 +3,35 @@ var projectArray=[
         name: "Online Pet Plus ",
         disp: "An Online Web App to use for Pet Hospital Management.",
         language: "PHP, JQuery, JavaScript, CSS, HTML5, Bootstrap",
-        purpose: "College Project",
+        purpose: "BCA Project",
  //     link: "https://play.google.com/store/apps/details?id=com.bdf.doc.testrreminderui&hl=en",
         pImage: "bg.jpg"
     },
-/*    {
-        name: "EDcrypt",
-        disp: "Password Encryption and Decryption Android App to Store Password Securly anyware.",
-        language: "JAVA, XML, Android",
-        purpose: "Self Learning",
-        link: "https://github.com/XenonAman/EDcrypt",
+    {
+        name: "Depot Setup",
+        disp: "Understanding the Core Business of TNT/Fedex and Deliverd the Configuration for Depot Setup",
+/*        language: "JAVA, XML, Android",*/
+        purpose: "Business Analyst",
+/*        link: "https://github.com/XenonAman/EDcrypt",*/
         pImage: "bg.jpg"
-    },*/
+    },
     {
         name: "Serice Disruption",
-        disp: "Web Application for Apply the service Disruption for FedEx.",
-        language: "HTML, CSS, Java, SpringBoot, SQL Developer",
-        purpose: "Project Requirement",
+        disp: "Web Application with Spring Boot Backend to Apply the service Disruption for TNT/FedEx.",
+        language: "HTML, CSS, Java, SpringBoot, SQL ",
+        purpose: "Business Development",
     /*    link: "https://github.com/XenonAman/CalculatorSaud",*/
         pImage: "bg.jpg"
     },
- /*   {
-        name: "E-Cell StudStart",
-        disp: "Web portal for E-Cell VSIT, Startup Jobs site for Freshers Studesnts.",
-        language: "MERN Stack",
-        purpose: "Third Year Project",
-        link: "https://github.com/ashutoshtrack/Proj-SAS",
+    {
+        name: "CSCS ",
+        disp: "Migration and re architecturing the Core backend Application",
+        language: "Spring Boot ,SQL",
+        purpose: "Business Development",
+        /*link: "https://github.com/ashutoshtrack/Proj-SAS"*/
         pImage: "bg.jpg"
     },
+    /*
     {
         name: "ToDo List WebApp",
         disp: "ToDo List WebApp with Login and Signin for maintaining the self ToDo's.",
@@ -95,20 +96,15 @@ var skillArray = [
         level : 65
     },
     {
-        skillIcon: "php.jpg",
-        skill : "PHP",
-        level : 60
+    	skillIcon: "boot.jpg",
+    	skill : "Sprig Boot",
+    	level : 90
     },
-    {
-        skillIcon: "sql.jpg",
-        skill : "MySQL",
-        level : 90
-    },
-    {
+/*    {
         skillIcon: "access.jpg",
         skill : "Microsoft Access",
         level : 70
-    },
+    },*/
     {
         skillIcon: "html.jpg",
         skill : "HTML 5",
