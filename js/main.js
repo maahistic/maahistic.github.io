@@ -82,8 +82,8 @@ var skillArray = [
     },
     {
         skillIcon: "java.jpg",
-        skill : "Java",
-        level : 65
+        skill : "Java 8",
+        level : 80
     },
     {
         skillIcon: "js.jpg",
@@ -96,7 +96,7 @@ var skillArray = [
         level : 65
     },
     {
-    	skillIcon: "springBoot.jpg",
+    	skillIcon: "springboot.jpg",
     	skill : "Sprig Boot",
     	level : 90
     },
