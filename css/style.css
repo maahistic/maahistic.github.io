@@ -242,6 +242,7 @@ body
 .time {
   display: inline-block;
   border-radius: 25px;
+  font-color: rgb(6,57,112)
   padding: 4px 6px;
   background: rgb(248,248,248);
 }
