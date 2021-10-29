@@ -71,11 +71,11 @@ body
 }
 
 .img{
-  background-color: #ccc;
-  height: auto;
-  width: 11vw;
-  border-radius: 50%;
-  box-shadow: 0px 0px 0px 0.5vw #fff;
+    background: #3500d3;
+    height: auto;
+    width: 11vw;
+    border-radius: 50%;
+    box-shadow: 0px 0px 0px 0.5vw #3500d3;
 }
 
 .img:hover{
