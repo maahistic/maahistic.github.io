@@ -149,40 +149,19 @@ var skillArray = [ {
 
 var cCertiArray = [ {
 	cCertiImg : "dum.png",
-	cCertiName : "1st Certificate"
+	cCertiName : "Agile Key Exam Concepts"
 }, {
 	cCertiImg : "dum.png",
-	cCertiName : "2st Certificate"
+	cCertiName : "Agile Principles and Methodologies"
 }, {
 	cCertiImg : "dum.png",
-	cCertiName : "3st Certificate"
+	cCertiName : "Agile Project Planning"
 }, {
 	cCertiImg : "dum.png",
-	cCertiName : "4st Certificate"
+	cCertiName : "Agile Principles and Methodologies"
 }, {
 	cCertiImg : "dum.png",
-	cCertiName : "5st Certificate"
-}, {
-	cCertiImg : "dum.png",
-	cCertiName : "6st Certificate"
-}, {
-	cCertiImg : "dum.png",
-	cCertiName : "7st Certificate"
-}, {
-	cCertiImg : "dum.png",
-	cCertiName : "8st Certificate"
-}, {
-	cCertiImg : "dum.png",
-	cCertiName : "9st Certificate"
-}, {
-	cCertiImg : "dum.png",
-	cCertiName : "10st Certificate"
-}, {
-	cCertiImg : "dum.png",
-	cCertiName : "11st Certificate"
-}, {
-	cCertiImg : "dum.png",
-	cCertiName : "12st Certificate"
+	cCertiName : "Agile Stakeholder Engagement and Team Development"
 } ]
 
 var pCertiArray = [ {
