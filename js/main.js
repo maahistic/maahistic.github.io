@@ -167,7 +167,7 @@ var cCertiArray = [ {
 	cCertiImg : "dum.png",
 	cCertiName : "Agile Stakeholder Engagement and Team Development",
 	cCertiLink : "https://skillsoft.digitalbadges-eu.skillsoft.com/78e48211-7ab8-497d-b35c-41dc77fc098b?record_view=true"
-} ]
+}, ]
 
 var pCertiArray = [ {
 	pCertiImg : "dum.png",
