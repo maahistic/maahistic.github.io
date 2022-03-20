@@ -148,23 +148,23 @@ var skillArray = [ {
 }, ]
 
 var cCertiArray = [ {
-	cCertiImg : "dum.png",
+	cCertiImg : "Skillsoft.png",
 	cCertiName : "Agile Key Exam Concepts",
 	cCertiLink : "https://skillsoft.digitalbadges-eu.skillsoft.com/4546a0ba-3586-4bdc-87f6-875d72b26f8b"
 }, {
-	cCertiImg : "dum.png",
+	cCertiImg : "Skillsoft.png",
 	cCertiName : "Agile Principles and Methodologies",
 	cCertiLink : "https://skillsoft.digitalbadges-eu.skillsoft.com/53c927de-3352-40bb-a8d8-97ce112d6bc5"
 }, {
-	cCertiImg : "dum.png",
+	cCertiImg : "Skillsoft.png",
 	cCertiName : "Agile Project Planning",
 	cCertiLink : "https://skillsoft.digitalbadges-eu.skillsoft.com/ecf88052-d45c-4ae8-a783-962ba121e550?record_view=true"
 }, {
-	cCertiImg : "dum.png",
+	cCertiImg : "Skillsoft.png",
 	cCertiName : "Agile Principles and Methodologies",
 	cCertiLink : "https://skillsoft.digitalbadges-eu.skillsoft.com/53c927de-3352-40bb-a8d8-97ce112d6bc5?record_view=true"
 }, {
-	cCertiImg : "dum.png",
+	cCertiImg : "Skillsoft.png",
 	cCertiName : "Agile Stakeholder Engagement and Team Development",
 	cCertiLink : "https://skillsoft.digitalbadges-eu.skillsoft.com/78e48211-7ab8-497d-b35c-41dc77fc098b?record_view=true"
 }, ]
