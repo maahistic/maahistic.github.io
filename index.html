@@ -1,351 +1,378 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mahendra Nath | Java Full Stack Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-<!-- CSS -->
+    body, html {
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
 
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="css/const.css">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-	integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-	crossorigin="anonymous">
-<link rel="stylesheet" href="css/typography.css">
-<link rel="stylesheet" href="css/style.css">
-<script src="js/main.js"></script>
+    /* Container layout */
+    .container {
+      display: flex;
+      min-height: 100vh;
+      max-width: 1200px;
+      margin: auto;
+      background: rgba(15, 23, 42, 0.85);
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+      overflow: hidden;
+    }
 
-<script>
-      function copyEmail(){
-        var copyE = "Mahendra1729@yahoo.com"
-        copyE.select();
-        document.execCommand("copy");
+    /* Left Panel */
+    .left-panel {
+      width: 300px;
+      background: #111827;
+      padding: 30px 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      border-right: 2px solid #22d3ee;
+    }
+
+    .left-panel img.profile-image {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #22d3ee;
+      margin: 0 auto 20px auto;
+      display: block;
+    }
+
+    .left-panel h1 {
+      font-weight: 700;
+      font-size: 1.8rem;
+      text-align: center;
+      color: #22d3ee;
+      margin-bottom: 0.5rem;
+    }
+
+    .left-panel p.title {
+      font-weight: 500;
+      text-align: center;
+      font-size: 1rem;
+      color: #94a3b8;
+      margin-bottom: 0.5rem;
+    }
+
+    .left-panel h2 {
+      color: #22d3ee;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+
+    .left-panel ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .left-panel li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+    }
+
+    .left-panel li i {
+      color: #22d3ee;
+      min-width: 18px;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    /* Right Panel */
+    .right-panel {
+      flex-grow: 1;
+      padding: 40px 50px;
+      overflow-y: auto;
+    }
+
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section h2 {
+      color: #22d3ee;
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section h2 i {
+      color: #0ea5e9;
+      font-size: 1.5rem;
+    }
+
+    p, li {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #cbd5e1;
+    }
+
+    ul.experience-list, ul.education-list, ul.projects-list, ul.skills-list, ul.certifications-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul.experience-list li, ul.education-list li, ul.projects-list li, ul.skills-list li, ul.certifications-list li {
+      margin-bottom: 1rem;
+    }
+
+    ul.experience-list li strong {
+      color: #60a5fa;
+      font-weight: 600;
+    }
+
+    ul.experience-list li span.date {
+      color: #94a3b8;
+      font-style: italic;
+      font-size: 0.9rem;
+      display: block;
+      margin-top: 3px;
+    }
+
+    /* Scrollbar for right panel */
+    .right-panel::-webkit-scrollbar {
+      width: 8px;
+    }
+    .right-panel::-webkit-scrollbar-thumb {
+      background: #22d3ee;
+      border-radius: 4px;
+    }
+    .right-panel::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        max-width: 100%;
+        border-radius: 0;
       }
-    </script>
+      .left-panel {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #22d3ee;
+        padding: 20px;
+        text-align: center;
+      }
+      .right-panel {
+        padding: 20px 25px;
+        max-height: 60vh;
+      }
+    }
 
-<title>Mahendra Nath</title>
-<link rel="icon" href="Assets/profile/icon.png" type="image/gif"
-	sizes="16x16" alt="Mahendra Nath">
+    /* Low poly background - simple animated triangles */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      z-index: -2;
+      pointer-events: none;
+    }
 
-<iframe src="sound.mp3" allow="autoplay" id="audio"
-	style="display: none"></iframe>
+    /* A subtle low-poly pattern using CSS polygons (static for simplicity) */
+    .low-poly-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        linear-gradient(120deg, #22d3ee33 25%, transparent 25%) -50px 0,
+        linear-gradient(60deg, #22d3ee33 25%, transparent 25%) -50px 0,
+        linear-gradient(120deg, #22d3ee33 25%, transparent 25%),
+        linear-gradient(60deg, #22d3ee33 25%, transparent 25%);
+      background-size: 100px 173.2px;
+      background-repeat: repeat;
+      animation: moveBg 40s linear infinite;
+      opacity: 0.2;
+    }
 
+    @keyframes moveBg {
+      0% { background-position: 0 0, 0 0, 50px 86.6px, 50px 86.6px; }
+      100% { background-position: 100px 0, 100px 0, 150px 86.6px, 150px 86.6px; }
+    }
+
+    /* Links */
+    a {
+      color: #22d3ee;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+.footer {
+  width: 100%;
+  padding: 15px 0;
+  background: #111827;
+  color: #94a3b8;
+  text-align: center;
+  font-size: 0.9rem;
+  border-top: 1px solid #22d3ee;
+  margin-top: auto;
+  font-family: 'Roboto', sans-serif;
+}
+
+  </style>
 </head>
-
 <body>
-	<div id="particles-js">
-		<script type="text/javascript" src="js/particles.js"></script>
-		<script type="text/javascript" src="js/app.js"></script>
-		<section class="font1"></section>
-	</div>
-	<!-- About Me Page -->
-	<section id="about">
-		<div class="row top">
-			<!-- <img src="Assets/profile/mahi.jpeg" class="xenon" alt="Mahendra Nath"> -->
-			<div style="font-size: 30px" class="gradient-heading">Mahendra
-				Nath</div>
-		</div>
-		</div>
+  <div class="low-poly-bg"></div>
+  <div class="container">
+    <aside class="left-panel" aria-label="Basic Information">
+      <img src="profile.jpg" alt="Mahendra Nath" class="profile-image" />
+      <h1>Mahendra Nath</h1>
+      <p class="title">Java Full Stack Developer</p>
 
-		<div class="row"
-			style="display: flex; height: 6vh; background-color: #3500D3; border-radius: 35px 35px 0px 0px;">
-			<div class="imgdiv">
-				<img src="Assets/profile/pic.png" alt="Mahendra Nath"
-					class="img" />
-			</div>
-		</div>
+      <h2><i class="fas fa-location-dot"></i> Location</h2>
+      <ul>
+        <li><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra, India</li>
+      </ul>
 
-		<div class="row abt" style="background-color: #3500D3;">
-			<div class="para">
-				<h2 class="heading">Know me</h2>
-				<p class="about">A BackEnd Developer at Worldline Global Services. Experience Associate with a devoted history as Spring Boot Developer with
-					Microservices Development and Client's Business Management.
-					Empowered with Bachelor of Computer Application Knowledge from
-					Gujarat University.</p>
-			</div>
-		</div>
+      <h2><i class="fas fa-phone"></i> Contact</h2>
+      <ul>
+        <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/8866045958" target="_blank" rel="noopener">8866045958</a></li>
+        <li><i class="fas fa-envelope"></i> <a href="mailto:mtech.chauhan@gmail.com">mtech.chauhan@gmail.com</a></li>
+        <li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/maahistic" target="_blank" rel="noopener">linkedin.com/in/maahistic</a></li>
+        <li><i class="fas fa-globe"></i> <a href="https://maahistic.github.io/" target="_blank" rel="noopener">maahistic.github.io</a></li>
+      </ul>
 
-		<a href="#edu" style="text-decoration: none;">
-			<div class="row"
-				style="display: flex; height: 6vh; background-color: #3500D3; justify-content: center; overflow: hidden; border-radius: 0px 0px 35px 35px">
-				<div class="down">
-					<i class="fas fa-angle-double-down"></i>
-				</div>
-			</div>
-		</a>
-	</section>
+      <h2><i class="fas fa-certificate"></i> Top Skills</h2>
+      <ul class="skills-list">
+        <li><i class="fas fa-check-circle"></i> Agile Methodologies</li>
+        <li><i class="fas fa-check-circle"></i> Spring Boot</li>
+        <li><i class="fas fa-check-circle"></i> Java EE</li>
+      </ul>
 
+      <h2><i class="fas fa-award"></i> Certifications</h2>
+      <ul class="certifications-list">
+        <li>Agile Project Planning</li>
+        <li>Agile Stakeholder Engagement and Team Development</li>
+        <li>Agile Project Scheduling and Monitoring</li>
+        <li>Agile Principles and Methodologies</li>
+        <li>Agile Key Exam Concepts</li>
+      </ul>
+    </aside>
 
-	<!-- Education Page -->
-	<section id="edu" class="container-fluid">
-		<div class="row edu">
-			<div class="col-12">
-				<h2 class="heading">Education Details</h2>
-				<!-- The Timeline -->
-				<ul class="timeline">
-					<!-- Item 1 -->
-					<li>
-						<div class="direction-r">
-							<div class="flag-wrapper">
-								<span class="flag">B.C.A</span> <span class="time-wrapper"><span
-									class="time">2015 - 2018</span></span>
-							</div>
-							<div class="desc">P D Pandya Institute Of Computer
-								Application</div>
-						</div>
-					</li>
+    <main class="right-panel" aria-label="Detailed Information">
+      <section class="section summary" id="summary">
+        <h2><i class="fas fa-user"></i> Summary</h2>
+        <p>
+          Java Full Stack Developer and Module Lead with expertise in leading Agile teams to deliver scalable microservices and middleware using Spring Boot, Apache Camel, and Angular. Skilled in distributed caching with Hazelcast, cloud-native AWS services, Docker containerization, and messaging systems like ActiveMQ and Kafka.
+          Proficient in CI/CD automation with GitLab, code quality management via JUnit 5 and SonarQube, and API design with Swagger. Experienced in SAFe Agile practices, story estimation, and driving technical solutions aligned with business goals.
+        </p>
+      </section>
 
-					<!-- Item 2 -->
-					<li>
-						<div class="direction-l">
-							<div class="flag-wrapper">
-								<span class="flag">HSC (Science)</span> <span
-									class="time-wrapper"><span class="time">2012 -
-										2014</span></span>
-							</div>
-							<div class="desc">Gujarat Board</div>
-						</div>
-					</li>
-
-					<!-- Item 3 -->
-					<li>
-						<div class="direction-r">
-							<div class="flag-wrapper">
-								<span class="flag">SSC</span> <span class="time-wrapper"><span
-									class="time">2011-2012</span></span>
-							</div>
-							<div class="desc">Gujarat Board</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</section>
-
-	<!-- Projects Page -->
-	<section id="project" class="container-fluid project"
-		style="background-color: #3500D3; border-radius: 35px 35px 35px 35px;">
-		<div class="Head">
-			<h2 class="heading">Projects</h2>
-		</div>
-		<div class="content">
-			<script>
-            projectArray.forEach(elements => {
-                document.write(
-                  '<div class="projectMain">'
-                      +'<div class="pBG" style="background-image: url(Assets/'+elements.pImage+');">'
-                        +'<div class="pDisp">'
-                          + elements.disp +'<br>'
-                          +'Languages: '+ elements.language +'<br>'
-                          +'Purpose: '+ elements.purpose +
-                        '</div>'
-                      +'</div>'
-                      +'<h2 class="content">'+ elements.name +'</h2>'
-                      +'<a href="'+elements.link+'" class="fas fa-link pLink"  target="_blank"></a>'
-                  +'</div>'
-                );
-            });
-          </script>
-		</div>
-	</section>
-
-
-	<!-- Skill Page -->
-	<section id="skill" class="container-fluid skills">
-		<div class="Head">
-			<h2 class="heading">Skills</h2>
-		</div>
-		<div class="content">
-			<script>
-            skillArray.forEach(element => {
-                document.write(
-                  '<div class="skillMain">'
-                      +'<img src="Assets/skill/'+element.skillIcon+'" class="sImg">'
-                      +'<h2>'+ element.skill +'</h2>'
-                      +'<div class="progress">'
-                          +'<div class="prgComp" style="width: '+element.level+'%"></div>'
-                      +'</div>'
-                  +'</div>'
-                );            
-            });
-          </script>
-		</div>
-	</section>
-
-	<!-- Certificate Page -->
-	<section id="certificate" class="container-fluid certificate"
-		style="background-color: #3500D3; border-radius: 35px 35px 35px 35px;">
-		<div class="Head">
-			<h2 class="heading">Certificates</h2>
-		</div>
-		<div class="Head">
-			<h2 class="cCertiTitle">Cource Certificates</h2>
-		</div>
-		<div class="hScroll">
-			<script>
-            cCertiArray.forEach(element => {
-              document.write(
-                '<a href= '+ element.cCertiLink +' class="cCerti" style="background-image: url(Assets/'+element.cCertiImg+');">'
-                  +'<div class="cCertiName">'
-                    +'<h2 class="contentD">'+element.cCertiName+'</h2>'
-                  +'</div>'
-                +'</a>'
-              );
-            });
-          </script>
-		</div>
-		<div class="Head">
-			<h2 class="cCertiTitle">Participation / Event Certificates</h2>
-		</div>
-		<div class="hScroll">
-			<script>
-            pCertiArray.forEach(element => {
-              document.write(
-                '<a href="#" class="cCerti" style="background-image: url(Assets/'+element.pCertiImg+');">'
-                  +'<div class="cCertiName">'
-                    +'<h2 class="contentD">'+element.pCertiName+'</h2>'
-                  +'</div>'
-                +'</a>'
-              );
-            });
-          </script>
-		</div>
-	</section>
-
-
-	<!-- Education Page -->
-	<section id="edu" class="container-fluid">
-		<div class="row edu">
-			<div class="col-12">
-				<h2 class="heading">Experience</h2>
-				<!-- The Timeline -->
-				<ul class="timeline">
-					<!-- Item 1 -->
-					<li>
-						<div class="direction-l">
-							<div class="flag-wrapper">
-								<span class="flag">Worldline global services</span> <span class="time-wrapper"><span
-									class="time">2021</span></span>
-							</div>
-							<div class="desc">Associate Consultant</div>
-						</div>
-					</li>
-					<li>
-						<div class="direction-r">
-							<div class="flag-wrapper">
-								<span class="flag">Infosys LTD</span> <span class="time-wrapper"><span
-									class="time">2018 - 2021</span></span>
-							</div>
-							<div class="desc">System Engineer</div>
-						</div>
-					</li>
-<!-- 					<li>
-						<div class="direction-l">
-							<div class="flag-wrapper">
-								<span class="flag">IMS People</span> <span class="time-wrapper"><span
-									class="time">2018(4 Months)</span></span>
-							</div>
-							<div class="desc">IT Consultant</div>
-						</div>
-					</li>
-					<li>
-						<div class="direction-r">
-							<div class="flag-wrapper">
-								<span class="flag">Tech Mahindra</span> <span
-									class="time-wrapper"><span class="time">2017 -
-										2018</span></span>
-							</div>
-							<div class="desc">Floor Walker and Corporate Sales Advisor</div>
-						</div>
-					</li>
-
-					<li>
-						<div class="direction-l">
-							<div class="flag-wrapper">
-								<span class="flag">English Experts</span> <span
-									class="time-wrapper"><span class="time">2015 -
-										2017</span></span>
-							</div>
-							<div class="desc">Grammar and Personality Development
-								Faculty</div>
-						</div>
-					</li>
-
-					<li>
-						<div class="direction-r">
-							<div class="flag-wrapper">
-								<span class="flag">Mukesh Indusries</span> <span
-									class="time-wrapper"><span class="time">2014-2015</span></span>
-							</div>
-							<div class="desc">Junior Data Handler</div>
-						</div>
-					</li> 
-					 -->
-				</ul>
-			</div>
-		</div>
-	</section>
-
-
-
-	<!--Connect Page -->
-	<section id="connect" class="container-fluid">
-		<div class="row connect"
-			style="background-color: #3500D3; border-radius: 35px 35px 35px 35px;">
-			<div class="col-12">
-				<h2 class="heading">Connect</h2>
-			</div>
-			<div class="col-lg-6 col-md-6 col-sm-12 conMain">
-				<h2 onclick="copyEmail()">
-					<i class="fas fa-envelope-square"></i>&nbsp &nbsp
-					Maahistic@gmail.com
-				</h2>
-				<!-- <h2 onclick="copyPhone()">
-					<i class="fas fa-phone-square"></i>&nb**************"
-				</h2> -->
-			</div>
-			<div class="col-lg-6 col-md-6 col-sm-12 conMain2">
-				<a href="https://www.linkedin.com/in/maahistic/" target="_blank"
-					class="fab fa-linkedin"></a>&nbsp &nbsp <a
-					href="https://github.com/maahistic/" target="_blank"
-					class="fab fa-github-square"></a>&nbsp &nbsp <a
-					href="https://codepen.io/maahistic" target="_blank"
-					class="fab fa-codepen"></a>&nbsp &nbsp <a
-					href="https://twitter.com/maahistic" target="_blank"
-					class="fab fa-twitter-square"></a>&nbsp &nbsp <a
-					href="https://www.facebook.com/mahendra.chauhan.1729"
-					target="_blank" class="fab fa-facebook"></a>&nbsp &nbsp <a
-					href="https://www.instagram.com/maahistiic/" target="_blank"
-					class="fab fa-instagram"></a>
-			</div>
-		</div>
-	</section>
-	<div class="col-12 copyR">
-		<h2>
-			Copyright &#169; 2021 <span>|</span> All Rights Reserved
-		</h2>
-	</div>
-
-	<!-- Loader
-https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_loader5 -->
-
-
-	<!-- Optional JavaScript -->
-
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script src="js/bootstrap.min.js"></script>
-
-
-
+      <section class="section experience" id="experience">
+        <h2><i class="fas fa-briefcase"></i> Experience</h2>
+        <ul class="experience-list">
+          <li>
+            <strong>Mphasis - Module Lead</strong>
+            <span class="date">April 2024 - Present (1 year 2 months)</span>
+            <p>• Leading Java Full stack team for one of the leading custodian Bank.<br>
+• Building Microfrontend application using Angular.<br>
+• Following SAFe Agile methodology for Iterative Development.<br>
+• Building Micro service using Java 11/17 leveraging spring boot and Hazelcast distributed cache.<br>
+• Created Application with Angular 10 and Java 8<br>
+• Manataing the code functionality and quality via Junit, Integration test, Mutation test and Soanr quabe fixes.<br>
+• Cross verifying User Stories and estimating Story point.<br>
+• Hands-on-tools and and Technology:<br>
+Version Control : Github, Gitlab<br>
+Development : VSC, Intellij<br>
+Code Quality : Sonar Quabe, Sonar Lint<br>
+Containerization : Docker<br>
+Queues and Streaming : Apache ActiveMQ, IBM queue, Apache Kafka<br>
+Repository : Nexus.<br>
+CI/CD Pipeline : Gitlab<br>
+API Test : Postman, insomnia</p>
+          </li>
+          <li>
+            <strong>Worldline Global Services - Consultant</strong>
+            <span class="date">October 2021 - April 2024 (2 years 7 months)</span>
+            <p>• Building Middleware Application and Microservices in JDK 8/11 using Spring Boot and Apache Camel.<br>
+• Following SAFe Agile methodology for Iterative Development.<br>
+• Used AWS Cloud Services like EC2, Lambda and etc.<br>
+• Created Application with Angular 10 and Java 8<br>
+• Writing Unit test with Junit5.<br>
+• Planning and Creating Rest API using Swagger with YAML.<br>
+• Cross verifying User Stories and estimating Story point.<br>
+• Hands-on-tools and and Technology:<br>
+Version Control : Github, Gitlab<br>
+Development : Eclipse, STS, VSC, Intellij<br>
+Code Quality : Sonar Quabe, Sonar Lint<br>
+Containerization : Docker<br>
+Queues and Streaming : Apache ActiveMQ, IBM queue, Apache Kafka<br>
+Repository : Nexus.<br>
+CI/CD Pipeline : Gitlab<br>
+API Test : Postman<br>
+Cloud : AWS</p>
+          </li>
+          <li>
+            <strong>Infosys - System Engineer</strong>
+            <span class="date">October 2018 - October 2021 (3 years 1 month)</span>
+            <p>Project: CSCS<br>
+Spring Boot Developer<br>
+• Working in Agile methodology where CI/CD being for continuous Deployment.<br>
+• Developing Back-End infra via Micro services as per the business requirement using AKS tools.<br>
+• Creating RESTful APIs for existing code migration and a whole new functionality.<br>
+• Experienced in YAML, Spring boot, Apache Camel, Micro services, JPA, JUnits.<br>
+• Used to with tools like Swagger, STS, Postman, SQL Developer, SONARQuabe, Jenkins, Gitlab, Github.<br>
+• Created High Level Design documents, Technical Mappings and API for Business understanding of Enterprise application Design<br>
+• Cross verifying User Stories and estimating Story point.<br>
+Project: Service Disruption<br>
+Spring Boot Developer<br>
+• Developing Back-End infra via Micro services as per the business requirement.<br>
+• Creating RESTful APIs a whole new functionality.<br>
+• Hands On experience in YAML, Spring boot,Apache Camel ,Micro services, JPA, JUnits.<br>
+• Used to with tools like Swagger , STS , Postman, SQL Developer, SONAR.<br>
+Associate Business Analyst:<br>
+• Leading the Depot Setup team where I am helping and enabling client (TNT FedEx)and Infosys to grow and enhance their business and producing the more billing to the company accounts.<br>
+• Depot setup work means setting up the business in different parts of the countries by getting in touch with the TNT-FedEx business and marketing team.<br>
+• Raising and managing change requests, involving change management team and with the help of application teams implementing the same and providing the deliverables to business people.<br>
+• Managing and following the complete change process, understanding the business requirements (requirement analysis, elicitation)</p>
+          </li>
+          <li>
+            <strong>English Experts - Grammar Faculty</strong>
+            <span class="date">June 2015 - June 2017 (2 years 1 month)</span>
+            <p>• Guided and taught from Basic to advance grammar to Kids, Employees, House wives and Students.<br>
+• Handled the session for Personality Development for Individual.</p>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </div>
 </body>
 </html>
+
+<footer class="footer">
+  &copy; 2025 Mahendra Nath. All rights reserved.
+</footer>
