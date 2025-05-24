@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    /* Reset */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -22,7 +21,6 @@
       overflow-x: hidden;
     }
 
-    /* Container layout */
     .container {
       display: flex;
       min-height: 100vh;
@@ -34,50 +32,49 @@
       overflow: hidden;
     }
 
-    /* Left Panel */
     .left-panel {
       width: 300px;
       background: #111827;
-      padding: 30px 25px;
+      padding: 20px 18px;
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 0.6rem;
       border-right: 2px solid #22d3ee;
     }
 
     .left-panel img.profile-image {
-      width: 140px;
-      height: 140px;
+      width: 130px;
+      height: 130px;
       border-radius: 50%;
       object-fit: cover;
       border: 3px solid #22d3ee;
-      margin: 0 auto 20px auto;
+      margin: 0 auto 10px auto;
       display: block;
     }
 
     .left-panel h1 {
       font-weight: 700;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       text-align: center;
       color: #22d3ee;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.3rem;
     }
 
     .left-panel p.title {
       font-weight: 500;
       text-align: center;
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: #94a3b8;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.3rem;
     }
 
     .left-panel h2 {
       color: #22d3ee;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1rem;
       border-bottom: 1px solid #334155;
-      padding-bottom: 6px;
-      margin-bottom: 12px;
+      padding-bottom: 4px;
+      margin-bottom: 8px;
     }
 
     .left-panel ul {
@@ -89,8 +86,8 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 10px;
-      font-size: 0.95rem;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
       color: #cbd5e1;
     }
 
@@ -101,7 +98,6 @@
       text-align: center;
     }
 
-    /* Right Panel */
     .right-panel {
       flex-grow: 1;
       padding: 40px 50px;
@@ -155,7 +151,6 @@
       margin-top: 3px;
     }
 
-    /* Scrollbar for right panel */
     .right-panel::-webkit-scrollbar {
       width: 8px;
     }
@@ -167,7 +162,6 @@
       background: transparent;
     }
 
-    /* Responsive */
     @media (max-width: 900px) {
       .container {
         flex-direction: column;
@@ -178,7 +172,7 @@
         width: 100%;
         border-right: none;
         border-bottom: 2px solid #22d3ee;
-        padding: 20px;
+        padding: 18px;
         text-align: center;
       }
       .right-panel {
@@ -187,7 +181,6 @@
       }
     }
 
-    /* Low poly background - simple animated triangles */
     body::before {
       content: "";
       position: fixed;
@@ -199,7 +192,6 @@
       pointer-events: none;
     }
 
-    /* A subtle low-poly pattern using CSS polygons (static for simplicity) */
     .low-poly-bg {
       position: fixed;
       top: 0; left: 0;
@@ -223,7 +215,6 @@
       100% { background-position: 100px 0, 100px 0, 150px 86.6px, 150px 86.6px; }
     }
 
-    /* Links */
     a {
       color: #22d3ee;
       text-decoration: none;
@@ -231,145 +222,145 @@
     a:hover {
       text-decoration: underline;
     }
-.footer {
-  width: 100%;
-  padding: 15px 0;
-  background: #111827;
-  color: #94a3b8;
-  text-align: center;
-  font-size: 0.9rem;
-  border-top: 1px solid #22d3ee;
-  margin-top: auto;
-  font-family: 'Roboto', sans-serif;
-}
 
+    .footer {
+      width: 100%;
+      padding: 15px 0;
+      background: #111827;
+      color: #94a3b8;
+      text-align: center;
+      font-size: 0.9rem;
+      border-top: 1px solid #22d3ee;
+      margin-top: auto;
+      font-family: 'Roboto', sans-serif;
+    }
   </style>
 </head>
 <body>
-  <div class="low-poly-bg"></div>
-  <div class="container">
-    <aside class="left-panel" aria-label="Basic Information">
-      <img src="Assets/profile/profile.jpg" alt="Mahendra Nath" class="profile-image" />
-      <h1>Mahendra Nath</h1>
-      <p class="title">Java Full Stack Developer</p>
+<div class="low-poly-bg"></div>
+<div class="container">
+  <aside class="left-panel" aria-label="Basic Information">
+    <img src="Assets/profile/profile.jpg" alt="Mahendra Nath" class="profile-image" />
+    <h1>Mahendra Nath</h1>
+    <p class="title">Java Full Stack Developer</p>
 
-      <h2><i class="fas fa-location-dot"></i> Location</h2>
-      <ul>
-        <li><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra, India</li>
+    <h2><i class="fas fa-location-dot"></i> Location</h2>
+    <ul>
+      <li><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra, India</li>
+    </ul>
+
+    <h2><i class="fas fa-phone"></i> Contact</h2>
+    <ul>
+      <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/8866045958" target="_blank" rel="noopener">8866045958</a></li>
+      <li><i class="fas fa-envelope"></i> <a href="mailto:mtech.chauhan@gmail.com">mtech.chauhan@gmail.com</a></li>
+      <li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/maahistic" target="_blank" rel="noopener">linkedin.com/in/maahistic</a></li>
+      <li><i class="fas fa-globe"></i> <a href="https://maahistic.github.io/" target="_blank" rel="noopener">maahistic.github.io</a></li>
+    </ul>
+
+    <h2><i class="fas fa-certificate"></i> Top Skills</h2>
+    <ul class="skills-list">
+      <li><i class="fas fa-check-circle"></i> Agile Methodologies</li>
+      <li><i class="fas fa-check-circle"></i> Spring Boot</li>
+      <li><i class="fas fa-check-circle"></i> Java EE</li>
+    </ul>
+
+    <h2><i class="fas fa-award"></i> Certifications</h2>
+    <ul class="certifications-list">
+      <li>Agile Project Planning</li>
+      <li>Agile Stakeholder Engagement and Team Development</li>
+      <li>Agile Project Scheduling and Monitoring</li>
+      <li>Agile Principles and Methodologies</li>
+      <li>Agile Key Exam Concepts</li>
+    </ul>
+  </aside>
+
+  <main class="right-panel" aria-label="Detailed Information">
+    <section class="section summary" id="summary">
+      <h2><i class="fas fa-user"></i> Summary</h2>
+      <p>
+        Java Full Stack Developer and Module Lead with expertise in leading Agile teams to deliver scalable microservices and middleware using Spring Boot, Apache Camel, and Angular. Skilled in distributed caching with Hazelcast, cloud-native AWS services, Docker containerization, and messaging systems like ActiveMQ and Kafka.
+        Proficient in CI/CD automation with GitLab, code quality management via JUnit 5 and SonarQube, and API design with Swagger. Experienced in SAFe Agile practices, story estimation, and driving technical solutions aligned with business goals.
+      </p>
+    </section>
+
+    <section class="section experience" id="experience">
+      <h2><i class="fas fa-briefcase"></i> Experience</h2>
+      <ul class="experience-list">
+        <li>
+          <strong>Mphasis - Module Lead</strong>
+          <span class="date">April 2024 - Present (1 year 2 months)</span>
+          <p>• Leading Java Full stack team for one of the leading custodian Bank.<br>
+            • Building Microfrontend application using Angular.<br>
+            • Following SAFe Agile methodology for Iterative Development.<br>
+            • Building Micro service using Java 11/17 leveraging spring boot and Hazelcast distributed cache.<br>
+            • Created Application with Angular 10 and Java 8<br>
+            • Manataing the code functionality and quality via Junit, Integration test, Mutation test and Soanr quabe fixes.<br>
+            • Cross verifying User Stories and estimating Story point.<br>
+            • Hands-on-tools and and Technology:<br>
+            Version Control : Github, Gitlab<br>
+            Development : VSC, Intellij<br>
+            Code Quality : Sonar Quabe, Sonar Lint<br>
+            Containerization : Docker<br>
+            Queues and Streaming : Apache ActiveMQ, IBM queue, Apache Kafka<br>
+            Repository : Nexus.<br>
+            CI/CD Pipeline : Gitlab<br>
+            API Test : Postman, insomnia</p>
+        </li>
+        <li>
+          <strong>Worldline Global Services - Consultant</strong>
+          <span class="date">October 2021 - April 2024 (2 years 7 months)</span>
+          <p>• Building Middleware Application and Microservices in JDK 8/11 using Spring Boot and Apache Camel.<br>
+            • Following SAFe Agile methodology for Iterative Development.<br>
+            • Used AWS Cloud Services like EC2, Lambda and etc.<br>
+            • Created Application with Angular 10 and Java 8<br>
+            • Writing Unit test with Junit5.<br>
+            • Planning and Creating Rest API using Swagger with YAML.<br>
+            • Cross verifying User Stories and estimating Story point.<br>
+            • Hands-on-tools and and Technology:<br>
+            Version Control : Github, Gitlab<br>
+            Development : Eclipse, STS, VSC, Intellij<br>
+            Code Quality : Sonar Quabe, Sonar Lint<br>
+            Containerization : Docker<br>
+            Queues and Streaming : Apache ActiveMQ, IBM queue, Apache Kafka<br>
+            Repository : Nexus.<br>
+            CI/CD Pipeline : Gitlab<br>
+            API Test : Postman<br>
+            Cloud : AWS</p>
+        </li>
+        <li>
+          <strong>Infosys - System Engineer</strong>
+          <span class="date">October 2018 - October 2021 (3 years 1 month)</span>
+          <p>Project: CSCS<br>
+            Spring Boot Developer<br>
+            • Working in Agile methodology where CI/CD being for continuous Deployment.<br>
+            • Developing Back-End infra via Micro services as per the business requirement using AKS tools.<br>
+            • Creating RESTful APIs for existing code migration and a whole new functionality.<br>
+            • Experienced in YAML, Spring boot, Apache Camel, Micro services, JPA, JUnits.<br>
+            • Used to with tools like Swagger, STS, Postman, SQL Developer, SONARQuabe, Jenkins, Gitlab, Github.<br>
+            • Created High Level Design documents, Technical Mappings and API for Business understanding of Enterprise application Design<br>
+            • Cross verifying User Stories and estimating Story point.<br>
+            Project: Service Disruption<br>
+            Spring Boot Developer<br>
+            • Developing Back-End infra via Micro services as per the business requirement.<br>
+            • Creating RESTful APIs a whole new functionality.<br>
+            • Hands On experience in YAML, Spring boot,Apache Camel ,Micro services, JPA, JUnits.<br>
+            • Used to with tools like Swagger , STS , Postman, SQL Developer, SONAR.<br>
+            Associate Business Analyst:<br>
+            • Leading the Depot Setup team where I am helping and enabling client (TNT FedEx)and Infosys to grow and enhance their business and producing the more billing to the company accounts.<br>
+            • Depot setup work means setting up the business in different parts of the countries by getting in touch with the TNT-FedEx business and marketing team.<br>
+            • Raising and managing change requests, involving change management team and with the help of application teams implementing the same and providing the deliverables to business people.<br>
+            • Managing and following the complete change process, understanding the business requirements (requirement analysis, elicitation)</p>
+        </li>
+        <li>
+          <strong>English Experts - Grammar Faculty</strong>
+          <span class="date">June 2015 - June 2017 (2 years 1 month)</span>
+          <p>• Guided and taught from Basic to advance grammar to Kids, Employees, House wives and Students.<br>
+            • Handled the session for Personality Development for Individual.</p>
+        </li>
       </ul>
-
-      <h2><i class="fas fa-phone"></i> Contact</h2>
-      <ul>
-        <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/8866045958" target="_blank" rel="noopener">8866045958</a></li>
-        <li><i class="fas fa-envelope"></i> <a href="mailto:mtech.chauhan@gmail.com">mtech.chauhan@gmail.com</a></li>
-        <li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/maahistic" target="_blank" rel="noopener">linkedin.com/in/maahistic</a></li>
-        <li><i class="fas fa-globe"></i> <a href="https://maahistic.github.io/" target="_blank" rel="noopener">maahistic.github.io</a></li>
-      </ul>
-
-      <h2><i class="fas fa-certificate"></i> Top Skills</h2>
-      <ul class="skills-list">
-        <li><i class="fas fa-check-circle"></i> Agile Methodologies</li>
-        <li><i class="fas fa-check-circle"></i> Spring Boot</li>
-        <li><i class="fas fa-check-circle"></i> Java EE</li>
-      </ul>
-
-      <h2><i class="fas fa-award"></i> Certifications</h2>
-      <ul class="certifications-list">
-        <li>Agile Project Planning</li>
-        <li>Agile Stakeholder Engagement and Team Development</li>
-        <li>Agile Project Scheduling and Monitoring</li>
-        <li>Agile Principles and Methodologies</li>
-        <li>Agile Key Exam Concepts</li>
-      </ul>
-    </aside>
-
-    <main class="right-panel" aria-label="Detailed Information">
-      <section class="section summary" id="summary">
-        <h2><i class="fas fa-user"></i> Summary</h2>
-        <p>
-          Java Full Stack Developer and Module Lead with expertise in leading Agile teams to deliver scalable microservices and middleware using Spring Boot, Apache Camel, and Angular. Skilled in distributed caching with Hazelcast, cloud-native AWS services, Docker containerization, and messaging systems like ActiveMQ and Kafka.
-          Proficient in CI/CD automation with GitLab, code quality management via JUnit 5 and SonarQube, and API design with Swagger. Experienced in SAFe Agile practices, story estimation, and driving technical solutions aligned with business goals.
-        </p>
-      </section>
-
-      <section class="section experience" id="experience">
-        <h2><i class="fas fa-briefcase"></i> Experience</h2>
-        <ul class="experience-list">
-          <li>
-            <strong>Mphasis - Module Lead</strong>
-            <span class="date">April 2024 - Present (1 year 2 months)</span>
-            <p>• Leading Java Full stack team for one of the leading custodian Bank.<br>
-• Building Microfrontend application using Angular.<br>
-• Following SAFe Agile methodology for Iterative Development.<br>
-• Building Micro service using Java 11/17 leveraging spring boot and Hazelcast distributed cache.<br>
-• Created Application with Angular 10 and Java 8<br>
-• Manataing the code functionality and quality via Junit, Integration test, Mutation test and Soanr quabe fixes.<br>
-• Cross verifying User Stories and estimating Story point.<br>
-• Hands-on-tools and and Technology:<br>
-Version Control : Github, Gitlab<br>
-Development : VSC, Intellij<br>
-Code Quality : Sonar Quabe, Sonar Lint<br>
-Containerization : Docker<br>
-Queues and Streaming : Apache ActiveMQ, IBM queue, Apache Kafka<br>
-Repository : Nexus.<br>
-CI/CD Pipeline : Gitlab<br>
-API Test : Postman, insomnia</p>
-          </li>
-          <li>
-            <strong>Worldline Global Services - Consultant</strong>
-            <span class="date">October 2021 - April 2024 (2 years 7 months)</span>
-            <p>• Building Middleware Application and Microservices in JDK 8/11 using Spring Boot and Apache Camel.<br>
-• Following SAFe Agile methodology for Iterative Development.<br>
-• Used AWS Cloud Services like EC2, Lambda and etc.<br>
-• Created Application with Angular 10 and Java 8<br>
-• Writing Unit test with Junit5.<br>
-• Planning and Creating Rest API using Swagger with YAML.<br>
-• Cross verifying User Stories and estimating Story point.<br>
-• Hands-on-tools and and Technology:<br>
-Version Control : Github, Gitlab<br>
-Development : Eclipse, STS, VSC, Intellij<br>
-Code Quality : Sonar Quabe, Sonar Lint<br>
-Containerization : Docker<br>
-Queues and Streaming : Apache ActiveMQ, IBM queue, Apache Kafka<br>
-Repository : Nexus.<br>
-CI/CD Pipeline : Gitlab<br>
-API Test : Postman<br>
-Cloud : AWS</p>
-          </li>
-          <li>
-            <strong>Infosys - System Engineer</strong>
-            <span class="date">October 2018 - October 2021 (3 years 1 month)</span>
-            <p>Project: CSCS<br>
-Spring Boot Developer<br>
-• Working in Agile methodology where CI/CD being for continuous Deployment.<br>
-• Developing Back-End infra via Micro services as per the business requirement using AKS tools.<br>
-• Creating RESTful APIs for existing code migration and a whole new functionality.<br>
-• Experienced in YAML, Spring boot, Apache Camel, Micro services, JPA, JUnits.<br>
-• Used to with tools like Swagger, STS, Postman, SQL Developer, SONARQuabe, Jenkins, Gitlab, Github.<br>
-• Created High Level Design documents, Technical Mappings and API for Business understanding of Enterprise application Design<br>
-• Cross verifying User Stories and estimating Story point.<br>
-Project: Service Disruption<br>
-Spring Boot Developer<br>
-• Developing Back-End infra via Micro services as per the business requirement.<br>
-• Creating RESTful APIs a whole new functionality.<br>
-• Hands On experience in YAML, Spring boot,Apache Camel ,Micro services, JPA, JUnits.<br>
-• Used to with tools like Swagger , STS , Postman, SQL Developer, SONAR.<br>
-Associate Business Analyst:<br>
-• Leading the Depot Setup team where I am helping and enabling client (TNT FedEx)and Infosys to grow and enhance their business and producing the more billing to the company accounts.<br>
-• Depot setup work means setting up the business in different parts of the countries by getting in touch with the TNT-FedEx business and marketing team.<br>
-• Raising and managing change requests, involving change management team and with the help of application teams implementing the same and providing the deliverables to business people.<br>
-• Managing and following the complete change process, understanding the business requirements (requirement analysis, elicitation)</p>
-          </li>
-          <li>
-            <strong>English Experts - Grammar Faculty</strong>
-            <span class="date">June 2015 - June 2017 (2 years 1 month)</span>
-            <p>• Guided and taught from Basic to advance grammar to Kids, Employees, House wives and Students.<br>
-• Handled the session for Personality Development for Individual.</p>
-          </li>
-        </ul>
-      </section>
-    </main>
-  </div>
+    </section>
+  </main>
+</div>
 </body>
 </html>
 
