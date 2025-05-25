@@ -23,10 +23,9 @@ function animateFirefly(firefly) {
     const y = Math.random() * 100;
     const duration = 5 + Math.random() * 5;
 
-    firefly.style.transition = `transform ${duration}s ease-in-out, opacity 2s`;
+    firefly.style.transition = `transform ${duration}s cubic-bezier(0.4, 0, 0.2, 1), opacity ${duration / 2}s ease-in-out`;
     firefly.style.transform = `translate(${x - 50}vw, ${y - 50}vh)`;
     firefly.style.opacity = `${0.5 + Math.random() * 0.5}`;
-
     setTimeout(move, duration * 1000);
   };
 
