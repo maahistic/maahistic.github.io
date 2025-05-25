@@ -1,360 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mahendra Nath | Java Full Stack Developer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body, html {
-      height: 100%;
-      font-family: 'Roboto', sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
-      overflow-x: hidden;
-    }
-
-    .container {
-      display: flex;
-      min-height: 100vh;
-      max-width: 1200px;
-      margin: auto;
-      background: rgba(15, 23, 42, 0.85);
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
-      overflow: hidden;
-    }
-
-    .left-panel {
-      width: 300px;
-      background: #111827;
-      padding: 20px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      border-right: 2px solid #22d3ee;
-    }
-
-    .left-panel img.profile-image {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #22d3ee;
-      margin: 0 auto 10px auto;
-      display: block;
-    }
-
-    .left-panel h1 {
-      font-weight: 700;
-      font-size: 1.6rem;
-      text-align: center;
-      color: #22d3ee;
-      margin-bottom: 0.3rem;
-    }
-
-    .left-panel p.title {
-      font-weight: 500;
-      text-align: center;
-      font-size: 0.95rem;
-      color: #94a3b8;
-      margin-bottom: 0.3rem;
-    }
-
-    .left-panel h2 {
-      color: #22d3ee;
-      font-weight: 700;
-      font-size: 1rem;
-      border-bottom: 1px solid #334155;
-      padding-bottom: 4px;
-      margin-bottom: 8px;
-    }
-
-    .left-panel ul {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .left-panel li {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-      font-size: 0.9rem;
-      color: #cbd5e1;
-    }
-
-    .left-panel li i {
-      color: #22d3ee;
-      min-width: 18px;
-      font-size: 1rem;
-      text-align: center;
-    }
-
-    .right-panel {
-      flex-grow: 1;
-      padding: 40px 50px;
-      overflow-y: auto;
-    }
-
-    .section {
-      margin-bottom: 2.5rem;
-    }
-
-    .section h2 {
-      color: #22d3ee;
-      font-weight: 700;
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .section h2 i {
-      color: #0ea5e9;
-      font-size: 1.5rem;
-    }
-
-    p, li {
-      font-size: 1rem;
-      line-height: 1.5;
-      color: #cbd5e1;
-    }
-
-    ul.experience-list, ul.education-list, ul.projects-list, ul.skills-list, ul.certifications-list {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    ul.experience-list li, ul.education-list li, ul.projects-list li, ul.skills-list li, ul.certifications-list li {
-      margin-bottom: 1rem;
-    }
-
-    ul.experience-list li strong {
-      color: #60a5fa;
-      font-weight: 600;
-    }
-
-    ul.experience-list li span.date {
-      color: #94a3b8;
-      font-style: italic;
-      font-size: 0.9rem;
-      display: block;
-      margin-top: 3px;
-    }
-
-    .right-panel::-webkit-scrollbar {
-      width: 8px;
-    }
-    .right-panel::-webkit-scrollbar-thumb {
-      background: #22d3ee;
-      border-radius: 4px;
-    }
-    .right-panel::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    @media (max-width: 900px) {
-      .container {
-        flex-direction: column;
-        max-width: 100%;
-        border-radius: 0;
-      }
-      .left-panel {
-        width: 100%;
-        border-right: none;
-        border-bottom: 2px solid #22d3ee;
-        padding: 18px;
-        text-align: center;
-      }
-      .right-panel {
-        padding: 20px 25px;
-        max-height: 60vh;
-      }
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      z-index: -2;
-      pointer-events: none;
-    }
-
-    .low-poly-bg {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      pointer-events: none;
-      background:
-        linear-gradient(120deg, #22d3ee33 25%, transparent 25%) -50px 0,
-        linear-gradient(60deg, #22d3ee33 25%, transparent 25%) -50px 0,
-        linear-gradient(120deg, #22d3ee33 25%, transparent 25%),
-        linear-gradient(60deg, #22d3ee33 25%, transparent 25%);
-      background-size: 100px 173.2px;
-      background-repeat: repeat;
-      animation: moveBg 40s linear infinite;
-      opacity: 0.2;
-    }
-
-    @keyframes moveBg {
-      0% { background-position: 0 0, 0 0, 50px 86.6px, 50px 86.6px; }
-      100% { background-position: 100px 0, 100px 0, 150px 86.6px, 150px 86.6px; }
-    }
-
-    a {
-      color: #22d3ee;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .footer {
-      width: 100%;
-      padding: 15px 0;
-      background: #111827;
-      color: #94a3b8;
-      text-align: center;
-      font-size: 0.9rem;
-      border-top: 1px solid #22d3ee;
-      margin-top: auto;
-      font-family: 'Roboto', sans-serif;
-    }
-  </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Mahendra Nath | Java Full Stack Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
 <div class="low-poly-bg"></div>
+<div class="fireflies-container" aria-hidden="true"></div>
 <div class="container">
-  <aside class="left-panel" aria-label="Basic Information">
-    <img src="Assets/profile/profile.jpg" alt="Mahendra Nath" class="profile-image" />
-    <h1>Mahendra Nath</h1>
-    <p class="title">Java Full Stack Developer</p>
+    <aside class="left-panel" aria-label="Basic Information">
+        <img src="Assets/profile/profile.jpg" alt="Mahendra Nath" class="profile-image"/>
+        <h1>Mahendra Nath</h1>
+        <p class="title">Java Full Stack Developer</p>
 
-    <h2><i class="fas fa-location-dot"></i> Location</h2>
-    <ul>
-      <li><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra, India</li>
-    </ul>
+        <h2><i class="fas fa-location-dot"></i> Location</h2>
+        <ul>
+            <li><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra, India</li>
+        </ul>
 
-    <h2><i class="fas fa-phone"></i> Contact</h2>
-    <ul>
-      <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/8866045958" target="_blank" rel="noopener">8866045958</a></li>
-      <li><i class="fas fa-envelope"></i> <a href="mailto:mtech.chauhan@gmail.com">mtech.chauhan@gmail.com</a></li>
-      <li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/maahistic" target="_blank" rel="noopener">linkedin.com/in/maahistic</a></li>
-      <li><i class="fas fa-globe"></i> <a href="https://maahistic.github.io/" target="_blank" rel="noopener">maahistic.github.io</a></li>
-    </ul>
+        <h2><i class="fas fa-phone"></i> Contact</h2>
+        <ul>
+            <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/8866045958" target="_blank" rel="noopener">8866045958</a>
+            </li>
+            <li><i class="fas fa-envelope"></i> <a href="mailto:mtech.chauhan@gmail.com">mtech.chauhan@gmail.com</a>
+            </li>
+            <li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/maahistic" target="_blank"
+                                                   rel="noopener">linkedin.com/in/maahistic</a></li>
+            <li><i class="fas fa-globe"></i> <a href="https://maahistic.github.io/" target="_blank" rel="noopener">maahistic.github.io</a>
+            </li>
+        </ul>
 
-    <h2><i class="fas fa-award"></i> Certifications</h2>
-    <ul class="certifications-list">
-      <li><i class="fas fa-check-circle"></i> <a href="https://skillsoft.digitalbadges-eu.skillsoft.com/ecf88052-d45c-4ae8-a783-962ba121e550#acc.eA51H7a6" target="_blank" rel="noopener">Agile Project Planning</a></li>
-      <li><i class="fas fa-check-circle"></i> <a href="https://skillsoft.digitalbadges-eu.skillsoft.com/78e48211-7ab8-497d-b35c-41dc77fc098b#acc.R7tE6LWH" target="_blank" rel="noopener">Agile Stakeholder Engagement and Team Development</a></li>
-      <li><i class="fas fa-check-circle"></i> <a href="https://skillsoft.digitalbadges-eu.skillsoft.com/53c927de-3352-40bb-a8d8-97ce112d6bc5#acc.n57cTNex" target="_blank" rel="noopener">Agile Project Scheduling and Monitoring</a></li>
-      <li><i class="fas fa-check-circle"></i> <a href="https://skillsoft.digitalbadges-eu.skillsoft.com/53c927de-3352-40bb-a8d8-97ce112d6bc5#acc.2Xm3CSLz" target="_blank" rel="noopener">Agile Principles and Methodologies</a></li>
-      <li><i class="fas fa-check-circle"></i> <a href="https://skillsoft.digitalbadges-eu.skillsoft.com/4546a0ba-3586-4bdc-87f6-875d72b26f8b#acc.MB6V1dJ0" target="_blank" rel="noopener">Agile Key Exam Concepts</a></li>
-    </ul>
-  </aside>
+        <h2><i class="fas fa-award"></i> Certifications</h2>
+        <ul class="certifications-list">
+            <li><i class="fas fa-check-circle"></i> <a
+                    href="https://skillsoft.digitalbadges-eu.skillsoft.com/ecf88052-d45c-4ae8-a783-962ba121e550#acc.eA51H7a6"
+                    target="_blank" rel="noopener">Agile Project Planning</a></li>
+            <li><i class="fas fa-check-circle"></i> <a
+                    href="https://skillsoft.digitalbadges-eu.skillsoft.com/78e48211-7ab8-497d-b35c-41dc77fc098b#acc.R7tE6LWH"
+                    target="_blank" rel="noopener">Agile Stakeholder Engagement and Team Development</a></li>
+            <li><i class="fas fa-check-circle"></i> <a
+                    href="https://skillsoft.digitalbadges-eu.skillsoft.com/53c927de-3352-40bb-a8d8-97ce112d6bc5#acc.n57cTNex"
+                    target="_blank" rel="noopener">Agile Project Scheduling and Monitoring</a></li>
+            <li><i class="fas fa-check-circle"></i> <a
+                    href="https://skillsoft.digitalbadges-eu.skillsoft.com/53c927de-3352-40bb-a8d8-97ce112d6bc5#acc.2Xm3CSLz"
+                    target="_blank" rel="noopener">Agile Principles and Methodologies</a></li>
+            <li><i class="fas fa-check-circle"></i> <a
+                    href="https://skillsoft.digitalbadges-eu.skillsoft.com/4546a0ba-3586-4bdc-87f6-875d72b26f8b#acc.MB6V1dJ0"
+                    target="_blank" rel="noopener">Agile Key Exam Concepts</a></li>
+        </ul>
+    </aside>
 
-  <main class="right-panel" aria-label="Detailed Information">
-    <section class="section summary" id="summary">
-      <h2><i class="fas fa-user"></i> Summary</h2>
-      <p>
-        Java Full Stack Developer and Module Lead with expertise in leading Agile teams to deliver scalable microservices and middleware using Spring Boot, Apache Camel, and Angular. Skilled in distributed caching with Hazelcast, cloud-native AWS services, Docker containerization, and messaging systems like ActiveMQ and Kafka.
-        Proficient in CI/CD automation with GitLab, code quality management via JUnit 5 and SonarQube, and API design with Swagger. Experienced in SAFe Agile practices, story estimation, and driving technical solutions aligned with business goals.
-      </p>
-    </section>
+    <main class="right-panel" aria-label="Detailed Information">
+        <section class="section summary" id="summary">
+            <h2><i class="fas fa-user"></i> Summary</h2>
+            <p>
+                Java Full Stack Developer and Module Lead with expertise in leading Agile teams to deliver scalable
+                microservices and middleware using Spring Boot, Apache Camel, and Angular. Skilled in distributed
+                caching with Hazelcast, cloud-native AWS services, Docker containerization, and messaging systems like
+                ActiveMQ and Kafka.
+                Proficient in CI/CD automation with GitLab, code quality management via JUnit 5 and SonarQube, and API
+                design with Swagger. Experienced in SAFe Agile practices, story estimation, and driving technical
+                solutions aligned with business goals.
+            </p>
+        </section>
 
-    <section class="section experience" id="experience">
-      <h2><i class="fas fa-briefcase"></i> Experience</h2>
-      <ul class="experience-list">
-        <li>
-          <strong>Mphasis - Module Lead</strong>
-          <span class="date">April 2024 - Present (1 year 2 months)</span>
-          <p>• Leading Java Full stack team for one of the leading custodian Bank.<br>
-            • Building Microfrontend application using Angular.<br>
-            • Following SAFe Agile methodology for Iterative Development.<br>
-            • Building Micro service using Java 11/17 leveraging spring boot and Hazelcast distributed cache.<br>
-            • Created Application with Angular 10 and Java 8<br>
-            • Manataing the code functionality and quality via Junit, Integration test, Mutation test and Soanr quabe fixes.<br>
-            • Cross verifying User Stories and estimating Story point.<br>
-            • Hands-on-tools and and Technology:<br>
-            Version Control : Github, Gitlab<br>
-            Development : VSC, Intellij<br>
-            Code Quality : Sonar Quabe, Sonar Lint<br>
-            Containerization : Docker<br>
-            Queues and Streaming : Apache ActiveMQ, IBM queue, Apache Kafka<br>
-            Repository : Nexus.<br>
-            CI/CD Pipeline : Gitlab<br>
-            API Test : Postman, insomnia</p>
-        </li>
-        <li>
-          <strong>Worldline Global Services - Consultant</strong>
-          <span class="date">October 2021 - April 2024 (2 years 7 months)</span>
-          <p>• Building Middleware Application and Microservices in JDK 8/11 using Spring Boot and Apache Camel.<br>
-            • Following SAFe Agile methodology for Iterative Development.<br>
-            • Used AWS Cloud Services like EC2, Lambda and etc.<br>
-            • Created Application with Angular 10 and Java 8<br>
-            • Writing Unit test with Junit5.<br>
-            • Planning and Creating Rest API using Swagger with YAML.<br>
-            • Cross verifying User Stories and estimating Story point.<br>
-            • Hands-on-tools and and Technology:<br>
-            Version Control : Github, Gitlab<br>
-            Development : Eclipse, STS, VSC, Intellij<br>
-            Code Quality : Sonar Quabe, Sonar Lint<br>
-            Containerization : Docker<br>
-            Queues and Streaming : Apache ActiveMQ, IBM queue, Apache Kafka<br>
-            Repository : Nexus.<br>
-            CI/CD Pipeline : Gitlab<br>
-            API Test : Postman<br>
-            Cloud : AWS</p>
-        </li>
-        <li>
-          <strong>Infosys - System Engineer</strong>
-          <span class="date">October 2018 - October 2021 (3 years 1 month)</span>
-          <span style="font-style: italic; color: #a5f3fc;">Project: CSCS (Sprint boot developer)</span><br>
-            • Working in Agile methodology where CI/CD being for continuous Deployment.<br>
-            • Developing Back-End infra via Micro services as per the business requirement using AKS tools.<br>
-            • Creating RESTful APIs for existing code migration and a whole new functionality.<br>
-            • Experienced in YAML, Spring boot, Apache Camel, Micro services, JPA, JUnits.<br>
-            • Used to with tools like Swagger, STS, Postman, SQL Developer, SONARQuabe, Jenkins, Gitlab, Github.<br>
-            • Created High Level Design documents, Technical Mappings and API for Business understanding of Enterprise application Design<br>
-            • Cross verifying User Stories and estimating Story point.<br>
-          <span style="font-style: italic; color: #a5f3fc;">Project: Service Disruption (Sprint boot developer)</span><br>
-            • Developing Back-End infra via Micro services as per the business requirement.<br>
-            • Creating RESTful APIs a whole new functionality.<br>
-            • Hands On experience in YAML, Spring boot,Apache Camel ,Micro services, JPA, JUnits.<br>
-            • Used to with tools like Swagger , STS , Postman, SQL Developer, SONAR.<br>
-          <span style="font-style: italic; color: #a5f3fc;">Project: Asset Setup (Business Analyst) </span><br>
-            • Leading the Depot Setup team where I am helping and enabling client (TNT FedEx)and Infosys to grow and enhance their business and producing the more billing to the company accounts.<br>
-            • Depot setup work means setting up the business in different parts of the countries by getting in touch with the TNT-FedEx business and marketing team.<br>
-            • Raising and managing change requests, involving change management team and with the help of application teams implementing the same and providing the deliverables to business people.<br>
-            • Managing and following the complete change process, understanding the business requirements (requirement analysis, elicitation)</p>
-        </li>
-        <li>
-          <strong>English Experts - Grammar Faculty</strong>
-          <span class="date">June 2015 - June 2017 (2 years 1 month)</span>
-          <p>• Guided and taught from Basic to advance grammar to Kids, Employees, House wives and Students.<br>
-            • Handled the session for Personality Development for Individual.</p>
-        </li>
-      </ul>
-    </section>
-  </main>
+        <section class="section experience" id="experience">
+            <h2><i class="fas fa-briefcase"></i> Experience</h2>
+            <ul class="experience-list">
+                <li>
+                    <strong>Mphasis - Module Lead</strong>
+                    <span class="date">April 2024 - Present (1 year 2 months)</span>
+                    <p>• Leading Java Full Stack team for one of the leading custodian banks.<br>
+                        • Building Microfrontend application using Angular.<br>
+                        • Following SAFe Agile methodology for Iterative Development.<br>
+                        • Building Microservices using Java 11/17 leveraging Spring Boot and Hazelcast distributed
+                        cache.<br>
+                        • Created applications with Angular 10 and Java 8.<br>
+                        • Maintaining code functionality and quality via JUnit, integration tests, mutation tests, and
+                        SonarQube fixes.<br>
+                        • Cross-verifying User Stories and estimating Story points.<br>
+                        • Hands-on tools and technology:<br>
+                        Version Control : GitHub, GitLab<br>
+                        Development : VS Code, IntelliJ<br>
+                        Code Quality : SonarQube, SonarLint<br>
+                        Containerization : Docker<br>
+                        Queues and Streaming : Apache ActiveMQ, IBM MQ, Apache Kafka<br>
+                        Repository : Nexus.<br>
+                        CI/CD Pipeline : GitLab<br>
+                        API Test : Postman, Insomnia</p>
+                </li>
+                <li>
+                    <strong>Worldline Global Services - Consultant</strong>
+                    <span class="date">October 2021 - April 2024 (2 years 7 months)</span>
+                    <p>• Building Middleware Applications and Microservices in JDK 8/11 using Spring Boot and Apache
+                        Camel.<br>
+                        • Following SAFe Agile methodology for Iterative Development.<br>
+                        • Using AWS Cloud Services like EC2, Lambda, etc.<br>
+                        • Created applications with Angular 10 and Java 8.<br>
+                        • Writing unit tests with JUnit 5.<br>
+                        • Planning and creating automation scripts for deployment.<br>
+                        • Working with teams on Agile Story grooming and task breakdown.<br>
+                        • Configuring SonarQube to improve code quality.<br>
+                        • Working with legacy and distributed caching using Hazelcast.<br>
+                        • Version Control: Git, GitLab<br>
+                        • Code Quality: SonarQube, SonarLint<br>
+                        • Containerization: Docker<br>
+                        • Messaging: ActiveMQ, Kafka<br>
+                        • Repository: Nexus<br>
+                        • CI/CD: GitLab Pipelines<br>
+                        • API Testing: Postman, Insomnia</p>
+                </li>
+                <li>
+                    <strong>Infosys Limited - Senior Systems Engineer</strong>
+                    <span class="date">August 2019 - October 2021 (2 years 3 months)</span>
+                    <p>• Developed microservices using Java 8, Spring Boot, and Hibernate.<br>
+                        • Used Angular for frontend development.<br>
+                        • Improved system performance using Hazelcast distributed caching.<br>
+                        • Wrote unit and integration tests using JUnit.<br>
+                        • Participated in Agile Scrum ceremonies and sprint planning.<br>
+                        • Used Jenkins for continuous integration and delivery.</p>
+                </li>
+            </ul>
+        </section>
+        <section class="section education" id="education">
+            <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+            <ul class="education-list">
+                <li>
+                    <strong>Bachelor of Computer Application </strong>
+                    <p>• P. D. Pandya Institute of Computer Application (2016 - 2018)</p>
+                </li>
+            </ul>
+        </section>
+    </main>
 </div>
+<footer class="footer">
+    &copy; 2025 Mahendra Nath. All rights reserved.
+</footer>
+<script src="script.js"></script>
 </body>
 </html>
-
-<footer class="footer">
-  &copy; 2025 Mahendra Nath. All rights reserved.
-</footer>
