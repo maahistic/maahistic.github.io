@@ -1,222 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Mahendra Nath | Java Full Stack Developer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="assets/styles/styles.css"/>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W58QDHN8Q0"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-W58QDHN8Q0');
-    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Video Player</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        video {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
-<body class="dark-theme">
-<button class="theme-toggle-btn" aria-label="Toggle light/dark theme">
-    🌙
-</button>
-<a href="assets/resources/CV_Mahendranath.pdf" download class="download-resume-btn" aria-label="Download CV">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
-         stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="7 10 12 15 17 10"/>
-        <line x1="12" y1="15" x2="12" y2="3"/>
-    </svg>
-</a>
-
-<div class="low-poly-bg" aria-hidden="true"></div>
-<div class="fireflies-container" aria-hidden="true"></div>
-
-<div class="container">
-    <aside class="left-panel" aria-label="Basic Information">
-        <img src="assets/resources/profile.jpg" alt="Portrait of Mahendranath" class="profile-image"/>
-        <h1>Mahendranath</h1>
-        <p class="title">Java Full Stack Developer</p>
-
-        <h2><i class="fas fa-location-dot" aria-hidden="true"></i> Location</h2>
-        <ul>
-            <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Pune, Maharashtra, India</li>
-        </ul>
-
-        <h2><i class="fas fa-phone" aria-hidden="true"></i> Contact</h2>
-        <ul>
-            <li><i class="fab fa-whatsapp" aria-hidden="true"></i> <a href="https://wa.me/8866045958" target="_blank"
-                                                                      rel="noopener noreferrer">8866045958</a></li>
-            <li><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:mtech.chauhan@gmail.com">mtech.chauhan@gmail.com</a>
-            </li>
-            <li><i class="fab fa-linkedin" aria-hidden="true"></i> <a href="https://www.linkedin.com/in/maahistic"
-                                                                      target="_blank" rel="noopener noreferrer">linkedin.com/in/maahistic</a>
-            </li>
-            <li><i class="fas fa-globe" aria-hidden="true"></i> <a href="https://maahistic.github.io/" target="_blank"
-                                                                   rel="noopener noreferrer">maahistic.github.io</a>
-            </li>
-        </ul>
-
-        <h2><i class="fas fa-award" aria-hidden="true"></i> Certifications</h2>
-        <ul class="certifications-list">
-            <li><i class="fas fa-check-circle" aria-hidden="true"></i> <a
-                    href="https://skillsoft.digitalbadges-eu.skillsoft.com/ecf88052-d45c-4ae8-a783-962ba121e550#acc.eA51H7a6"
-                    target="_blank" rel="noopener noreferrer">Agile Project Planning</a></li>
-            <li><i class="fas fa-check-circle" aria-hidden="true"></i> <a
-                    href="https://skillsoft.digitalbadges-eu.skillsoft.com/78e48211-7ab8-497d-b35c-41dc77fc098b#acc.R7tE6LWH"
-                    target="_blank" rel="noopener noreferrer">Agile Stakeholder Engagement</a></li>
-            <li><i class="fas fa-check-circle" aria-hidden="true"></i> <a
-                    href="https://skillsoft.digitalbadges-eu.skillsoft.com/53c927de-3352-40bb-a8d8-97ce112d6bc5#acc.n57cTNex"
-                    target="_blank" rel="noopener noreferrer">Agile Project Scheduling and Monitoring</a></li>
-            <li><i class="fas fa-check-circle" aria-hidden="true"></i> <a
-                    href="https://skillsoft.digitalbadges-eu.skillsoft.com/53c927de-3352-40bb-a8d8-97ce112d6bc5#acc.2Xm3CSLz"
-                    target="_blank" rel="noopener noreferrer">Agile Principles and Methodologies</a></li>
-            <li><i class="fas fa-check-circle" aria-hidden="true"></i> <a
-                    href="https://skillsoft.digitalbadges-eu.skillsoft.com/4546a0ba-3586-4bdc-87f6-875d72b26f8b#acc.MB6V1dJ0"
-                    target="_blank" rel="noopener noreferrer">Agile Key Exam Concepts</a></li>
-        </ul>
-    </aside>
-
-    <main class="right-panel" aria-label="Detailed Information">
-        <section class="section summary" id="summary">
-            <h2><i class="fas fa-user" aria-hidden="true"></i> Summary</h2>
-            <p>
-                Java Full Stack Developer and Module Lead with expertise in leading Agile teams to deliver scalable
-                microservices and middleware using Spring Boot, Apache Camel, and Angular. Skilled in distributed
-                caching with Hazelcast, cloud-native AWS services, Docker containerization, and messaging systems like
-                ActiveMQ and Kafka.
-                Proficient in CI/CD automation with GitLab, code quality management via JUnit 5 and SonarQube, and API
-                design with Swagger. Experienced in SAFe Agile practices, story estimation, and driving technical
-                solutions aligned with business goals.
-            </p>
-        </section>
-
-        <section class="section experience" id="experience">
-            <h2><i class="fas fa-briefcase" aria-hidden="true"></i> Experience</h2>
-            <ul class="experience-list">
-                <li>
-                    <strong>Mphasis - Module Lead</strong>
-                    <span class="date">April 2024 - Present (1 year 2 months)</span>
-                    <p>
-                        • Working as a Java Full Stack developer for a top global custodian bank.<br/>
-                        • Developing Micro frontend applications using Angular (v10+).<br/>
-                        • Building resilient Microservices with Java 21/17, Spring Boot, and Hazelcast distributed
-                        caching.<br/>
-                        • Practicing SAFe Agile methodology for iterative and collaborative development.<br/>
-                        • Ensuring code quality through JUnit, integration testing, mutation testing, and SonarQube
-                        compliance.<br/>
-                        • Actively involved in story grooming, cross-verification, and effort estimation using story
-                        points.<br/>
-                        • Technical Proficiency:<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>Version Control</strong>: GitHub, GitLab<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>IDEs</strong>: IntelliJ, VS Code<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>Code Quality</strong>: SonarQube, SonarLint<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>Containerization</strong>: Docker<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>Messaging</strong>: Apache ActiveMQ, IBM MQ, Apache Kafka<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>Artifact Repository</strong>: Nexus<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>CI/CD</strong>: GitLab Pipelines<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>API Testing</strong>: Postman, Insomnia<br/>
-                    </p>
-                </li>
-                <li>
-                    <strong>Worldline Global Services - Consultant</strong>
-                    <span class="date">October 2021 - April 2024 (2 years 7 months)</span>
-                    <p>
-                        • Building Middleware Applications and Microservices using JDK 8/11 with Spring Boot and Apache
-                        Camel.<br/>
-                        • Following SAFe Agile methodology for iterative development.<br/>
-                        • Utilizing AWS Cloud Services like EC2, Lambda, etc.<br/>
-                        • Developed applications with Angular 10 and Java 8.<br/>
-                        • Writing unit tests using JUnit 5.<br/>
-                        • Planning and creating automation scripts for deployment.<br/>
-                        • Collaborating with teams on Agile story grooming and task breakdown.<br/>
-                        • Configuring SonarQube to enhance code quality.<br/>
-                        • Working with legacy systems and distributed caching via Hazelcast.<br/>
-                        • Technical Proficiency:<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>Version Control</strong>: Git, GitLab<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>Code Quality</strong>: SonarQube, SonarLint<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>Containerization</strong>: Docker<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>Messaging</strong>: ActiveMQ, Kafka<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>Repository</strong>: Nexus<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>CI/CD</strong>: GitLab Pipelines<br/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;• <strong>API Testing</strong>: Postman, Insomnia<br/>
-                    </p>
-                </li>
-                <li>
-                    <strong>Infosys - System Engineer</strong><br/>
-                    <span class="date">October 2018 - October 2021 (3 years 1 month)</span>
-                    <span class="project-highlight">Project: CSCS (Spring Boot Developer)</span><br/>
-                    <p>
-                        • Worked in Agile methodology with CI/CD for continuous deployment.<br/>
-                        • Developed back-end infrastructure using microservices and AKS tools.<br/>
-                        • Created RESTful APIs for code migration and new features.<br/>
-                        • Experienced with YAML, Spring Boot, Apache Camel, microservices, JPA, and JUnit.<br/>
-                        • Used tools like Swagger, STS, Postman, SQL Developer, SonarQube, Jenkins, GitLab, and
-                        GitHub.<br/>
-                        • Created high-level design documents, technical mappings, and APIs for enterprise applications.<br/>
-                        • Cross-verified user stories and estimated story points.<br/>
-                    </p>
-                    <span class="project-highlight">Project: Service Disruption (Spring Boot Developer)</span><br/>
-                    <p>
-                        • Developed back-end infrastructure using microservices.<br/>
-                        • Created RESTful APIs for new functionalities.<br/>
-                        • Hands-on experience with YAML, Spring Boot, Apache Camel, microservices, JPA, and JUnit.<br/>
-                        • Used tools like Swagger, STS, Postman, SQL Developer, and Sonar.<br/>
-                    </p>
-                    <span class="project-highlight">Project: Depot Setup (Business Analyst)</span><br/>
-                    <p>
-                        • Led the Depot Setup team, supporting TNT FedEx and Infosys to grow and increase billing.<br/>
-                        • Coordinated business setup across regions by liaising with TNT-FedEx marketing and business
-                        teams.<br/>
-                        • Raised and managed change requests, working with change management and application teams.<br/>
-                        • Managed the entire change process, including requirement analysis and elicitation.<br/>
-                    </p>
-                </li>
-                <li>
-                    <strong>Advisor</strong>
-                    <span class="date">Jun 2017 - July 2018 (1 year 1 months)</span>
-                    <p>
-                        • Provided floor support and training for new employees, ensuring quick onboarding and skill
-                        development.<br/>
-                        • Handled complex telecom-related issues, customer queries, and coordinated with on-site
-                        technicians for resolution.<br/>
-                        • Managed relationships with corporate clients, supporting sales processes and maintaining
-                        service quality.<br/>
-                        • Collaborated closely with team leads and managers to ensure smooth daily operations.<br/>
-                        • Demonstrated strong proficiency in CRM tools and maintained excellent written and verbal
-                        communication throughout.<br/>
-                    </p>
-                </li>
-                <li>
-                    <strong>Grammar Faculty (part-time)</strong>
-                    <span class="date">July 2015 - Jun 2017 (2 years 1 month)</span>
-                    <p>
-                        • Delivered structured English grammar lessons from basic to advanced levels to diverse learner
-                        groups including students, working professionals, housewives, and children.<br/>
-                        • Conducted engaging sessions on personality development, focusing on communication skills,
-                        confidence building, and personal growth.
-                    </p>
-                </li>
-            </ul>
-        </section>
-
-        <section class="section education" id="education">
-            <h2><i class="fas fa-graduation-cap" aria-hidden="true"></i> Education</h2>
-            <ul class="education-list">
-                <li>
-                    <strong>Bachelor of Computer Application</strong>
-                    <p>• P. D. Pandya Institute of Computer Application</p>
-                    <span class="date">(2015 - 2018)</span>
-                </li>
-            </ul>
-        </section>
-    </main>
-</div>
-
-<footer class="footer" role="contentinfo">
-    &copy; 2025 Mahendranath Jogi. All rights reserved.
-</footer>
-
-<script src="assets/scripts/script.js" defer></script>
+<body>
+<video controls autoplay>
+    <source src="assets/resources/video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
 </body>
 </html>
