@@ -96,7 +96,7 @@
             <ul class="experience-list">
                 <li>
                     <strong>Mphasis - Module Lead</strong>
-                    <span class="date">April 2024 - Present (1 year 2 months)</span>
+                    <span class="date" id="mphasis-duration"></span>
                     <p>
                         • Leading a team of Java Full Stack developers for a top global custodian bank.<br/>
                         • Developing Micro frontend applications using Angular (v10+).<br/>
@@ -120,7 +120,7 @@
                 </li>
                 <li>
                     <strong>Worldline Global Services - Consultant</strong>
-                    <span class="date">October 2021 - April 2024 (2 years 7 months)</span>
+                    <span class="date" id="worldline-duration"></span>
                     <p>
                         • Building Middleware Applications and Microservices using JDK 8/11 with Spring Boot and Apache
                         Camel.<br/>
@@ -218,5 +218,19 @@
 </footer>
 
 <script src="assets/scripts/script.js" defer></script>
+<script>
+    function calculateDuration(startDate, endDate = new Date()) {
+        const start = new Date(startDate);
+        const years = endDate.getFullYear() - start.getFullYear();
+        const months = endDate.getMonth() - start.getMonth();
+        const totalMonths = years * 12 + months;
+        const displayYears = Math.floor(totalMonths / 12);
+        const displayMonths = totalMonths % 12;
+        return `${displayYears} year${displayYears !== 1 ? 's' : ''} ${displayMonths} month${displayMonths !== 1 ? 's' : ''}`;
+    }
+
+    document.getElementById('mphasis-duration').textContent = `April 2024 - Present (${calculateDuration('2024-04-01')})`;
+    document.getElementById('worldline-duration').textContent = `October 2021 - April 2024 (${calculateDuration('2021-10-01', new Date('2024-04-01'))})`;
+</script>
 </body>
 </html>
