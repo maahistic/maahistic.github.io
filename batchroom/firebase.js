@@ -33,14 +33,20 @@ const firebaseConfig = {
 };
 
 // --- Security Layer for Local Development ---
-// If you are running locally and placeholders haven't been replaced by GitHub Actions,
-// this part will try to find your local keys.
+// This part will only work on your local computer if you create 
+// a file named 'config.local.js' in the same folder.
+// GitHub Actions will ignore this block in production.
 if (firebaseConfig.apiKey.includes("BUILD_VAR_")) {
-  // We use a hardcoded fallback for local development ONLY. 
-  // Since this is wrapped in a check for the BUILD_VAR string, 
-  // GitHub Actions will replace the string and this block will be ignored in production.
-  firebaseConfig.apiKey = "AIzaSyBcH_pCf0uXlSd9OF89K8Jm_n7ymYMknH8";
-  firebaseConfig.authDomain = "batch-timeline.firebaseapp.com";
+  try {
+    // We try to dynamic import the local config if it exists
+    const local = await import('./config.local.js');
+    if (local && local.config) {
+        firebaseConfig.apiKey = local.config.apiKey;
+        firebaseConfig.authDomain = local.config.authDomain;
+    }
+  } catch (e) {
+    console.warn("Local config not found. Live site will work after deployment.");
+  }
 }
 // --------------------------------------------
 
@@ -53,59 +59,20 @@ try {
     app = initializeApp(firebaseConfig);
   }
 } catch (e) {
-  // Defensive fallback
-  console.warn("Firebase initialization warning:", e);
-  try {
-    app = initializeApp(firebaseConfig);
-  } catch (err) {
-    console.error("Firebase initialization failed:", err);
-    throw new Error('Failed to initialize Firebase');
-  }
+  app = initializeApp(firebaseConfig);
 }
 
 const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
 const db = getFirestore(app);
+const googleProvider = new GoogleAuthProvider();
 
-// Lightweight wait-for-auth helper: resolves once with the initial auth state
-let _authReady = false;
-let _authUser = null;
-let _authReadyPromise = null;
-export function waitForAuth(timeoutMs = 5000) {
-  if (_authReady) return Promise.resolve(_authUser);
-  if (_authReadyPromise) return _authReadyPromise;
-
-  _authReadyPromise = new Promise((resolve) => {
-    const unsub = _onAuthStateChanged(auth, (user) => {
-      _authReady = true;
-      _authUser = user;
-      resolve(user);
-      // cleanup this one-time listener
-      try { unsub(); } catch (e) { /* ignore */ }
-    });
-
-    // timeout fallback: resolve even if auth didn't call back in time
-    setTimeout(() => {
-      if (!_authReady) {
-        _authReady = true;
-        resolve(null);
-        try { unsub(); } catch (e) { }
-      }
-    }, timeoutMs);
-  });
-
-  return _authReadyPromise;
-}
-
-// Re-export commonly-used functions so other modules can import from ./firebase.js
-export {
-  app,
-  auth,
-  provider,
-  signInWithPopup,
-  _onAuthStateChanged as onAuthStateChanged,
+export { 
+  auth, 
+  db, 
+  googleProvider, 
+  signInWithPopup, 
+  _onAuthStateChanged as onAuthStateChanged, 
   signOut,
-  db,
   collection,
   addDoc,
   getDocs,
