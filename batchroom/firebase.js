@@ -33,12 +33,8 @@ const firebaseConfig = {
 };
 
 // --- Security Layer for Local Development ---
-// This part will only work on your local computer if you create 
-// a file named 'config.local.js' in the same folder.
-// GitHub Actions will ignore this block in production.
 if (firebaseConfig.apiKey.includes("BUILD_VAR_")) {
   try {
-    // We try to dynamic import the local config if it exists
     const local = await import('./config.local.js');
     if (local && local.config) {
         firebaseConfig.apiKey = local.config.apiKey;
@@ -48,9 +44,8 @@ if (firebaseConfig.apiKey.includes("BUILD_VAR_")) {
     console.warn("Local config not found. Live site will work after deployment.");
   }
 }
-// --------------------------------------------
 
-// Guard initialization: reuse existing app if present (fixes double-init on multi-page loads)
+// Guard initialization
 let app;
 try {
   if (typeof getApps === 'function' && getApps().length > 0) {
@@ -64,12 +59,12 @@ try {
 
 const auth = getAuth(app);
 const db = getFirestore(app);
-const googleProvider = new GoogleAuthProvider();
+const provider = new GoogleAuthProvider();
 
 export { 
   auth, 
   db, 
-  googleProvider, 
+  provider, 
   signInWithPopup, 
   _onAuthStateChanged as onAuthStateChanged, 
   signOut,
