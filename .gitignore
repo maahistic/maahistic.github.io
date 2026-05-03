@@ -2,3 +2,4 @@
 .env
 test_gemini.py
 batchroom/AUTH_FIX_INSTRUCTIONS.md
+batchroom/config.local.js

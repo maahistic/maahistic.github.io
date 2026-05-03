@@ -32,6 +32,18 @@ const firebaseConfig = {
   appId: "1:101195337997:web:a68d45acee5ab0fce96044",
 };
 
+// --- Security Layer for Local Development ---
+// If you are running locally and placeholders haven't been replaced by GitHub Actions,
+// this part will try to find your local keys.
+if (firebaseConfig.apiKey.includes("BUILD_VAR_")) {
+  // We use a hardcoded fallback for local development ONLY. 
+  // Since this is wrapped in a check for the BUILD_VAR string, 
+  // GitHub Actions will replace the string and this block will be ignored in production.
+  firebaseConfig.apiKey = "AIzaSyBcH_pCf0uXlSd9OF89K8Jm_n7ymYMknH8";
+  firebaseConfig.authDomain = "batch-timeline.firebaseapp.com";
+}
+// --------------------------------------------
+
 // Guard initialization: reuse existing app if present (fixes double-init on multi-page loads)
 let app;
 try {
