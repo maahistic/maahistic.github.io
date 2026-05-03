@@ -61,6 +61,16 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
+// Custom wait function for auth state
+const waitForAuth = () => {
+    return new Promise((resolve) => {
+        const unsubscribe = _onAuthStateChanged(auth, (user) => {
+            unsubscribe();
+            resolve(user);
+        });
+    });
+};
+
 export { 
   auth, 
   db, 
@@ -77,5 +87,6 @@ export {
   setDoc,
   doc,
   serverTimestamp,
-  deleteDoc
+  deleteDoc,
+  waitForAuth
 };
