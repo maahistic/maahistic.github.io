@@ -24,27 +24,13 @@ import {
 
 // Your config
 const firebaseConfig = {
-  apiKey: "BUILD_VAR_FIREBASE_API_KEY",
-  authDomain: "BUILD_VAR_FIREBASE_AUTH_DOMAIN",
+  apiKey: "AIzaSyBcH_pCf0uXlSd9OF89K8Jm_n7ymYMknH8",
+  authDomain: "batch-timeline.firebaseapp.com",
   projectId: "batch-timeline",
   storageBucket: "batch-timeline.firebasestorage.app",
   messagingSenderId: "101195337997",
   appId: "1:101195337997:web:a68d45acee5ab0fce96044",
 };
-
-// --- Security Layer for Local Development ---
-if (firebaseConfig.apiKey.includes("BUILD_VAR_")) {
-  try {
-    const local = await import('./config.local.js');
-    if (local && local.config) {
-        firebaseConfig.apiKey = local.config.apiKey;
-        firebaseConfig.authDomain = local.config.authDomain;
-    }
-  } catch (e) {
-    console.warn("Local config not found. Live site will work after deployment.");
-  }
-}
-// --------------------------------------------
 
 // Guard initialization: reuse existing app if present (fixes double-init on multi-page loads)
 let app;
