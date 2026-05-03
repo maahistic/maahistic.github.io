@@ -24,8 +24,8 @@ import {
 
 // Your config
 const firebaseConfig = {
-  apiKey: "AIzaSyBcH_pCf0uXlSd9OF89K8Jm_n7ymYMknH8",
-  authDomain: "batch-timeline.firebaseapp.com",
+  apiKey: "BUILD_VAR_FIREBASE_API_KEY",
+  authDomain: "BUILD_VAR_FIREBASE_AUTH_DOMAIN",
   projectId: "batch-timeline",
   storageBucket: "batch-timeline.firebasestorage.app",
   messagingSenderId: "101195337997",

@@ -1,0 +1,27 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # or master, change to your default branch name
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Inject Secrets 💉
+        run: |
+          sed -i "s|BUILD_VAR_FIREBASE_API_KEY|${{ secrets.FIREBASE_API_KEY }}|g" batchroom/firebase.js
+          sed -i "s|BUILD_VAR_FIREBASE_AUTH_DOMAIN|${{ secrets.FIREBASE_AUTH_DOMAIN }}|g" batchroom/firebase.js
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: . # The folder the action should deploy.
+          branch: gh-pages # The branch the action should deploy to.
