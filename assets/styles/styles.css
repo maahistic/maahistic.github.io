@@ -444,9 +444,32 @@ white-space: nowrap;
 
 /* Education */
 .education-card {
-max-width: 600px;
+max-width: 650px;
 margin: 0 auto;
 text-align: center;
+position: relative;
+overflow: hidden;
+border-left: 4px solid transparent;
+border-image: var(--accent-gradient) 1;
+}
+
+.education-card h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.education-card .institution {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.education-card .date {
+  font-size: 0.9rem;
+  color: var(--accent-primary);
+  font-weight: 500;
 }
 
 /* Certifications */
@@ -459,18 +482,33 @@ gap: 1.5rem;
 .cert-card {
   text-align: center;
   padding: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  border: 1px solid var(--border-color);
 }
 
 .cert-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px var(--glow-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px var(--glow-primary);
+  border-color: var(--accent-primary);
 }
 
 .cert-icon {
-  font-size: 2rem;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(255, 107, 53, 0.12);
+  font-size: 1.4rem;
   color: var(--accent-primary);
-  margin-bottom: 1rem;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.cert-card:hover .cert-icon {
+  transform: scale(1.1) rotate(-5deg);
+  background: rgba(255, 107, 53, 0.2);
 }
 
 .cert-info {
@@ -499,19 +537,39 @@ gap: 1.25rem;
 
 .contact-card {
   text-align: center;
-  padding: 1.5rem 1rem;
+  padding: 1.8rem 1.2rem;
   overflow: hidden;
-  word-wrap: break-word;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+
+.contact-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px var(--glow-primary);
+  border-color: var(--accent-primary);
 }
 
 .contact-icon {
-  font-size: 2rem;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(255, 107, 53, 0.12);
+  font-size: 1.4rem;
   color: var(--accent-primary);
-  margin-bottom: 1rem;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.contact-card:hover .contact-icon {
+  transform: scale(1.1);
+  background: rgba(255, 107, 53, 0.2);
 }
 
 .contact-card h3 {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: var(--text-color);
@@ -519,25 +577,23 @@ gap: 1.25rem;
 
 .contact-card a,
 .contact-card p {
-  color: var(--text-color);
-  font-weight: 500;
+  color: var(--text-muted);
+  font-weight: 400;
   transition: color 0.3s ease;
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   display: inline-block;
   padding: 4px 8px;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.05);
-  word-wrap: break-word;
-  word-break: break-all;
+  word-break: normal;
+  overflow-wrap: break-word;
   max-width: 100%;
   box-sizing: border-box;
+  line-height: 1.4;
 }
 
 .contact-card a:hover {
   color: var(--accent-primary);
-  background: rgba(255, 107, 53, 0.1);
-  transform: translateY(-1px);
 }
 
 .contact-card p {
@@ -1083,12 +1139,25 @@ transform: translateY(0);
   .contact-card {
     padding: 1.2rem;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+  }
+  
+  .contact-icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    font-size: 1.2rem;
+    border-radius: 12px;
+    margin: 0;
   }
   
   .contact-card a,
   .contact-card p {
     font-size: 0.85rem;
-    padding: 3px 6px;
+    padding: 0;
   }
   
   .cert-grid {
@@ -1097,7 +1166,7 @@ transform: translateY(0);
   }
   
   .cert-card {
-    padding: 1.5rem;
+    padding: 1.2rem 1.5rem;
     display: flex;
     align-items: center;
     gap: 1.2rem;
@@ -1105,9 +1174,12 @@ transform: translateY(0);
   }
   
   .cert-icon {
-    font-size: 1.8rem;
-    min-width: 45px;
-    text-align: center;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    font-size: 1.2rem;
+    border-radius: 12px;
+    margin: 0;
   }
   
   .cert-info {
