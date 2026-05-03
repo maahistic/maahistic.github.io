@@ -44,8 +44,9 @@ if (firebaseConfig.apiKey.includes("BUILD_VAR_")) {
     console.warn("Local config not found. Live site will work after deployment.");
   }
 }
+// --------------------------------------------
 
-// Guard initialization
+// Guard initialization: reuse existing app if present (fixes double-init on multi-page loads)
 let app;
 try {
   if (typeof getApps === 'function' && getApps().length > 0) {
@@ -54,30 +55,59 @@ try {
     app = initializeApp(firebaseConfig);
   }
 } catch (e) {
-  app = initializeApp(firebaseConfig);
+  // Defensive fallback
+  console.warn("Firebase initialization warning:", e);
+  try {
+    app = initializeApp(firebaseConfig);
+  } catch (err) {
+    console.error("Firebase initialization failed:", err);
+    throw new Error('Failed to initialize Firebase');
+  }
 }
 
 const auth = getAuth(app);
-const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
+const db = getFirestore(app);
 
-// Custom wait function for auth state
-const waitForAuth = () => {
-    return new Promise((resolve) => {
-        const unsubscribe = _onAuthStateChanged(auth, (user) => {
-            unsubscribe();
-            resolve(user);
-        });
+// Lightweight wait-for-auth helper: resolves once with the initial auth state
+let _authReady = false;
+let _authUser = null;
+let _authReadyPromise = null;
+export function waitForAuth(timeoutMs = 5000) {
+  if (_authReady) return Promise.resolve(_authUser);
+  if (_authReadyPromise) return _authReadyPromise;
+
+  _authReadyPromise = new Promise((resolve) => {
+    const unsub = _onAuthStateChanged(auth, (user) => {
+      _authReady = true;
+      _authUser = user;
+      resolve(user);
+      // cleanup this one-time listener
+      try { unsub(); } catch (e) { /* ignore */ }
     });
-};
 
-export { 
-  auth, 
-  db, 
-  provider, 
-  signInWithPopup, 
-  _onAuthStateChanged as onAuthStateChanged, 
+    // timeout fallback: resolve even if auth didn't call back in time
+    setTimeout(() => {
+      if (!_authReady) {
+        _authReady = true;
+        resolve(null);
+        try { unsub(); } catch (e) { }
+      }
+    }, timeoutMs);
+  });
+
+  return _authReadyPromise;
+}
+
+// Re-export commonly-used functions so other modules can import from ./firebase.js
+export {
+  app,
+  auth,
+  provider,
+  signInWithPopup,
+  _onAuthStateChanged as onAuthStateChanged,
   signOut,
+  db,
   collection,
   addDoc,
   getDocs,
@@ -87,6 +117,5 @@ export {
   setDoc,
   doc,
   serverTimestamp,
-  deleteDoc,
-  waitForAuth
+  deleteDoc
 };
