@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Getting Started with Spring Boot 3 | Mahendranath Jogi</title>
+  <meta name="description" content="Build your first REST API with Spring Boot 3 — from project setup to deployment-ready endpoints. A practical guide by Mahendranath Jogi."/>
+  <meta property="og:title" content="Getting Started with Spring Boot 3"/>
+  <meta property="og:description" content="Build your first REST API with Spring Boot 3 — from project setup to deployment-ready endpoints."/>
+  <meta property="og:type" content="article"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>M</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../assets/styles/styles.css"/>
+  <link rel="stylesheet" href="tutorial-styles.css"/>
+</head>
+<body class="dark-theme">
+
+<!-- Header -->
+<header class="tutorial-header">
+  <a href="../index.html#tutorials" class="back-link">
+    <i class="fas fa-arrow-left"></i> <span>Back to Portfolio</span>
+  </a>
+  <button class="theme-toggle-btn" aria-label="Toggle light/dark theme">
+    <i class="fas fa-moon"></i>
+  </button>
+</header>
+
+<!-- Article -->
+<article class="tutorial-article">
+
+  <!-- Hero -->
+  <div class="tutorial-hero">
+    <span class="tutorial-category-badge"><i class="fas fa-leaf"></i> Backend</span>
+    <h1>Getting Started with Spring Boot 3</h1>
+    <div class="tutorial-info">
+      <span><i class="fas fa-user"></i> Mahendranath Jogi</span>
+      <span><i class="fas fa-calendar"></i> July 2026</span>
+      <span><i class="fas fa-clock"></i> 8 min read</span>
+    </div>
+  </div>
+
+  <!-- Table of Contents -->
+  <nav class="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#prerequisites">Prerequisites</a></li>
+      <li><a href="#project-setup">Creating the Project</a></li>
+      <li><a href="#project-structure">Understanding the Structure</a></li>
+      <li><a href="#first-endpoint">Your First REST Endpoint</a></li>
+      <li><a href="#model-service">Adding Model &amp; Service Layer</a></li>
+      <li><a href="#testing">Testing Your API</a></li>
+      <li><a href="#next-steps">Next Steps</a></li>
+    </ol>
+  </nav>
+
+  <!-- Content -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>Spring Boot 3 is a major milestone for the Spring ecosystem. It brings <strong>Java 17+</strong> as the minimum baseline, migrates from Java EE to <strong>Jakarta EE 10</strong>, adds native image support via GraalVM, and improves observability with Micrometer.</p>
+    <p>In this tutorial, we'll build a clean <strong>Task Manager REST API</strong> from scratch — with proper layering (Controller → Service → Model) following Spring Boot best practices.</p>
+    <p>By the end, you'll have a working API that you can extend with a database, authentication, and more.</p>
+  </section>
+
+  <section id="prerequisites">
+    <h2>2. Prerequisites</h2>
+    <ul>
+      <li><strong>Java 17+</strong> installed — run <code>java --version</code> to verify</li>
+      <li><strong>Maven 3.8+</strong> or <strong>Gradle 7.5+</strong></li>
+      <li>An IDE — IntelliJ IDEA (recommended), VS Code, or Eclipse</li>
+      <li>Basic Java knowledge (classes, interfaces, annotations)</li>
+    </ul>
+    <div class="tip-box">
+      <div class="tip-title"><i class="fas fa-lightbulb"></i> Tip</div>
+      <p>If you're on Windows, use <code>winget install EclipseAdoptium.Temurin.17.JDK</code> to install Java 17 quickly.</p>
+    </div>
+  </section>
+
+  <section id="project-setup">
+    <h2>3. Creating the Project</h2>
+    <p>The easiest way is <a href="https://start.spring.io" target="_blank" rel="noopener noreferrer">Spring Initializr</a>. Configure it as follows:</p>
+    <ul>
+      <li><strong>Project:</strong> Maven</li>
+      <li><strong>Language:</strong> Java</li>
+      <li><strong>Spring Boot:</strong> 3.2.x (latest stable)</li>
+      <li><strong>Group:</strong> <code>com.example</code></li>
+      <li><strong>Artifact:</strong> <code>task-api</code></li>
+      <li><strong>Dependencies:</strong> Spring Web</li>
+    </ul>
+    <p>Click <strong>Generate</strong>, unzip the download, and open it in your IDE.</p>
+    <p>Alternatively, use the command line:</p>
+    <pre><code><span class="code-label">Terminal</span>curl https://start.spring.io/starter.zip \
+  -d dependencies=web \
+  -d type=maven-project \
+  -d language=java \
+  -d javaVersion=17 \
+  -d groupId=com.example \
+  -d artifactId=task-api \
+  -o task-api.zip
+
+unzip task-api.zip -d task-api
+cd task-api</code></pre>
+  </section>
+
+  <section id="project-structure">
+    <h2>4. Understanding the Structure</h2>
+    <p>Spring Initializr generates a clean Maven project:</p>
+    <pre><code><span class="code-label">Project Structure</span>task-api/
+├── src/
+│   ├── main/
+│   │   ├── java/com/example/taskapi/
+│   │   │   └── TaskApiApplication.java
+│   │   └── resources/
+│   │       └── application.properties
+│   └── test/
+│       └── java/com/example/taskapi/
+│           └── TaskApiApplicationTests.java
+├── pom.xml
+└── mvnw / mvnw.cmd</code></pre>
+    <p>The key file is <code>TaskApiApplication.java</code> — the entry point:</p>
+    <pre><code><span class="code-label">TaskApiApplication.java</span><span class="ta">@SpringBootApplication</span>
+<span class="tk">public class</span> <span class="tt">TaskApiApplication</span> {
+    <span class="tk">public static void</span> main(<span class="tt">String</span>[] args) {
+        <span class="tt">SpringApplication</span>.run(<span class="tt">TaskApiApplication</span>.class, args);
+    }
+}</code></pre>
+    <p>The <code>@SpringBootApplication</code> annotation combines three things: <code>@Configuration</code>, <code>@EnableAutoConfiguration</code>, and <code>@ComponentScan</code>. Spring Boot handles the rest.</p>
+  </section>
+
+  <section id="first-endpoint">
+    <h2>5. Your First REST Endpoint</h2>
+    <p>Let's create a simple health check endpoint. Create a new file <code>HelloController.java</code>:</p>
+    <pre><code><span class="code-label">HelloController.java</span><span class="tk">package</span> com.example.taskapi.controller;
+
+<span class="tk">import</span> org.springframework.web.bind.annotation.*;
+
+<span class="ta">@RestController</span>
+<span class="tk">public class</span> <span class="tt">HelloController</span> {
+
+    <span class="ta">@GetMapping</span>(<span class="ts">"/hello"</span>)
+    <span class="tk">public</span> <span class="tt">String</span> hello() {
+        <span class="tk">return</span> <span class="ts">"Hello from Spring Boot 3! 🚀"</span>;
+    }
+}</code></pre>
+    <p>Run the application:</p>
+    <pre><code><span class="code-label">Terminal</span>./mvnw spring-boot:run</code></pre>
+    <p>Open <code>http://localhost:8080/hello</code> in your browser — you'll see the greeting.</p>
+    <div class="note-box">
+      <div class="note-title"><i class="fas fa-info-circle"></i> Note</div>
+      <p><code>@RestController</code> = <code>@Controller</code> + <code>@ResponseBody</code>. Every method return value is serialized directly as the HTTP response (typically JSON).</p>
+    </div>
+  </section>
+
+  <section id="model-service">
+    <h2>6. Adding Model &amp; Service Layer</h2>
+    <p>Real APIs need structure. Let's build a proper <strong>Task Manager</strong> with three layers.</p>
+
+    <h3>The Model — Task Record</h3>
+    <p>Java 17 records are perfect for immutable data objects:</p>
+    <pre><code><span class="code-label">model/Task.java</span><span class="tk">package</span> com.example.taskapi.model;
+
+<span class="tk">public record</span> <span class="tt">Task</span>(<span class="tt">Long</span> id, <span class="tt">String</span> title, <span class="tk">boolean</span> completed) {}</code></pre>
+
+    <h3>The Service — Business Logic</h3>
+    <pre><code><span class="code-label">service/TaskService.java</span><span class="tk">package</span> com.example.taskapi.service;
+
+<span class="tk">import</span> com.example.taskapi.model.Task;
+<span class="tk">import</span> org.springframework.stereotype.Service;
+<span class="tk">import</span> java.util.*;
+<span class="tk">import</span> java.util.concurrent.atomic.AtomicLong;
+
+<span class="ta">@Service</span>
+<span class="tk">public class</span> <span class="tt">TaskService</span> {
+
+    <span class="tk">private final</span> <span class="tt">List</span>&lt;<span class="tt">Task</span>&gt; tasks = <span class="tk">new</span> <span class="tt">ArrayList</span>&lt;&gt;();
+    <span class="tk">private final</span> <span class="tt">AtomicLong</span> counter = <span class="tk">new</span> <span class="tt">AtomicLong</span>(<span class="tn">1</span>);
+
+    <span class="tk">public</span> <span class="tt">List</span>&lt;<span class="tt">Task</span>&gt; findAll() {
+        <span class="tk">return</span> <span class="tt">Collections</span>.unmodifiableList(tasks);
+    }
+
+    <span class="tk">public</span> <span class="tt">Task</span> create(<span class="tt">String</span> title) {
+        <span class="tt">Task</span> task = <span class="tk">new</span> <span class="tt">Task</span>(counter.getAndIncrement(), title, <span class="tk">false</span>);
+        tasks.add(task);
+        <span class="tk">return</span> task;
+    }
+
+    <span class="tk">public</span> <span class="tt">Optional</span>&lt;<span class="tt">Task</span>&gt; toggleComplete(<span class="tt">Long</span> id) {
+        <span class="tk">for</span> (<span class="tk">int</span> i = <span class="tn">0</span>; i &lt; tasks.size(); i++) {
+            <span class="tk">if</span> (tasks.get(i).id().equals(id)) {
+                <span class="tt">Task</span> old = tasks.get(i);
+                <span class="tt">Task</span> updated = <span class="tk">new</span> <span class="tt">Task</span>(old.id(), old.title(), !old.completed());
+                tasks.set(i, updated);
+                <span class="tk">return</span> <span class="tt">Optional</span>.of(updated);
+            }
+        }
+        <span class="tk">return</span> <span class="tt">Optional</span>.empty();
+    }
+}</code></pre>
+
+    <h3>The Controller — REST Endpoints</h3>
+    <pre><code><span class="code-label">controller/TaskController.java</span><span class="tk">package</span> com.example.taskapi.controller;
+
+<span class="tk">import</span> com.example.taskapi.model.Task;
+<span class="tk">import</span> com.example.taskapi.service.TaskService;
+<span class="tk">import</span> org.springframework.web.bind.annotation.*;
+<span class="tk">import</span> java.util.*;
+
+<span class="ta">@RestController</span>
+<span class="ta">@RequestMapping</span>(<span class="ts">"/api/tasks"</span>)
+<span class="tk">public class</span> <span class="tt">TaskController</span> {
+
+    <span class="tk">private final</span> <span class="tt">TaskService</span> taskService;
+
+    <span class="tc">// Constructor injection (recommended over @Autowired)</span>
+    <span class="tk">public</span> TaskController(<span class="tt">TaskService</span> taskService) {
+        <span class="tk">this</span>.taskService = taskService;
+    }
+
+    <span class="ta">@GetMapping</span>
+    <span class="tk">public</span> <span class="tt">List</span>&lt;<span class="tt">Task</span>&gt; getAllTasks() {
+        <span class="tk">return</span> taskService.findAll();
+    }
+
+    <span class="ta">@PostMapping</span>
+    <span class="tk">public</span> <span class="tt">Task</span> createTask(<span class="ta">@RequestBody</span> <span class="tt">Map</span>&lt;<span class="tt">String</span>, <span class="tt">String</span>&gt; body) {
+        <span class="tk">return</span> taskService.create(body.get(<span class="ts">"title"</span>));
+    }
+
+    <span class="ta">@PatchMapping</span>(<span class="ts">"/{id}/toggle"</span>)
+    <span class="tk">public</span> <span class="tt">Task</span> toggleTask(<span class="ta">@PathVariable</span> <span class="tt">Long</span> id) {
+        <span class="tk">return</span> taskService.toggleComplete(id)
+            .orElseThrow(() -&gt; <span class="tk">new</span> <span class="tt">RuntimeException</span>(<span class="ts">"Task not found"</span>));
+    }
+}</code></pre>
+  </section>
+
+  <section id="testing">
+    <h2>7. Testing Your API</h2>
+    <p>Start the application and test with <strong>cURL</strong>:</p>
+    <pre><code><span class="code-label">Terminal</span><span class="tc"># Create a task</span>
+curl -X POST http://localhost:8080/api/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Learn Spring Boot 3"}'
+
+<span class="tc"># Response: {"id":1,"title":"Learn Spring Boot 3","completed":false}</span>
+
+<span class="tc"># Get all tasks</span>
+curl http://localhost:8080/api/tasks
+
+<span class="tc"># Toggle completion</span>
+curl -X PATCH http://localhost:8080/api/tasks/1/toggle
+
+<span class="tc"># Response: {"id":1,"title":"Learn Spring Boot 3","completed":true}</span></code></pre>
+    <div class="tip-box">
+      <div class="tip-title"><i class="fas fa-lightbulb"></i> Tip</div>
+      <p>Use <strong>Postman</strong> or <strong>Swagger UI</strong> (add <code>springdoc-openapi-starter-webmvc-ui</code> dependency) for a visual API testing experience.</p>
+    </div>
+  </section>
+
+  <section id="next-steps">
+    <h2>8. Next Steps</h2>
+    <p>You now have a working REST API! Here's where to go from here:</p>
+    <ul>
+      <li><strong>Add a database</strong> — Use Spring Data JPA with H2 or PostgreSQL</li>
+      <li><strong>Add validation</strong> — Use <code>@Valid</code> and Bean Validation annotations</li>
+      <li><strong>Error handling</strong> — Create a <code>@ControllerAdvice</code> for consistent error responses</li>
+      <li><strong>Containerize it</strong> — Check out my <a href="docker-for-java-developers.html">Docker for Java Developers</a> tutorial</li>
+      <li><strong>Add tests</strong> — Use <code>@WebMvcTest</code> and <code>MockMvc</code> for controller tests</li>
+    </ul>
+    <blockquote>Spring Boot's magic lies in convention over configuration — it gives you sensible defaults and lets you override only what you need.</blockquote>
+  </section>
+
+  <!-- Author Card -->
+  <div class="author-card">
+    <img src="../assets/resources/profile.jpg" alt="Mahendranath Jogi" width="72" height="72"/>
+    <div class="author-info">
+      <h3>Mahendranath Jogi</h3>
+      <p>Java Full Stack Module Lead at Mphasis. Building scalable microservices with Spring Boot, Kafka, and Angular.</p>
+      <div class="author-links">
+        <a href="https://www.linkedin.com/in/maahistic" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/maahistic" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="mailto:mtech.chauhan@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- More Tutorials -->
+  <div class="more-tutorials">
+    <h2>More Tutorials</h2>
+    <div class="more-tutorials-grid">
+      <a href="docker-for-java-developers.html" class="more-tutorial-link">
+        <h3>Docker for Java Developers</h3>
+        <span><i class="fas fa-clock"></i> 6 min read</span>
+      </a>
+      <a href="../index.html#tutorials" class="more-tutorial-link">
+        <h3>View All Tutorials</h3>
+        <span><i class="fas fa-arrow-right"></i> Back to portfolio</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="tutorial-footer">
+    <a href="../index.html#tutorials"><i class="fas fa-arrow-left"></i> Back to all tutorials</a>
+  </div>
+
+</article>
+
+<!-- Theme Script -->
+<script>
+(function() {
+  const btn = document.querySelector('.theme-toggle-btn');
+  const icon = btn && btn.querySelector('i');
+  if (!btn || !icon) return;
+  const body = document.body;
+  const saved = localStorage.getItem('portfolio-theme');
+  if (saved) {
+    body.className = saved;
+    icon.className = saved === 'dark-theme' ? 'fas fa-moon' : 'fas fa-sun';
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    body.className = 'light-theme';
+    icon.className = 'fas fa-sun';
+  }
+  btn.addEventListener('click', () => {
+    if (body.classList.contains('dark-theme')) {
+      body.classList.replace('dark-theme', 'light-theme');
+      icon.classList.replace('fa-moon', 'fa-sun');
+      localStorage.setItem('portfolio-theme', 'light-theme');
+    } else {
+      body.classList.replace('light-theme', 'dark-theme');
+      icon.classList.replace('fa-sun', 'fa-moon');
+      localStorage.setItem('portfolio-theme', 'dark-theme');
+    }
+  });
+})();
+</script>
+</body>
+</html>
