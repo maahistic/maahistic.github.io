@@ -138,7 +138,7 @@ if (el) el.textContent = new Date().getFullYear();
 
 
 
-// ========== THEME TOGGLE ==========
+// ========== THEME TOGGLE (with persistence) ==========
 
 (function initTheme() {
 
@@ -148,11 +148,25 @@ const icon = btn && btn.querySelector('i');
 
 if (!btn || !icon) return;
 
+const body = document.body;
 
+const saved = localStorage.getItem('portfolio-theme');
+
+if (saved) {
+
+body.className = saved;
+
+icon.className = saved === 'dark-theme' ? 'fas fa-moon' : 'fas fa-sun';
+
+} else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+
+body.className = 'light-theme';
+
+icon.className = 'fas fa-sun';
+
+}
 
 btn.addEventListener('click', () => {
-
-const body = document.body;
 
 if (body.classList.contains('dark-theme')) {
 
@@ -160,11 +174,15 @@ body.classList.replace('dark-theme', 'light-theme');
 
 icon.classList.replace('fa-moon', 'fa-sun');
 
+localStorage.setItem('portfolio-theme', 'light-theme');
+
 } else {
 
 body.classList.replace('light-theme', 'dark-theme');
 
 icon.classList.replace('fa-sun', 'fa-moon');
+
+localStorage.setItem('portfolio-theme', 'dark-theme');
 
 }
 
@@ -236,7 +254,7 @@ link.addEventListener('click', closeMenu);
 
 
 
-// ========== NAVBAR SCROLL SHADOW ==========
+// ========== NAVBAR SCROLL BEHAVIOR ==========
 
 (function initNavScroll() {
 
@@ -244,11 +262,33 @@ const navbar = document.querySelector('.navbar');
 
 if (!navbar) return;
 
-
+let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
 
-navbar.classList.toggle('scrolled', window.scrollY > 50);
+const currentScroll = window.scrollY;
+
+navbar.classList.toggle('scrolled', currentScroll > 50);
+
+if (currentScroll > 80) {
+
+if (currentScroll > lastScroll + 5) {
+
+navbar.classList.add('nav-hidden');
+
+} else if (currentScroll < lastScroll - 5) {
+
+navbar.classList.remove('nav-hidden');
+
+}
+
+} else {
+
+navbar.classList.remove('nav-hidden');
+
+}
+
+lastScroll = currentScroll;
 
 }, { passive: true });
 

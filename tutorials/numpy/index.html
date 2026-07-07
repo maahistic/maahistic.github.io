@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NumPy Visual Explorer – Interactive Learning Engine</title>
+  <meta name="description" content="Master NumPy through 7 interactive visual labs covering arrays, vectorization, broadcasting, masking, reductions, and matrix math.">
+  <meta property="og:title" content="NumPy Visual Explorer – Interactive Learning Engine">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23168f85'/><text x='50' y='66' text-anchor='middle' font-size='54' fill='white' font-weight='bold'>N</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ─── HEADER / HERO ─── -->
+<header class="hero">
+  <a href="../../index.html" class="back-link">← Back to Portfolio</a>
+  <span class="eyebrow">INTERACTIVE LEARNING ENGINE</span>
+  <h1>Vectorized Operations,<br>Made Visual</h1>
+  <p class="hero-desc">NumPy replaces slow Python loops with contiguous memory blocks and CPU-native SIMD instructions, letting you operate on millions of numbers in a single call. Every section below is a live playground — drag sliders, click buttons, and watch arrays transform in&nbsp;real&nbsp;time.</p>
+  <div class="hero-card">
+    <h2>The Core Idea</h2>
+    <p>A standard Python loop touches one value at a time: read → type-check → compute → store → repeat. NumPy skips the overhead entirely. It allocates a flat, typed memory buffer and hands the math to compiled C/Fortran routines that process entire vectors in a single CPU instruction. The result? <strong>10–100× speed-ups</strong> with cleaner code.</p>
+  </div>
+</header>
+
+<!-- ─── MAIN LAYOUT ─── -->
+<div class="layout">
+
+  <!-- Sticky sidebar nav -->
+  <nav class="sidebar" id="sidebar">
+    <a href="#s1" class="nav-link active"><span class="nav-idx">01</span><span>Array Lab</span></a>
+    <a href="#s2" class="nav-link"><span class="nav-idx">02</span><span>Vectorization</span></a>
+    <a href="#s3" class="nav-link"><span class="nav-idx">03</span><span>Broadcasting</span></a>
+    <a href="#s4" class="nav-link"><span class="nav-idx">04</span><span>Boolean Masking</span></a>
+    <a href="#s5" class="nav-link"><span class="nav-idx">05</span><span>Reductions</span></a>
+    <a href="#s6" class="nav-link"><span class="nav-idx">06</span><span>Matrix Math</span></a>
+    <a href="#s7" class="nav-link"><span class="nav-idx">07</span><span>Mini Check</span></a>
+  </nav>
+
+  <!-- Content stack -->
+  <main class="content">
+
+    <!-- ══════ SECTION 1 : ARRAY LAB ══════ -->
+    <section class="card" id="s1">
+      <div class="card-head"><span class="card-num">01</span><div><h2>Array Lab</h2><p>ndarray basics — dimensions, shapes, sizes &amp; dtypes</p></div></div>
+
+      <div class="controls">
+        <div class="ctrl">
+          <label>Dimensions</label>
+          <div class="btn-group" id="s1-dim-btns">
+            <button class="toggle active" data-dim="1">1D</button>
+            <button class="toggle" data-dim="2">2D</button>
+            <button class="toggle" data-dim="3">3D</button>
+          </div>
+        </div>
+        <div class="ctrl">
+          <label>Columns&ensp;<b id="s1-cols-v">6</b></label>
+          <input type="range" id="s1-cols" min="3" max="8" value="6">
+        </div>
+        <div class="ctrl" id="s1-rows-g">
+          <label>Rows&ensp;<b id="s1-rows-v">3</b></label>
+          <input type="range" id="s1-rows" min="2" max="6" value="3">
+        </div>
+        <div class="ctrl hidden" id="s1-depth-g">
+          <label>Depth&ensp;<b id="s1-depth-v">2</b></label>
+          <input type="range" id="s1-depth" min="2" max="4" value="2">
+        </div>
+        <div class="ctrl">
+          <label>dtype</label>
+          <select id="s1-dtype"><option>int64</option><option>float64</option><option>int32</option><option>bool</option></select>
+        </div>
+      </div>
+
+      <div class="meta-row" id="s1-meta">
+        <span class="badge"><em>.ndim</em><b id="s1-ndim">1</b></span>
+        <span class="badge"><em>.shape</em><b id="s1-shape">(6,)</b></span>
+        <span class="badge"><em>.size</em><b id="s1-size">6</b></span>
+        <span class="badge"><em>.nbytes</em><b id="s1-nbytes">48 B</b></span>
+      </div>
+
+      <div class="layer-tabs hidden" id="s1-layers"></div>
+      <div class="grid-wrap" id="s1-grid"></div>
+      <pre class="code-out" id="s1-code">arr = np.arange(1, 7).astype(np.int64)</pre>
+    </section>
+
+    <!-- ══════ SECTION 2 : VECTORIZATION LAB ══════ -->
+    <section class="card" id="s2">
+      <div class="card-head"><span class="card-num">02</span><div><h2>Vectorization Lab</h2><p>ufuncs vs loops — watch the speed difference</p></div></div>
+
+      <div class="controls">
+        <div class="ctrl">
+          <label>Operation</label>
+          <div class="btn-group" id="s2-op-btns">
+            <button class="toggle active" data-op="add">arr + s</button>
+            <button class="toggle" data-op="mul">arr × s</button>
+            <button class="toggle" data-op="pow">arr²</button>
+            <button class="toggle" data-op="gt">arr &gt; s</button>
+          </div>
+        </div>
+        <div class="ctrl">
+          <label>Scalar <em>s</em>&ensp;=&ensp;<b id="s2-scalar-v">3</b></label>
+          <input type="range" id="s2-scalar" min="-4" max="9" value="3">
+        </div>
+      </div>
+
+      <div class="dual-grid">
+        <div><h3>Input Array</h3><div class="grid-wrap" id="s2-in"></div></div>
+        <div><h3>Output</h3><div class="grid-wrap" id="s2-out"></div></div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn accent" id="s2-step">▶ Step Loop</button>
+        <button class="btn teal" id="s2-vec">⚡ Vectorize</button>
+        <button class="btn muted" id="s2-reset">↺ Reset</button>
+      </div>
+
+      <div class="speed-sandbox">
+        <h3>Speed Sandbox</h3>
+        <div class="ctrl">
+          <label>Array size&ensp;<b id="s2-sz-v">10,000</b></label>
+          <input type="range" id="s2-sz" min="3" max="6" value="4" step="0.1">
+        </div>
+        <div class="bar-chart">
+          <div class="bar-row"><span class="bar-label">Python Loop</span><div class="bar-track"><div class="bar-fill loop" id="s2-loop-bar"></div></div><span class="bar-time" id="s2-loop-t">~120 ms</span></div>
+          <div class="bar-row"><span class="bar-label">NumPy Vectorized</span><div class="bar-track"><div class="bar-fill vec" id="s2-vec-bar"></div></div><span class="bar-time" id="s2-vec-t">~0.3 ms</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════ SECTION 3 : BROADCASTING ══════ -->
+    <section class="card" id="s3">
+      <div class="card-head"><span class="card-num">03</span><div><h2>Broadcasting Playground</h2><p>Shape alignment — right-to-left dimension stretching</p></div></div>
+
+      <div class="controls">
+        <div class="ctrl">
+          <label>Scenario</label>
+          <div class="btn-group" id="s3-btns">
+            <button class="toggle active" data-sc="row">Mat + Row</button>
+            <button class="toggle" data-sc="col">Mat + Col</button>
+            <button class="toggle" data-sc="scalar">Mat + Scalar</button>
+            <button class="toggle" data-sc="error">⚠ Mismatch</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="compat-dash" id="s3-compat">
+        <span>Base <b>(2, 3)</b></span><span class="compat-op">+</span><span id="s3-op-shape">(3,)</span>
+        <span class="compat-badge ok" id="s3-badge">✓ Compatible</span>
+      </div>
+
+      <div class="quad-grid" id="s3-grids">
+        <div><h3>Base Array</h3><div class="grid-wrap" id="s3-base"></div></div>
+        <div><h3>Operand</h3><div class="grid-wrap" id="s3-operand"></div></div>
+        <div><h3>Virtual Expansion</h3><div class="grid-wrap virtual" id="s3-virtual"></div></div>
+        <div><h3>Result</h3><div class="grid-wrap" id="s3-result"></div></div>
+      </div>
+      <div class="error-overlay hidden" id="s3-error">
+        <div class="error-inner">
+          <strong>ValueError</strong>
+          <p>operands could not be broadcast together with shapes <span id="s3-err-shapes">(2,3) (4,)</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════ SECTION 4 : BOOLEAN MASKING ══════ -->
+    <section class="card" id="s4">
+      <div class="card-head"><span class="card-num">04</span><div><h2>Boolean Masking</h2><p>Conditional filtering with logical mask layers</p></div></div>
+
+      <div class="controls">
+        <div class="ctrl wide">
+          <label>Threshold&ensp;<b id="s4-thr-v">6</b></label>
+          <input type="range" id="s4-thr" min="-3" max="15" value="6">
+          <span class="counter-badge" id="s4-counter">11 of 18 selected</span>
+        </div>
+      </div>
+
+      <div class="triple-grid">
+        <div><h3>Input Data</h3><div class="grid-wrap" id="s4-input"></div></div>
+        <div><h3>Boolean Mask</h3><div class="grid-wrap" id="s4-mask"></div></div>
+        <div><h3>Extracted Subset</h3><div class="chip-wrap" id="s4-subset"></div><pre class="code-out small" id="s4-code">arr[arr &gt; 6]</pre></div>
+      </div>
+    </section>
+
+    <!-- ══════ SECTION 5 : REDUCTIONS ══════ -->
+    <section class="card" id="s5">
+      <div class="card-head"><span class="card-num">05</span><div><h2>Reductions</h2><p>Axis compression — collapse dimensions with aggregate ops</p></div></div>
+
+      <div class="controls">
+        <div class="ctrl">
+          <label>Operation</label>
+          <div class="btn-group" id="s5-op-btns">
+            <button class="toggle active" data-op="sum">.sum()</button>
+            <button class="toggle" data-op="mean">.mean()</button>
+            <button class="toggle" data-op="min">.min()</button>
+            <button class="toggle" data-op="max">.max()</button>
+          </div>
+        </div>
+        <div class="ctrl">
+          <label>Axis</label>
+          <div class="btn-group" id="s5-ax-btns">
+            <button class="toggle active" data-ax="all">All (flat)</button>
+            <button class="toggle" data-ax="0">axis=0 ↓</button>
+            <button class="toggle" data-ax="1">axis=1 →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="reduce-viz">
+        <div><h3>Input Matrix</h3><div class="grid-wrap colored" id="s5-input"></div></div>
+        <div class="arrow-col">→</div>
+        <div><h3>Result</h3><div class="grid-wrap result" id="s5-result"></div></div>
+      </div>
+    </section>
+
+    <!-- ══════ SECTION 6 : MATRIX MATH ══════ -->
+    <section class="card" id="s6">
+      <div class="card-head"><span class="card-num">06</span><div><h2>Matrix Math</h2><p>Dot product operations — row · column multiplication</p></div></div>
+
+      <div class="controls">
+        <div class="ctrl"><label>x[0]&ensp;<b id="s6-x0-v">1</b></label><input type="range" id="s6-x0" min="-3" max="6" value="1"></div>
+        <div class="ctrl"><label>x[1]&ensp;<b id="s6-x1-v">2</b></label><input type="range" id="s6-x1" min="-3" max="6" value="2"></div>
+        <div class="ctrl"><label>x[2]&ensp;<b id="s6-x2-v">3</b></label><input type="range" id="s6-x2" min="-3" max="6" value="3"></div>
+      </div>
+
+      <div class="matmul-viz">
+        <div><h3>Matrix A <small>(2×3)</small></h3><div class="grid-wrap" id="s6-A"></div></div>
+        <div class="op-sym">@</div>
+        <div><h3>Vector x <small>(3×1)</small></h3><div class="grid-wrap col-vec" id="s6-x"></div></div>
+        <div class="op-sym">=</div>
+        <div><h3>Result <small>(2×1)</small></h3><div class="grid-wrap col-vec" id="s6-res"></div></div>
+      </div>
+
+      <div class="formula-box" id="s6-formula">
+        <div class="formula-row" id="s6-f0"></div>
+        <div class="formula-row" id="s6-f1"></div>
+      </div>
+    </section>
+
+    <!-- ══════ SECTION 7 : QUIZ ══════ -->
+    <section class="card" id="s7">
+      <div class="card-head"><span class="card-num">07</span><div><h2>Mini Check</h2><p>3 quick questions to confirm understanding</p></div></div>
+
+      <div class="quiz-list" id="quiz-list">
+        <!-- Q1 -->
+        <div class="quiz-card" data-correct="2">
+          <p class="quiz-q"><strong>Q1.</strong> What is the <code>.shape</code> of <code>np.zeros((2, 4, 3))</code>?</p>
+          <div class="quiz-opts">
+            <button class="quiz-opt" data-i="0">(2, 4)</button>
+            <button class="quiz-opt" data-i="1">(4, 3)</button>
+            <button class="quiz-opt" data-i="2">(2, 4, 3)</button>
+            <button class="quiz-opt" data-i="3">(3, 4, 2)</button>
+          </div>
+          <p class="quiz-explain hidden"><code>np.zeros</code> creates an array of the exact shape you pass. A tuple <code>(2, 4, 3)</code> defines 2 layers × 4 rows × 3 columns — the shape is preserved as-is.</p>
+        </div>
+        <!-- Q2 -->
+        <div class="quiz-card" data-correct="1">
+          <p class="quiz-q"><strong>Q2.</strong> Broadcasting <code>(3,1) + (1,4)</code> produces shape:</p>
+          <div class="quiz-opts">
+            <button class="quiz-opt" data-i="0">(1, 4)</button>
+            <button class="quiz-opt" data-i="1">(3, 4)</button>
+            <button class="quiz-opt" data-i="2">ValueError</button>
+            <button class="quiz-opt" data-i="3">(3, 1)</button>
+          </div>
+          <p class="quiz-explain hidden">Broadcasting aligns from the right. Axis 1: 1 stretches to 4. Axis 0: 3 stays, 1 stretches to 3. Result: <code>(3, 4)</code>.</p>
+        </div>
+        <!-- Q3 -->
+        <div class="quiz-card" data-correct="0">
+          <p class="quiz-q"><strong>Q3.</strong> <code>np.arange(12).reshape(3,4).sum(axis=0)</code> returns shape:</p>
+          <div class="quiz-opts">
+            <button class="quiz-opt" data-i="0">(4,)</button>
+            <button class="quiz-opt" data-i="1">(3,)</button>
+            <button class="quiz-opt" data-i="2">(3, 4)</button>
+            <button class="quiz-opt" data-i="3">()</button>
+          </div>
+          <p class="quiz-explain hidden"><code>axis=0</code> collapses rows (3 rows vanish), leaving one value per column. 4 columns → shape <code>(4,)</code>.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
