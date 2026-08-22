@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Data Science Explorer</title>
+  <meta name="description" content="Interactive educational website teaching Python data science: NumPy, Pandas, Matplotlib, Statistics, and Seaborn with hands-on widgets and quizzes."/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <button class="hamburger" id="hamburger" aria-label="Open menu">☰</button>
+    <a href="#/home" class="brand">📊 <strong>Data Science Explorer</strong></a>
+    <div class="spacer"></div>
+    <span class="progress-pill" id="progress-pill">0% complete</span>
+    <button class="theme-btn" id="theme-btn" aria-label="Toggle theme">🌙</button>
+  </header>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-nav"></div>
+    <div class="sidebar-footer">
+      <button class="reset-btn" id="reset-btn">Reset progress</button>
+      <div class="tech-note">Pure HTML · CSS · JS</div>
+    </div>
+  </nav>
+
+  <!-- Scrim -->
+  <div class="scrim" id="scrim"></div>
+
+  <!-- Main content -->
+  <div class="main">
+    <div class="main-inner" id="app"></div>
+  </div>
+
+  <!-- Scripts: core first, topics, app last -->
+  <script src="js/core.js"></script>
+  <script src="js/topics/home.js"></script>
+  <script src="js/topics/intro.js"></script>
+  <script src="js/topics/python.js"></script>
+  <script src="js/topics/numpy.js"></script>
+  <script src="js/topics/pandas.js"></script>
+  <script src="js/topics/matplotlib.js"></script>
+  <script src="js/topics/statistics.js"></script>
+  <script src="js/topics/seaborn.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

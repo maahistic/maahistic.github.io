@@ -1,0 +1,3396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Data Science Explorer</title>
+  <meta name="description" content="Interactive educational website teaching Python data science."/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F4CA;</text></svg>"/>
+  <style>
+/* ===== DATA SCIENCE EXPLORER â€” DESIGN SYSTEM ===== */
+
+/* ---------- Reset ---------- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.7;
+  transition:background .35s,color .35s}
+img{max-width:100%;display:block}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font:inherit;cursor:pointer;border:none;background:none}
+input,select,textarea{font:inherit}
+
+/* ---------- Design Tokens ---------- */
+:root{
+  --font-sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  --font-mono:"Cascadia Code","Fira Code","Consolas",ui-monospace,monospace;
+  --bg:#f6f8fc;--bg-elev:#ffffff;--bg-elev-2:#eef2f9;
+  --text:#1a2233;--text-soft:#4a5568;--muted:#7b8496;
+  --border:#e2e8f0;--border-strong:#cbd5e1;
+  --brand:#4f46e5;--brand-2:#0d9488;--brand-soft:#eef2ff;
+  --accent:#f59e0b;--good:#10b981;--bad:#ef4444;--warn:#f59e0b;
+  --code-bg:#0f172a;--code-text:#e2e8f0;
+  --radius:14px;--radius-sm:9px;--topbar-h:68px;--sidebar-w:268px;
+  --grad:linear-gradient(120deg,var(--brand),var(--brand-2));
+  --shadow-sm:0 1px 2px rgba(15,23,42,.06),0 1px 3px rgba(15,23,42,.1);
+  --shadow-md:0 4px 12px rgba(15,23,42,.08),0 2px 4px rgba(15,23,42,.06);
+  --shadow-lg:0 20px 40px rgba(15,23,42,.12);
+}
+[data-theme="dark"]{
+  --bg:#0b1120;--bg-elev:#131c31;--bg-elev-2:#1c2740;
+  --text:#e6edf3;--text-soft:#8a99a8;--muted:#67748b;
+  --border:#26344c;--border-strong:#33415c;
+  --brand:#6366f1;--brand-2:#2dd4bf;--brand-soft:#1e2740;
+  --accent:#fbbf24;--code-bg:#000000;--code-text:#e2e8f0;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);--shadow-md:0 6px 16px rgba(0,0,0,.45);--shadow-lg:0 24px 48px rgba(0,0,0,.55);
+}
+
+/* ---------- Layout ---------- */
+.topbar{
+  position:sticky;top:0;z-index:100;height:var(--topbar-h);display:flex;align-items:center;
+  padding:0 24px;gap:16px;
+  background:color-mix(in srgb,var(--bg-elev) 85%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  transition:background .35s;
+}
+.topbar .hamburger{display:none;font-size:24px;color:var(--text);padding:4px 8px}
+.topbar .brand{font-weight:700;font-size:1.15rem;color:var(--text);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.topbar .brand:hover{text-decoration:none}
+.topbar .spacer{flex:1}
+.progress-pill{
+  background:var(--grad);color:#fff;font-size:.78rem;font-weight:600;
+  padding:5px 16px;border-radius:20px;white-space:nowrap;
+  box-shadow:0 2px 8px rgba(79,70,229,.25);
+}
+.theme-btn{
+  width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.15rem;background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);
+  transition:background .3s,color .3s,border .3s;
+}
+.theme-btn:hover{background:var(--brand-soft);color:var(--brand)}
+
+/* Sidebar */
+.sidebar{
+  position:fixed;top:var(--topbar-h);left:0;bottom:0;width:var(--sidebar-w);
+  background:var(--bg-elev);border-right:1px solid var(--border);
+  overflow-y:auto;z-index:90;display:flex;flex-direction:column;
+  transition:background .35s,border .35s;
+}
+.sidebar-nav{flex:1;padding:12px 0}
+.sidebar-nav a{
+  display:flex;align-items:center;gap:12px;padding:10px 20px;color:var(--text-soft);
+  font-size:.92rem;font-weight:500;border-left:4px solid transparent;
+  transition:all .2s;text-decoration:none;position:relative;
+}
+.sidebar-nav a:hover{background:var(--bg-elev-2);color:var(--text)}
+.sidebar-nav a.active{
+  background:var(--brand-soft);color:var(--brand);border-left-color:var(--brand);font-weight:600;
+}
+.sidebar-nav .nav-icon{
+  width:32px;height:32px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;
+  font-size:1.05rem;background:var(--bg-elev-2);flex-shrink:0;
+  transition:background .3s;
+}
+.sidebar-nav a.active .nav-icon{background:color-mix(in srgb,var(--brand) 15%,transparent)}
+.sidebar-nav .nav-tail{margin-left:auto;font-size:.75rem;color:var(--muted);font-weight:400}
+.sidebar-nav a.active .nav-tail{color:var(--brand)}
+.nav-check{color:var(--good) !important;font-weight:700 !important}
+.sidebar-footer{
+  padding:16px 20px;border-top:1px solid var(--border);font-size:.78rem;color:var(--muted);
+  display:flex;flex-direction:column;gap:8px;
+}
+.sidebar-footer .reset-btn{
+  background:none;border:1px solid var(--border);border-radius:var(--radius-sm);padding:6px 12px;
+  color:var(--text-soft);font-size:.78rem;cursor:pointer;transition:all .2s;
+}
+.sidebar-footer .reset-btn:hover{border-color:var(--bad);color:var(--bad)}
+.sidebar-footer .tech-note{font-size:.7rem;opacity:.7;text-align:center}
+
+/* Main */
+.main{
+  margin-left:var(--sidebar-w);padding:36px 40px 60px;transition:margin .3s;
+}
+.main-inner{max-width:1040px;margin:0 auto}
+#app{animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* Scrim */
+.scrim{
+  display:none;position:fixed;inset:0;z-index:85;background:rgba(0,0,0,.45);
+  opacity:0;transition:opacity .3s;
+}
+.scrim.open{display:block;opacity:1}
+
+/* ---------- Mobile ---------- */
+@media(max-width:860px){
+  .topbar .hamburger{display:flex}
+  .sidebar{transform:translateX(-100%);transition:transform .3s}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0;padding:24px 16px 48px}
+}
+
+/* ---------- Typography ---------- */
+h1{font-size:2.2rem;font-weight:800;line-height:1.25;margin-bottom:12px}
+h2{font-size:1.55rem;font-weight:700;line-height:1.3;margin-bottom:10px;margin-top:36px;color:var(--text)}
+h3{font-size:1.2rem;font-weight:600;line-height:1.4;margin-bottom:8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text-soft)}
+hr{border:none;border-top:1px solid var(--border);margin:32px 0}
+.section-intro{font-size:1.05rem;color:var(--text-soft);margin-bottom:24px;max-width:720px}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:var(--radius-sm);
+  font-weight:600;font-size:.9rem;cursor:pointer;transition:all .2s;border:none;
+  text-decoration:none;white-space:nowrap;
+}
+.btn-primary,.btn:not(.secondary):not(.ghost){
+  background:var(--grad);color:#fff;box-shadow:0 2px 8px rgba(79,70,229,.2);
+}
+.btn-primary:hover,.btn:not(.secondary):not(.ghost):hover{
+  transform:translateY(-1px);box-shadow:0 4px 16px rgba(79,70,229,.3);text-decoration:none;
+}
+.btn.secondary{
+  background:var(--bg-elev-2);color:var(--text);border:1px solid var(--border);
+}
+.btn.secondary:hover{border-color:var(--brand);color:var(--brand);text-decoration:none}
+.btn.ghost{background:none;color:var(--brand);padding:6px 12px}
+.btn.ghost:hover{background:var(--brand-soft);text-decoration:none}
+.btn.small{padding:6px 14px;font-size:.82rem}
+
+/* ---------- Code Block ---------- */
+.code{
+  background:var(--code-bg);border-radius:var(--radius);overflow:hidden;
+  margin:16px 0;box-shadow:var(--shadow-md);
+}
+.code-head{
+  display:flex;align-items:center;gap:8px;padding:10px 16px;
+  background:rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.08);
+}
+.code-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+.code-dot.r{background:#ff5f57}.code-dot.y{background:#febc2e}.code-dot.g{background:#28c840}
+.code-head .lang{margin-left:8px;font-size:.75rem;color:rgba(255,255,255,.45);font-family:var(--font-mono)}
+.copy-btn{
+  margin-left:auto;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border:none;
+  padding:4px 12px;border-radius:6px;font-size:.75rem;cursor:pointer;font-family:var(--font-mono);
+  transition:all .2s;
+}
+.copy-btn:hover{background:rgba(255,255,255,.2);color:#fff}
+.code-body{
+  padding:16px 20px;overflow-x:auto;font-family:var(--font-mono);font-size:.88rem;
+  line-height:1.7;color:var(--code-text);
+}
+.code-body pre{margin:0;white-space:pre;font-family:inherit}
+
+/* Syntax tokens */
+.tok-kw{color:#c792ea}.tok-str{color:#c3e88d}.tok-num{color:#f78c6c}
+.tok-com{color:#677598;font-style:italic}.tok-fn{color:#82aaff}.tok-bi{color:#ffcb6b}
+
+/* Output */
+.output{
+  background:var(--bg-elev-2);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:14px 18px;font-family:var(--font-mono);font-size:.86rem;color:var(--text);
+  margin-top:8px;white-space:pre-wrap;line-height:1.6;
+}
+.run-btn{margin-top:8px;display:inline-flex}
+.run-note{font-size:.75rem;color:var(--muted);margin-top:6px;font-style:italic}
+
+/* ---------- Callout ---------- */
+.callout{
+  border-left:4px solid var(--brand);background:color-mix(in srgb,var(--brand) 8%,var(--bg-elev));
+  padding:16px 20px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  margin:16px 0;font-size:.92rem;
+}
+.callout.tip{border-left-color:var(--good);background:color-mix(in srgb,var(--good) 8%,var(--bg-elev))}
+.callout.warn{border-left-color:var(--warn);background:color-mix(in srgb,var(--warn) 8%,var(--bg-elev))}
+.callout.info{border-left-color:var(--brand);background:color-mix(in srgb,var(--brand) 8%,var(--bg-elev))}
+.callout.key{border-left-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--bg-elev))}
+.callout.error{border-left-color:var(--bad);background:color-mix(in srgb,var(--bad) 8%,var(--bg-elev))}
+
+/* ---------- Widget ---------- */
+.widget{
+  border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-elev);
+  margin:24px 0;box-shadow:var(--shadow-sm);overflow:hidden;transition:border .3s,background .3s;
+}
+.widget-head{
+  display:flex;align-items:center;gap:10px;padding:14px 20px;
+  border-bottom:1px solid var(--border);font-weight:600;font-size:1rem;
+  background:var(--bg-elev-2);
+}
+.widget-head .wh-icon{font-size:1.15rem}
+.wh-tag{
+  margin-left:auto;background:var(--grad);color:#fff;font-size:.7rem;font-weight:600;
+  padding:3px 10px;border-radius:12px;
+}
+.widget-body{padding:20px}
+
+/* ---------- Controls ---------- */
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:12px 0}
+.control{display:flex;flex-direction:column;gap:4px}
+.control label{font-size:.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.control input[type="range"]{width:140px;accent-color:var(--brand)}
+.control input[type="text"],
+.control input[type="number"],
+.control select{
+  padding:6px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  background:var(--bg);color:var(--text);font-size:.88rem;
+  transition:border .2s;
+}
+.control input:focus,.control select:focus{border-color:var(--brand);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 15%,transparent)}
+.control .val{font-size:.82rem;color:var(--brand);font-weight:600;font-family:var(--font-mono)}
+
+/* ---------- Chips ---------- */
+.chip{
+  display:inline-flex;align-items:center;gap:4px;padding:5px 14px;border-radius:20px;
+  font-size:.82rem;font-weight:500;cursor:pointer;border:1px solid var(--border);
+  background:var(--bg);color:var(--text-soft);transition:all .2s;
+  user-select:none;
+}
+.chip:hover{border-color:var(--brand);color:var(--brand)}
+.chip.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+
+/* ---------- Tabs ---------- */
+.tabs{margin:16px 0}
+.tab-bar{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:0;overflow-x:auto}
+.tab-btn{
+  padding:10px 20px;font-size:.88rem;font-weight:500;color:var(--text-soft);
+  background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;
+  cursor:pointer;white-space:nowrap;transition:all .2s;
+}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--brand);border-bottom-color:var(--brand);font-weight:600}
+.tab-panel{display:none;padding:16px 0}
+.tab-panel.active{display:block}
+
+/* ---------- Quiz ---------- */
+.quiz{
+  border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:24px 0;
+  background:var(--bg-elev);box-shadow:var(--shadow-sm);
+}
+.quiz-header{
+  background:var(--grad);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:12px;
+  font-weight:600;font-size:1rem;
+}
+.quiz-score{margin-left:auto;font-family:var(--font-mono);font-size:.92rem}
+.quiz-body{padding:20px}
+.quiz-q{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.quiz-q:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.quiz-q p{font-weight:600;color:var(--text);margin-bottom:10px}
+.quiz-opts{display:flex;flex-direction:column;gap:6px}
+.quiz-opt{
+  padding:10px 16px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  cursor:pointer;font-size:.9rem;color:var(--text);transition:all .2s;
+  background:var(--bg);text-align:left;
+}
+.quiz-opt:hover:not(.locked){border-color:var(--brand);background:var(--brand-soft)}
+.quiz-opt.correct{border-color:var(--good);background:color-mix(in srgb,var(--good) 12%,var(--bg));color:var(--good);font-weight:600}
+.quiz-opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--bg));color:var(--bad)}
+.quiz-opt.locked{cursor:default;opacity:.85}
+.quiz-opt.locked:hover{border-color:var(--border);background:var(--bg)}
+.quiz-opt.correct.locked:hover{border-color:var(--good);background:color-mix(in srgb,var(--good) 12%,var(--bg))}
+.quiz-opt.wrong.locked:hover{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--bg))}
+.quiz-explain{
+  margin-top:8px;padding:10px 14px;border-radius:var(--radius-sm);font-size:.85rem;
+  line-height:1.5;
+}
+.quiz-explain.right{background:color-mix(in srgb,var(--good) 10%,var(--bg));color:var(--good)}
+.quiz-explain.wrong-ex{background:color-mix(in srgb,var(--bad) 10%,var(--bg));color:var(--bad)}
+
+/* ---------- DataFrame ---------- */
+.df{margin:12px 0}
+.df-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius-sm)}
+.df table{
+  width:100%;border-collapse:collapse;font-size:.85rem;font-family:var(--font-mono);
+}
+.df th{
+  background:var(--bg-elev-2);padding:8px 14px;text-align:left;font-weight:600;
+  border-bottom:2px solid var(--border);position:sticky;top:0;color:var(--text);
+  cursor:pointer;white-space:nowrap;user-select:none;
+}
+.df th:hover{color:var(--brand)}
+.df th .sort-arrow{font-size:.7rem;margin-left:4px;opacity:.5}
+.df td{padding:7px 14px;border-bottom:1px solid var(--border);color:var(--text-soft);white-space:nowrap}
+.df tr:last-child td{border-bottom:none}
+.df tr:hover td{background:var(--brand-soft)}
+.df .idx{background:var(--bg-elev-2);font-weight:600;color:var(--text);position:sticky;left:0}
+
+/* ---------- Stepper ---------- */
+.stepper{display:flex;flex-direction:column;gap:0}
+.step{
+  display:flex;align-items:center;gap:14px;padding:12px 16px;
+  cursor:pointer;border-left:3px solid var(--border);transition:all .2s;
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+}
+.step:hover{background:var(--bg-elev-2)}
+.step.active{border-left-color:var(--brand);background:var(--brand-soft)}
+.step-icon{font-size:1.3rem;flex-shrink:0}
+.step-title{font-weight:600;font-size:.92rem;color:var(--text)}
+.step.active .step-title{color:var(--brand)}
+.step-num{font-size:.75rem;color:var(--muted);margin-left:auto;font-family:var(--font-mono)}
+.step-detail{
+  padding:16px 20px;margin:0 0 0 20px;border-left:3px solid var(--brand);
+  background:var(--bg-elev);border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+}
+.step-detail p{margin-bottom:8px}
+.step-detail .tools{font-size:.82rem;color:var(--muted);font-style:italic}
+
+/* ---------- Stat Row ---------- */
+.stat-row{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}
+.stat-v{
+  flex:1;min-width:110px;background:var(--bg-elev-2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:12px 16px;text-align:center;
+}
+.s-val{font-size:1.3rem;font-weight:700;color:var(--brand);font-family:var(--font-mono)}
+.s-lab{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+/* ---------- Hero ---------- */
+.hero{text-align:center;padding:48px 0 36px}
+.eyebrow{
+  display:inline-block;padding:6px 18px;border-radius:20px;font-size:.78rem;font-weight:600;
+  background:var(--brand-soft);color:var(--brand);border:1px solid color-mix(in srgb,var(--brand) 20%,transparent);
+  margin-bottom:16px;
+}
+.grad-text{
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;font-size:2.6rem;font-weight:800;line-height:1.2;margin-bottom:16px;
+}
+.hero .lead{font-size:1.1rem;color:var(--text-soft);max-width:600px;margin:0 auto 24px}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ---------- Topic Cards ---------- */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:20px 0}
+.topic-card{
+  border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-elev);
+  padding:20px;cursor:pointer;transition:all .25s;text-decoration:none;color:inherit;display:block;
+}
+.topic-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--brand);text-decoration:none}
+.topic-card .tc-icon{font-size:1.8rem;margin-bottom:8px}
+.topic-card .tc-title{font-weight:700;font-size:1rem;color:var(--text);margin-bottom:4px}
+.topic-card .tc-sub{font-size:.82rem;color:var(--text-soft);line-height:1.5}
+.topic-card .tc-order{font-size:.7rem;color:var(--muted);margin-top:8px;font-family:var(--font-mono)}
+
+/* Feature grid */
+.p-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin:20px 0}
+.p-grid .feat{
+  background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:16px;text-align:center;
+}
+.p-grid .feat .f-icon{font-size:1.6rem;margin-bottom:6px}
+.p-grid .feat .f-title{font-weight:600;font-size:.9rem;margin-bottom:4px;color:var(--text)}
+.p-grid .feat .f-desc{font-size:.8rem;color:var(--text-soft)}
+
+/* ---------- Inline ---------- */
+.inline-code{
+  font-family:var(--font-mono);font-size:.86em;background:var(--bg-elev-2);
+  padding:2px 7px;border-radius:5px;color:var(--brand);border:1px solid var(--border);
+}
+.kbd{
+  font-family:var(--font-mono);font-size:.82em;background:var(--bg-elev-2);
+  padding:2px 8px;border-radius:5px;border:1px solid var(--border-strong);
+  box-shadow:0 1px 0 var(--border-strong);color:var(--text);
+}
+
+/* ---------- Page Nav ---------- */
+.page-nav{
+  display:flex;justify-content:space-between;align-items:center;margin-top:40px;
+  padding-top:24px;border-top:1px solid var(--border);gap:12px;flex-wrap:wrap;
+}
+.page-nav a{
+  display:inline-flex;align-items:center;gap:6px;padding:10px 20px;
+  border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);
+  font-weight:500;font-size:.9rem;transition:all .2s;text-decoration:none;
+}
+.page-nav a:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-soft);text-decoration:none}
+
+/* ---------- Done Toggle ---------- */
+.done-toggle{margin:24px 0}
+.done-toggle .btn{min-width:200px;justify-content:center}
+
+/* ---------- NumPy Grid ---------- */
+.np-grid{display:inline-grid;gap:2px;margin:12px 0}
+.np-cell{
+  width:46px;height:36px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:.82rem;border:1px solid var(--border);
+  border-radius:4px;background:var(--bg-elev);color:var(--text);transition:all .2s;
+}
+.np-cell.active{background:var(--brand);color:#fff;border-color:var(--brand);font-weight:700}
+.np-result{
+  margin-top:12px;padding:12px 16px;background:var(--bg-elev-2);border-radius:var(--radius-sm);
+  font-family:var(--font-mono);font-size:.88rem;
+}
+
+/* ---------- Number Line ---------- */
+.number-line{position:relative;height:80px;margin:20px 0;background:var(--bg-elev-2);border-radius:var(--radius-sm);overflow:hidden}
+.nl-track{position:absolute;top:50%;left:20px;right:20px;height:2px;background:var(--border-strong)}
+.nl-point{
+  position:absolute;top:50%;width:10px;height:10px;border-radius:50%;transform:translate(-50%,-50%);
+  background:var(--text-soft);z-index:2;
+}
+.nl-marker{
+  position:absolute;top:20%;width:3px;transform:translateX(-50%);border-radius:2px;z-index:3;
+}
+.nl-band{
+  position:absolute;top:35%;height:30%;opacity:.15;border-radius:4px;z-index:1;
+}
+.nl-label{
+  position:absolute;bottom:4px;font-size:.65rem;font-family:var(--font-mono);
+  transform:translateX(-50%);color:var(--muted);white-space:nowrap;
+}
+
+/* ---------- Heatmap ---------- */
+.heatmap{display:inline-grid;gap:2px;margin:12px 0}
+.hm-cell{
+  width:64px;height:40px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:.78rem;font-weight:600;border-radius:3px;
+}
+.hm-label{
+  display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:600;
+  color:var(--text);background:var(--bg-elev-2);border-radius:3px;
+}
+
+/* ---------- Canvas ---------- */
+canvas{width:100%;border-radius:var(--radius-sm);display:block}
+
+/* ---------- Misc ---------- */
+.add{color:var(--brand);font-weight:600}
+.error-msg{color:var(--bad);font-size:.85rem;margin-top:6px;font-family:var(--font-mono)}
+.filter-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0;padding:10px 14px;background:var(--bg-elev-2);border-radius:var(--radius-sm)}
+.filter-row label{font-size:.82rem;font-weight:600;color:var(--text-soft)}
+.filter-row input[type="checkbox"]{accent-color:var(--brand)}
+.color-swatch{
+  width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;
+  transition:all .2s;
+}
+.color-swatch.active{border-color:var(--text);transform:scale(1.15)}
+.suggested-path{counter-reset:sp;list-style:none;padding:0}
+.suggested-path li{
+  counter-increment:sp;padding:8px 0 8px 40px;position:relative;border-left:2px solid var(--border);
+  margin-left:14px;color:var(--text-soft);font-size:.92rem;
+}
+.suggested-path li::before{
+  content:counter(sp);position:absolute;left:-14px;top:6px;width:26px;height:26px;
+  background:var(--brand);color:#fff;border-radius:50%;font-size:.75rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--muted)}
+
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <button class="hamburger" id="hamburger" aria-label="Open menu">&#x2630;</button>
+    <a href="#/home" class="brand">&#x1F4CA; <strong>Data Science Explorer</strong></a>
+    <div class="spacer"></div>
+    <span class="progress-pill" id="progress-pill">0% complete</span>
+    <button class="theme-btn" id="theme-btn" aria-label="Toggle theme">&#x1F319;</button>
+  </header>
+
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-nav"></div>
+    <div class="sidebar-footer">
+      <button class="reset-btn" id="reset-btn">Reset progress</button>
+      <div class="tech-note">Pure HTML &middot; CSS &middot; JS</div>
+    </div>
+  </nav>
+
+  <div class="scrim" id="scrim"></div>
+  <div class="main"><div class="main-inner" id="app"></div></div>
+
+  <script>
+(function () {
+  "use strict";
+
+  var DS = (window.DS = window.DS || {});
+  DS.topics = [];
+  DS._charts = [];
+
+  /* ===== Topic Registry ===== */
+  DS.registerTopic = function (t) {
+    DS.topics.push(t);
+  };
+
+  /* ===== DOM Builder ===== */
+  DS.el = function (tag, attrs) {
+    var el = document.createElement(tag);
+    if (attrs) {
+      Object.keys(attrs).forEach(function (k) {
+        if (k === "class") el.className = attrs[k];
+        else if (k === "html") el.innerHTML = attrs[k];
+        else if (k === "text") el.textContent = attrs[k];
+        else if (k === "style" && typeof attrs[k] === "object") {
+          Object.keys(attrs[k]).forEach(function (s) { el.style[s] = attrs[k][s]; });
+        } else if (k === "dataset" && typeof attrs[k] === "object") {
+          Object.keys(attrs[k]).forEach(function (d) { el.dataset[d] = attrs[k][d]; });
+        } else if (k.slice(0, 2) === "on" && typeof attrs[k] === "function") {
+          el.addEventListener(k.slice(2).toLowerCase(), attrs[k]);
+        } else if (typeof attrs[k] === "boolean") {
+          if (attrs[k]) el.setAttribute(k, "");
+        } else {
+          el.setAttribute(k, attrs[k]);
+        }
+      });
+    }
+    var children = Array.prototype.slice.call(arguments, 2);
+    function append(c) {
+      if (c == null || c === false) return;
+      if (Array.isArray(c)) { c.forEach(append); return; }
+      if (c instanceof Node) el.appendChild(c);
+      else el.appendChild(document.createTextNode(String(c)));
+    }
+    children.forEach(append);
+    return el;
+  };
+
+  /* ===== setContext ===== */
+  DS.setContext = function (el, c) {
+    if (typeof c === "string") el.innerHTML = c;
+    else if (Array.isArray(c)) c.forEach(function (ch) { if (ch) el.appendChild(ch); });
+    else if (c instanceof Node) el.appendChild(c);
+  };
+
+  /* ===== Escape HTML ===== */
+  DS.escapeHtml = function (s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  };
+  /* ===== Python Syntax Highlighter ===== */
+  DS.pyHighlight = function (code) {
+    var keywords = {};
+    "False None True and as assert async await break class continue def del elif else except finally for from global if import in is lambda nonlocal not or pass raise return try while with yield".split(" ").forEach(function (k) { keywords[k] = true; });
+    var builtins = {};
+    "print len range list dict set tuple int float str bool sum min max abs sorted enumerate zip map filter type round open input format isinstance reversed any all np pd plt".split(" ").forEach(function (k) { builtins[k] = true; });
+
+    // Scan the raw code and produce HTML directly
+    var out = "";
+    var i = 0;
+    var len = code.length;
+
+    function esc(s) { return DS.escapeHtml(s); }
+
+    while (i < len) {
+      var ch = code[i];
+      // Comment
+      if (ch === "#") {
+        var end = code.indexOf("\n", i);
+        if (end === -1) end = len;
+        out += '<span class="tok-com">' + esc(code.slice(i, end)) + "</span>";
+        i = end;
+        continue;
+      }
+      // String (single/double, triple-quoted)
+      if (ch === '"' || ch === "'") {
+        var q = ch;
+        var triple = (i + 2 < len && code[i + 1] === q && code[i + 2] === q);
+        var close, start = i;
+        if (triple) {
+          close = code.indexOf(q + q + q, i + 3);
+          if (close === -1) close = len - 3;
+          close += 3;
+        } else {
+          close = i + 1;
+          while (close < len && code[close] !== q) {
+            if (code[close] === "\\") close++;
+            close++;
+          }
+          if (close < len) close++;
+        }
+        out += '<span class="tok-str">' + esc(code.slice(start, close)) + "</span>";
+        i = close;
+        continue;
+      }
+      // Number
+      if ((ch >= "0" && ch <= "9") || (ch === "." && i + 1 < len && code[i + 1] >= "0" && code[i + 1] <= "9")) {
+        var ns = i;
+        while (i < len && ((code[i] >= "0" && code[i] <= "9") || code[i] === ".")) i++;
+        out += '<span class="tok-num">' + esc(code.slice(ns, i)) + "</span>";
+        continue;
+      }
+      // Identifier / keyword / builtin / function
+      if ((ch >= "a" && ch <= "z") || (ch >= "A" && ch <= "Z") || ch === "_") {
+        var ws = i;
+        while (i < len && ((code[i] >= "a" && code[i] <= "z") || (code[i] >= "A" && code[i] <= "Z") || (code[i] >= "0" && code[i] <= "9") || code[i] === "_")) i++;
+        var word = code.slice(ws, i);
+        // Check if followed by ( => function call
+        var j = i;
+        while (j < len && (code[j] === " " || code[j] === "\t")) j++;
+        if (keywords[word]) out += '<span class="tok-kw">' + esc(word) + "</span>";
+        else if (builtins[word]) out += '<span class="tok-bi">' + esc(word) + "</span>";
+        else if (j < len && code[j] === "(") out += '<span class="tok-fn">' + esc(word) + "</span>";
+        else out += esc(word);
+        continue;
+      }
+      // Other character
+      out += esc(ch);
+      i++;
+    }
+    return out;
+  };
+
+  /* ===== Code Block ===== */
+  DS.codeBlock = function (code, lang) {
+    code = code.replace(/^\n/, "");
+    lang = lang || "python";
+    var highlighted = lang === "python" ? DS.pyHighlight(code) : DS.escapeHtml(code);
+    var wrap = DS.el("div", { class: "code" });
+    var head = DS.el("div", { class: "code-head" },
+      DS.el("span", { class: "code-dot r" }),
+      DS.el("span", { class: "code-dot y" }),
+      DS.el("span", { class: "code-dot g" }),
+      DS.el("span", { class: "lang", text: lang })
+    );
+    var copyBtn = DS.el("button", { class: "copy-btn", text: "Copy" });
+    copyBtn.addEventListener("click", function () {
+      try {
+        navigator.clipboard.writeText(code).then(function () {
+          copyBtn.textContent = "Copied!";
+          setTimeout(function () { copyBtn.textContent = "Copy"; }, 1500);
+        });
+      } catch (e) {
+        copyBtn.textContent = "Copied!";
+        setTimeout(function () { copyBtn.textContent = "Copy"; }, 1500);
+      }
+    });
+    head.appendChild(copyBtn);
+    var body = DS.el("div", { class: "code-body" }, DS.el("pre", { html: highlighted }));
+    wrap.appendChild(head);
+    wrap.appendChild(body);
+    return wrap;
+  };
+
+  /* ===== Runnable ===== */
+  DS.runnable = function (code, output, note) {
+    var wrap = DS.el("div");
+    wrap.appendChild(DS.codeBlock(code));
+    var outBox = DS.el("div", { class: "output", style: { display: "none" }, text: output });
+    var runBtn = DS.el("button", { class: "btn small run-btn", text: "â–¶ Run" });
+    var shown = false;
+    runBtn.addEventListener("click", function () {
+      shown = !shown;
+      outBox.style.display = shown ? "block" : "none";
+      runBtn.textContent = shown ? "Hide output" : "â–¶ Run";
+    });
+    wrap.appendChild(runBtn);
+    wrap.appendChild(outBox);
+    if (note !== undefined) {
+      wrap.appendChild(DS.el("div", { class: "run-note", text: note || "Simulated output â€” no real Python runs in the browser." }));
+    } else {
+      wrap.appendChild(DS.el("div", { class: "run-note", text: "Simulated output â€” no real Python runs in the browser." }));
+    }
+    return wrap;
+  };
+
+  /* ===== Callout ===== */
+  DS.callout = function (type, content) {
+    var c = DS.el("div", { class: "callout " + type });
+    if (typeof content === "string") c.innerHTML = content;
+    else if (content instanceof Node) c.appendChild(content);
+    return c;
+  };
+
+  /* ===== Widget ===== */
+  DS.widget = function (title, icon, tag) {
+    var w = DS.el("div", { class: "widget" });
+    var head = DS.el("div", { class: "widget-head" },
+      DS.el("span", { class: "wh-icon", text: icon }),
+      DS.el("span", { text: title })
+    );
+    if (tag) head.appendChild(DS.el("span", { class: "wh-tag", text: tag }));
+    w.appendChild(head);
+    var body = DS.el("div", { class: "widget-body" });
+    var bodyChildren = Array.prototype.slice.call(arguments, 3);
+    bodyChildren.forEach(function (ch) {
+      if (ch instanceof Node) body.appendChild(ch);
+      else if (typeof ch === "string") body.innerHTML += ch;
+    });
+    w.appendChild(body);
+    return w;
+  };
+
+  /* ===== Tabs ===== */
+  DS.tabs = function (items) {
+    var wrap = DS.el("div", { class: "tabs" });
+    var bar = DS.el("div", { class: "tab-bar" });
+    var panels = [];
+    items.forEach(function (item, i) {
+      var btn = DS.el("button", { class: "tab-btn" + (i === 0 ? " active" : ""), text: item.label });
+      var panel = DS.el("div", { class: "tab-panel" + (i === 0 ? " active" : "") });
+      if (typeof item.content === "function") {
+        var result = item.content();
+        if (typeof result === "string") panel.innerHTML = result;
+        else if (result instanceof Node) panel.appendChild(result);
+      } else if (typeof item.content === "string") {
+        panel.innerHTML = item.content;
+      } else if (item.content instanceof Node) {
+        panel.appendChild(item.content);
+      }
+      btn.addEventListener("click", function () {
+        bar.querySelectorAll(".tab-btn").forEach(function (b) { b.classList.remove("active"); });
+        panels.forEach(function (p) { p.classList.remove("active"); });
+        btn.classList.add("active");
+        panel.classList.add("active");
+      });
+      bar.appendChild(btn);
+      panels.push(panel);
+    });
+    wrap.appendChild(bar);
+    panels.forEach(function (p) { wrap.appendChild(p); });
+    return wrap;
+  };
+
+  /* ===== Quiz ===== */
+  DS.quiz = function (cfg) {
+    var score = 0;
+    var total = cfg.questions ? cfg.questions.length : (cfg.length || 0);
+    var questions = cfg.questions || cfg;
+    var title = cfg.title || "Quiz";
+    var wrap = DS.el("div", { class: "quiz" });
+    var scoreSpan = DS.el("span", { class: "quiz-score", text: "0 / " + total });
+    var header = DS.el("div", { class: "quiz-header" },
+      DS.el("span", { text: "ðŸ§ " }),
+      DS.el("span", { text: title }),
+      scoreSpan
+    );
+    wrap.appendChild(header);
+    var body = DS.el("div", { class: "quiz-body" });
+    questions.forEach(function (q) {
+      var qDiv = DS.el("div", { class: "quiz-q" });
+      qDiv.appendChild(DS.el("p", { text: q.q }));
+      var opts = DS.el("div", { class: "quiz-opts" });
+      var locked = false;
+      q.options.forEach(function (opt, oi) {
+        var oBtn = DS.el("button", { class: "quiz-opt", text: opt });
+        oBtn.addEventListener("click", function () {
+          if (locked) return;
+          locked = true;
+          opts.querySelectorAll(".quiz-opt").forEach(function (b) { b.classList.add("locked"); });
+          var correct = oi === q.answer;
+          if (correct) {
+            oBtn.classList.add("correct");
+            score++;
+            scoreSpan.textContent = score + " / " + total;
+          } else {
+            oBtn.classList.add("wrong");
+            opts.children[q.answer].classList.add("correct");
+          }
+          if (q.explain) {
+            var ex = DS.el("div", { class: "quiz-explain " + (correct ? "right" : "wrong-ex"), text: q.explain });
+            qDiv.appendChild(ex);
+          }
+        });
+        opts.appendChild(oBtn);
+      });
+      qDiv.appendChild(opts);
+      body.appendChild(qDiv);
+    });
+    wrap.appendChild(body);
+    return wrap;
+  };
+
+  /* ===== Page Nav ===== */
+  DS.pageNav = function (currentId) {
+    var sorted = DS.topics.slice().sort(function (a, b) { return a.order - b.order; });
+    var idx = -1;
+    sorted.forEach(function (t, i) { if (t.id === currentId) idx = i; });
+    var nav = DS.el("div", { class: "page-nav" });
+    if (idx > 0) {
+      var prev = sorted[idx - 1];
+      nav.appendChild(DS.el("a", { href: "#/" + prev.id, text: "â† " + prev.title }));
+    } else {
+      nav.appendChild(DS.el("span"));
+    }
+    if (idx < sorted.length - 1) {
+      var next = sorted[idx + 1];
+      nav.appendChild(DS.el("a", { href: "#/" + next.id, text: next.title + " â†’" }));
+    }
+    return nav;
+  };
+
+  /* ===== Progress ===== */
+  DS.progress = (function () {
+    var KEY = "dse:progress";
+    function load() {
+      try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; }
+    }
+    function save(d) {
+      try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) { /* noop */ }
+      window.dispatchEvent(new Event("dse:progress"));
+    }
+    return {
+      isDone: function (id) { return !!load()[id]; },
+      set: function (id, val) { var d = load(); d[id] = val; save(d); },
+      toggle: function (id) { var d = load(); d[id] = !d[id]; save(d); },
+      reset: function () { save({}); },
+      data: load
+    };
+  })();
+
+  /* ===== Done Toggle ===== */
+  DS.doneToggle = function (id) {
+    var wrap = DS.el("div", { class: "done-toggle" });
+    var done = DS.progress.isDone(id);
+    var btn = DS.el("button", {
+      class: "btn " + (done ? "secondary" : ""),
+      text: done ? "âœ“ Completed â€” click to undo" : "Mark as complete âœ“"
+    });
+    btn.addEventListener("click", function () {
+      DS.progress.toggle(id);
+      done = DS.progress.isDone(id);
+      btn.textContent = done ? "âœ“ Completed â€” click to undo" : "Mark as complete âœ“";
+      btn.className = "btn " + (done ? "secondary" : "");
+    });
+    wrap.appendChild(btn);
+    return wrap;
+  };
+
+  /* ===== Math Helpers ===== */
+  DS.range = function (n) { var a = []; for (var i = 0; i < n; i++) a.push(i); return a; };
+  DS.linspace = function (a, b, n) {
+    var out = []; var step = (b - a) / (n - 1);
+    for (var i = 0; i < n; i++) out.push(a + step * i);
+    return out;
+  };
+  DS.sum = function (a) { var s = 0; for (var i = 0; i < a.length; i++) s += a[i]; return s; };
+  DS.mean = function (a) { return DS.sum(a) / a.length; };
+  DS.median = function (a) {
+    var s = a.slice().sort(function (x, y) { return x - y; });
+    var m = Math.floor(s.length / 2);
+    return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+  };
+  DS.mode = function (a) {
+    var freq = {}, maxF = 0, modes = [];
+    a.forEach(function (v) { freq[v] = (freq[v] || 0) + 1; if (freq[v] > maxF) maxF = freq[v]; });
+    Object.keys(freq).forEach(function (k) { if (freq[k] === maxF) modes.push(Number(k)); });
+    return modes.length === a.length ? null : modes[0];
+  };
+  DS.variance = function (a, pop) {
+    var m = DS.mean(a), s = 0;
+    a.forEach(function (v) { s += (v - m) * (v - m); });
+    return s / (pop ? a.length : a.length - 1);
+  };
+  DS.std = function (a, pop) { return Math.sqrt(DS.variance(a, pop)); };
+  DS.round = function (x, d) { d = d === undefined ? 2 : d; var f = Math.pow(10, d); return Math.round(x * f) / f; };
+  DS.clamp = function (x, a, b) { return Math.max(a, Math.min(b, x)); };
+  DS.formatNum = function (x) {
+    if (Number.isInteger(x) && Math.abs(x) < 1000) return String(x);
+    if (Number.isInteger(x)) return x.toLocaleString();
+    return DS.round(x, 2).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  };
+
+  /* ===== Exact Algorithms ===== */
+  DS.mulberry32 = function (a) {
+    return function () {
+      var t = a += 1831565813;
+      t = Math.imul(t ^ t >>> 15, 1 | t);
+      t ^= t + Math.imul(t ^ t >>> 7, 61 | t);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  };
+  DS.normalSeq = function (n, seed) {
+    var rnd = DS.mulberry32(seed), out = [];
+    for (var i = 0; i < n; i += 2) {
+      var u = Math.max(1e-9, rnd()), v = rnd();
+      out.push(Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v));
+    }
+    return out;
+  };
+
+  /* Python slice semantics */
+  DS.adjustSlice = function (len, start, stop, step) {
+    if (step === 0) throw "step cannot be 0";
+    var lower = step < 0 ? -1 : 0, upper = step < 0 ? len - 1 : len;
+    if (start === null) start = step < 0 ? upper : lower;
+    else { if (start < 0) start += len; start = start < lower ? lower : start > upper ? upper : start; }
+    if (stop === null) stop = step < 0 ? lower : upper;
+    else { if (stop < 0) stop += len; stop = stop < lower ? lower : stop > upper ? upper : stop; }
+    var out = [];
+    if (step > 0) for (var i = start; i < stop; i += step) out.push(i);
+    else for (var i = start; i > stop; i += step) out.push(i);
+    return out;
+  };
+
+  DS.parseSlice = function (s) {
+    s = s.trim();
+    if (s.indexOf(":") === -1) {
+      var v = parseInt(s, 10);
+      if (isNaN(v)) throw "invalid index: " + s;
+      return { type: "index", value: v };
+    }
+    var parts = s.split(":");
+    function p(x) { x = x.trim(); return x === "" ? null : parseInt(x, 10); }
+    var start = p(parts[0]);
+    var stop = parts.length > 1 ? p(parts[1]) : null;
+    var step = parts.length > 2 ? p(parts[2]) : 1;
+    if (step === null) step = 1;
+    if ((start !== null && isNaN(start)) || (stop !== null && isNaN(stop)) || isNaN(step)) throw "invalid slice";
+    return { type: "slice", start: start, stop: stop, step: step };
+  };
+
+  /* Coolwarm color */
+  DS.coolwarm = function (v) {
+    v = Math.max(-1, Math.min(1, v));
+    var blue = [59, 76, 192], white = [242, 242, 242], red = [180, 4, 38];
+    var c1 = v < 0 ? blue : white, c2 = v < 0 ? white : red, t = v < 0 ? v + 1 : v;
+    function lerp(a, b, t) { return a.map(function (x, i) { return Math.round(x + (b[i] - x) * t); }); }
+    var c = lerp(c1, c2, t);
+    var lum = 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2];
+    return { bg: "rgb(" + c[0] + "," + c[1] + "," + c[2] + ")", fg: lum < 150 ? "#fff" : "#111" };
+  };
+
+  /* Pearson correlation */
+  DS.pearsonR = function (x, y) {
+    var n = x.length, mx = DS.mean(x), my = DS.mean(y);
+    var num = 0, dx = 0, dy = 0;
+    for (var i = 0; i < n; i++) {
+      num += (x[i] - mx) * (y[i] - my);
+      dx += (x[i] - mx) * (x[i] - mx);
+      dy += (y[i] - my) * (y[i] - my);
+    }
+    return num / Math.sqrt(dx * dy);
+  };
+
+  DS.linearFit = function (x, y) {
+    var mx = DS.mean(x), my = DS.mean(y);
+    var num = 0, den = 0;
+    for (var i = 0; i < x.length; i++) {
+      num += (x[i] - mx) * (y[i] - my);
+      den += (x[i] - mx) * (x[i] - mx);
+    }
+    var slope = num / den;
+    return { slope: slope, intercept: my - slope * mx };
+  };
+
+  /* ===== Canvas Chart Engine ===== */
+  var COLORS = ["--brand", "--brand-2", "--accent", "--good", "--bad"];
+  var FALLBACK_COLORS = ["#4f46e5", "#0d9488", "#f59e0b", "#10b981", "#ef4444", "#8b5cf6", "#ec4899", "#14b8a6"];
+
+  function getCSSColor(name) {
+    var val = getComputedStyle(document.body).getPropertyValue(name).trim();
+    return val || name;
+  }
+
+  function getChartColors() {
+    return COLORS.map(getCSSColor).concat(["#8b5cf6", "#ec4899", "#14b8a6"]);
+  }
+
+  DS.chart = function (canvas, spec) {
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+    var W = rect.width || 500, H = rect.height || 300;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    var ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+
+    var textCol = getCSSColor("--text");
+    var textSoft = getCSSColor("--text-soft");
+    var borderCol = getCSSColor("--border");
+    var bgElev = getCSSColor("--bg-elev");
+    var colors = getChartColors();
+
+    var pad = { top: 30, right: 24, bottom: 50, left: 60 };
+    if (spec.yLabel) pad.left = 72;
+    if (spec.type === "pie") { pad = { top: 20, right: 20, bottom: 20, left: 20 }; }
+    var cw = W - pad.left - pad.right, ch = H - pad.top - pad.bottom;
+
+    /* ---- Pie ---- */
+    if (spec.type === "pie") {
+      var vals = spec.values || (spec.series && spec.series[0] && spec.series[0].y) || [];
+      var labels = spec.labels || [];
+      var total = DS.sum(vals);
+      var cx = pad.left + cw * 0.4, cy = pad.top + ch / 2, r = Math.min(cw * 0.38, ch / 2 - 10);
+      var angle = -Math.PI / 2;
+      vals.forEach(function (v, i) {
+        var sweep = (v / total) * 2 * Math.PI;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, r, angle, angle + sweep);
+        ctx.closePath();
+        ctx.fillStyle = spec.colors ? spec.colors[i] : colors[i % colors.length];
+        ctx.fill();
+        // % label inside
+        var mid = angle + sweep / 2;
+        var lx = cx + r * 0.65 * Math.cos(mid), ly = cy + r * 0.65 * Math.sin(mid);
+        ctx.fillStyle = "#fff";
+        ctx.font = "bold 12px " + getComputedStyle(document.body).getPropertyValue("--font-sans");
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(Math.round(v / total * 100) + "%", lx, ly);
+        angle += sweep;
+      });
+      // legend
+      var lx = pad.left + cw * 0.78, ly = pad.top + 20;
+      labels.forEach(function (l, i) {
+        ctx.fillStyle = spec.colors ? spec.colors[i] : colors[i % colors.length];
+        ctx.fillRect(lx, ly, 12, 12);
+        ctx.fillStyle = textCol;
+        ctx.font = "12px " + getComputedStyle(document.body).getPropertyValue("--font-sans");
+        ctx.textAlign = "left";
+        ctx.textBaseline = "top";
+        ctx.fillText(l, lx + 18, ly);
+        ly += 22;
+      });
+      return;
+    }
+
+    /* ---- Data ranges ---- */
+    var allX = [], allY = [];
+    var series = spec.series || [];
+    var categories = spec.categories;
+
+    if (spec.type === "hist") {
+      var data = spec.data || (series[0] && series[0].y) || [];
+      var bins = spec.bins || 10;
+      var mn = Math.min.apply(null, data), mx = Math.max.apply(null, data);
+      var bw = (mx - mn) / bins;
+      var counts = [];
+      for (var i = 0; i < bins; i++) counts.push(0);
+      data.forEach(function (v) {
+        var bi = Math.min(Math.floor((v - mn) / bw), bins - 1);
+        counts[bi]++;
+      });
+      // draw as bars
+      var maxC = Math.max.apply(null, counts);
+      var barW = cw / bins;
+      // gridlines
+      if (spec.grid !== false) {
+        for (var g = 0; g <= 4; g++) {
+          var gy = pad.top + ch - (g / 4) * ch;
+          ctx.beginPath(); ctx.moveTo(pad.left, gy); ctx.lineTo(pad.left + cw, gy);
+          ctx.strokeStyle = borderCol; ctx.lineWidth = 0.5; ctx.stroke();
+          ctx.fillStyle = textSoft; ctx.font = "11px " + getComputedStyle(document.body).getPropertyValue("--font-sans");
+          ctx.textAlign = "right"; ctx.textBaseline = "middle";
+          ctx.fillText(DS.round(maxC * g / 4, 0), pad.left - 8, gy);
+        }
+      }
+      counts.forEach(function (c, i) {
+        var x = pad.left + i * barW;
+        var h = (c / maxC) * ch;
+        ctx.fillStyle = spec.color || colors[0];
+        ctx.fillRect(x + 1, pad.top + ch - h, barW - 2, h);
+      });
+      // x labels
+      for (var i = 0; i <= bins; i += Math.max(1, Math.floor(bins / 6))) {
+        var lx = pad.left + i * barW;
+        ctx.fillStyle = textSoft;
+        ctx.font = "10px " + getComputedStyle(document.body).getPropertyValue("--font-sans");
+        ctx.textAlign = "center"; ctx.textBaseline = "top";
+        ctx.fillText(DS.round(mn + i * bw, 0), lx, pad.top + ch + 6);
+      }
+      if (spec.xLabel) {
+        ctx.fillStyle = textSoft; ctx.font = "12px " + getComputedStyle(document.body).getPropertyValue("--font-sans");
+        ctx.textAlign = "center"; ctx.fillText(spec.xLabel, pad.left + cw / 2, H - 8);
+      }
+      if (spec.yLabel) {
+        ctx.save(); ctx.translate(14, pad.top + ch / 2); ctx.rotate(-Math.PI / 2);
+        ctx.fillStyle = textSoft; ctx.font = "12px " + getComputedStyle(document.body).getPropertyValue("--font-sans");
+        ctx.textAlign = "center"; ctx.fillText(spec.yLabel, 0, 0); ctx.restore();
+      }
+      return;
+    }
+
+    series.forEach(function (s, si) {
+      var xs = s.x || (categories ? DS.range(categories.length) : DS.range(s.y.length));
+      xs.forEach(function (x) { allX.push(x); });
+      s.y.forEach(function (y) { allY.push(y); });
+    });
+
+    if (!allX.length) return;
+    var xMin = categories ? -0.5 : Math.min.apply(null, allX);
+    var xMax = categories ? allX.length - 0.5 : Math.max.apply(null, allX);
+    var yMin = Math.min.apply(null, allY);
+    var yMax = Math.max.apply(null, allY);
+
+    // Add padding for scatter
+    if (spec.type === "scatter" || spec.type === "line") {
+      var yPad = (yMax - yMin) * 0.1 || 1;
+      yMin -= yPad; yMax += yPad;
+      if (!categories) {
+        var xPad = (xMax - xMin) * 0.05 || 0.5;
+        xMin -= xPad; xMax += xPad;
+      }
+    }
+    if (spec.type === "bar") { yMin = Math.min(0, yMin); }
+
+    function sx(v) { return pad.left + ((v - xMin) / (xMax - xMin)) * cw; }
+    function sy(v) { return pad.top + ch - ((v - yMin) / (yMax - yMin)) * ch; }
+
+    /* Gridlines */
+    if (spec.grid !== false) {
+      for (var g = 0; g <= 4; g++) {
+        var yv = yMin + (g / 4) * (yMax - yMin);
+        var gy = sy(yv);
+        ctx.beginPath(); ctx.moveTo(pad.left, gy); ctx.lineTo(pad.left + cw, gy);
+        ctx.strokeStyle = borderCol; ctx.lineWidth = 0.5; ctx.stroke();
+        ctx.fillStyle = textSoft; ctx.font = "11px " + getComputedStyle(document.body).getPropertyValue("--font-sans");
+        ctx.textAlign = "right"; ctx.textBaseline = "middle";
+        ctx.fillText(DS.formatNum(DS.round(yv, 1)), pad.left - 8, gy);
+      }
+    }
+
+    /* X labels */
+    if (categories) {
+      categories.forEach(function (c, i) {
+        ctx.fillStyle = textSoft; ctx.font = "11px " + getComputedStyle(document.body).getPropertyValue("--font-sans");
+        ctx.textAlign = "center"; ctx.textBaseline = "top";
+        ctx.fillText(c, sx(i), pad.top + ch + 8);
+      });
+    } else {
+      for (var g = 0; g <= 4; g++) {
+        var xv = xMin + (g / 4) * (xMax - xMin);
+        ctx.fillStyle = textSoft; ctx.font = "11px " + getComputedStyle(document.body).getPropertyValue("--font-sans");
+        ctx.textAlign = "center"; ctx.textBaseline = "top";
+        ctx.fillText(DS.formatNum(DS.round(xv, 1)), sx(xv), pad.top + ch + 8);
+      }
+    }
+
+    /* Axis labels */
+    if (spec.xLabel) {
+      ctx.fillStyle = textSoft; ctx.font = "12px " + getComputedStyle(document.body).getPropertyValue("--font-sans");
+      ctx.textAlign = "center"; ctx.fillText(spec.xLabel, pad.left + cw / 2, H - 6);
+    }
+    if (spec.yLabel) {
+      ctx.save(); ctx.translate(14, pad.top + ch / 2); ctx.rotate(-Math.PI / 2);
+      ctx.fillStyle = textSoft; ctx.font = "12px " + getComputedStyle(document.body).getPropertyValue("--font-sans");
+      ctx.textAlign = "center"; ctx.fillText(spec.yLabel, 0, 0); ctx.restore();
+    }
+
+    /* Draw series */
+    series.forEach(function (s, si) {
+      var kind = s.kind || spec.type || "line";
+      var col = s.color || colors[si % colors.length];
+      var xs = s.x || (categories ? DS.range(categories.length) : DS.range(s.y.length));
+
+      if (kind === "bar") {
+        var nSeries = series.filter(function (s2) { return (s2.kind || spec.type) === "bar"; }).length;
+        var barIdx = series.filter(function (s2, i2) { return i2 < si && (s2.kind || spec.type) === "bar"; }).length;
+        var groupW = cw / xs.length * 0.7;
+        var singleW = groupW / nSeries;
+        xs.forEach(function (x, i) {
+          var bx = sx(x) - groupW / 2 + barIdx * singleW;
+          var bh = Math.abs(sy(s.y[i]) - sy(0));
+          var by = s.y[i] >= 0 ? sy(s.y[i]) : sy(0);
+          ctx.fillStyle = col;
+          ctx.fillRect(bx, by, singleW - 1, bh);
+        });
+      } else if (kind === "scatter") {
+        xs.forEach(function (x, i) {
+          ctx.beginPath();
+          ctx.arc(sx(x), sy(s.y[i]), 4, 0, Math.PI * 2);
+          ctx.fillStyle = col;
+          ctx.fill();
+        });
+      } else {
+        // line
+        ctx.beginPath();
+        xs.forEach(function (x, i) {
+          var px = sx(x), py = sy(s.y[i]);
+          if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        });
+        ctx.strokeStyle = col;
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+        // markers
+        if (s.markers !== false) {
+          xs.forEach(function (x, i) {
+            ctx.beginPath();
+            ctx.arc(sx(x), sy(s.y[i]), 3.5, 0, Math.PI * 2);
+            ctx.fillStyle = col;
+            ctx.fill();
+            ctx.strokeStyle = bgElev;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+          });
+        }
+      }
+    });
+
+    /* Legend */
+    if (series.length > 1) {
+      var lx = pad.left + 8, ly = pad.top + 6;
+      series.forEach(function (s, si) {
+        if (!s.label) return;
+        var col = s.color || colors[si % colors.length];
+        ctx.fillStyle = col;
+        ctx.fillRect(lx, ly, 14, 3);
+        ctx.fillStyle = textCol;
+        ctx.font = "11px " + getComputedStyle(document.body).getPropertyValue("--font-sans");
+        ctx.textAlign = "left"; ctx.textBaseline = "top";
+        ctx.fillText(s.label, lx + 20, ly - 4);
+        ly += 18;
+      });
+    }
+  };
+
+  /* ===== DataFrame Builder ===== */
+  DS.buildTable = function (rows, columns, opts) {
+    opts = opts || {};
+    var wrap = DS.el("div", { class: "df" });
+    var tw = DS.el("div", { class: "df-wrap" });
+    var table = DS.el("table");
+    var thead = DS.el("thead");
+    var headRow = DS.el("tr");
+    if (opts.showIndex !== false) headRow.appendChild(DS.el("th", { class: "idx", text: "" }));
+    columns.forEach(function (col) {
+      var th = DS.el("th", { text: col });
+      if (opts.onSort) {
+        th.style.cursor = "pointer";
+        var arrow = DS.el("span", { class: "sort-arrow", text: "â†•" });
+        th.appendChild(arrow);
+        th.addEventListener("click", function () { opts.onSort(col); });
+      }
+      headRow.appendChild(th);
+    });
+    thead.appendChild(headRow);
+    table.appendChild(thead);
+    var tbody = DS.el("tbody");
+    rows.forEach(function (row, ri) {
+      var tr = DS.el("tr");
+      if (opts.showIndex !== false) tr.appendChild(DS.el("td", { class: "idx", text: ri }));
+      columns.forEach(function (col) {
+        tr.appendChild(DS.el("td", { text: row[col] !== undefined ? row[col] : "" }));
+      });
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    tw.appendChild(table);
+    wrap.appendChild(tw);
+    return wrap;
+  };
+})();
+
+  </script>
+  <script>
+(function () {
+  "use strict";
+  var el = DS.el;
+
+  DS.registerTopic({
+    id: "home",
+    title: "Home",
+    icon: "ðŸ ",
+    subtitle: "",
+    order: 0,
+    countable: false,
+    render: function (root) {
+      /* Hero */
+      var hero = el("div", { class: "hero" },
+        el("span", { class: "eyebrow", text: "Interactive Â· Pure HTML/CSS/JS Â· No install" }),
+        el("div", { class: "grad-text", text: "Learn Data Science by playing with it" }),
+        el("p", { class: "lead", text: "An interactive, self-paced course covering Python, NumPy, Pandas, Matplotlib, Statistics, and Seaborn â€” with hands-on widgets, live charts, and quizzes in every section." }),
+        el("div", { class: "hero-btns" },
+          el("a", { href: "#/intro", class: "btn" }, "ðŸš€ Start with Intro"),
+          el("a", { href: "#/numpy", class: "btn secondary" }, "ðŸ”¢ Jump to NumPy")
+        )
+      );
+      root.appendChild(hero);
+
+      /* What you'll explore */
+      root.appendChild(el("h2", { text: "What you'll explore" }));
+      var grid = el("div", { class: "card-grid" });
+      DS.topics.slice().sort(function (a, b) { return a.order - b.order; }).forEach(function (t) {
+        if (t.order < 1) return;
+        grid.appendChild(
+          el("a", { href: "#/" + t.id, class: "topic-card" },
+            el("div", { class: "tc-icon", text: t.icon }),
+            el("div", { class: "tc-title", text: t.title }),
+            el("div", { class: "tc-sub", text: t.subtitle }),
+            el("div", { class: "tc-order", text: "Module " + t.order })
+          )
+        );
+      });
+      root.appendChild(grid);
+
+      /* How pieces fit */
+      root.appendChild(el("h2", { text: "How the pieces fit together" }));
+      root.appendChild(DS.callout("info",
+        "<strong>NumPy</strong> gives you fast arrays â†’ <strong>Pandas</strong> builds tables on them â†’ " +
+        "<strong>Matplotlib</strong> draws charts from those tables â†’ <strong>Seaborn</strong> makes the charts beautiful with one line â†’ " +
+        "<strong>Statistics</strong> tells you what the numbers actually mean. Each layer builds on the last."
+      ));
+
+      /* Features grid */
+      root.appendChild(el("h2", { text: "Features" }));
+      var feats = [
+        { icon: "ðŸŽ®", title: "Interactive Widgets", desc: "Sliders, builders, and explorers in every section" },
+        { icon: "ðŸ“Š", title: "Live Canvas Charts", desc: "All charts drawn with the HTML5 Canvas API" },
+        { icon: "ðŸ§ ", title: "Quizzes", desc: "Test your understanding at the end of each topic" },
+        { icon: "ðŸŒ™", title: "Dark Mode", desc: "Toggle theme any time â€” your preference is saved" }
+      ];
+      var fGrid = el("div", { class: "p-grid" });
+      feats.forEach(function (f) {
+        fGrid.appendChild(el("div", { class: "feat" },
+          el("div", { class: "f-icon", text: f.icon }),
+          el("div", { class: "f-title", text: f.title }),
+          el("div", { class: "f-desc", text: f.desc })
+        ));
+      });
+      root.appendChild(fGrid);
+
+      /* Suggested path */
+      root.appendChild(el("h2", { text: "Suggested path" }));
+      var ol = el("ol", { class: "suggested-path" });
+      DS.topics.slice().sort(function (a, b) { return a.order - b.order; }).forEach(function (t) {
+        if (t.order < 1) return;
+        ol.appendChild(el("li", null,
+          el("strong", { text: t.icon + " " + t.title }),
+          " â€” " + t.subtitle
+        ));
+      });
+      root.appendChild(ol);
+
+      /* Tip */
+      root.appendChild(DS.callout("tip",
+        "ðŸ’¡ Your progress and dark-mode preference are <strong>saved automatically</strong> in your browser. " +
+        "Pick up right where you left off!"
+      ));
+    }
+  });
+})();
+
+  </script>
+  <script>
+(function () {
+  "use strict";
+  var el = DS.el;
+
+  DS.registerTopic({
+    id: "intro",
+    title: "What is Data Science?",
+    icon: "ðŸ‘‹",
+    subtitle: "The big picture â€” ask, collect, clean, explore, model, communicate",
+    order: 1,
+    countable: true,
+    render: function (root) {
+      root.appendChild(el("h1", { text: "ðŸ‘‹ What is Data Science?" }));
+      root.appendChild(el("p", { class: "section-intro", text: "Data science is the art of turning raw data into useful insights. It combines statistics, programming, and domain knowledge to answer questions and solve problems." }));
+
+      /* Coffee shop example */
+      root.appendChild(el("h2", { text: "A coffee-shop example" }));
+      root.appendChild(el("p", null,
+        "Imagine you manage a coffee shop. Every day you collect data: what drinks people order, " +
+        "what time they visit, how much they spend. Data science helps you answer questions like ",
+        el("em", { text: "\"Should we stock more oat milk on Mondays?\"" }),
+        " or ",
+        el("em", { text: "\"Which pastry pairs best with a latte?\"" })
+      ));
+
+      /* Lifecycle stepper */
+      var stages = [
+        { icon: "â“", name: "Ask", desc: "Start with a clear question. \"Why did latte sales drop in July?\"", tools: "Business knowledge, curiosity" },
+        { icon: "ðŸ—‚", name: "Collect", desc: "Gather relevant data â€” POS logs, weather data, customer surveys.", tools: "SQL, APIs, web scraping, surveys" },
+        { icon: "ðŸ§¹", name: "Clean", desc: "Fix missing values, remove duplicates, standardize formats. This step is ~80% of the work!", tools: "Pandas, OpenRefine, regular expressions" },
+        { icon: "ðŸ”­", name: "Explore", desc: "Visualize distributions and relationships. Spot patterns and outliers before building models.", tools: "Matplotlib, Seaborn, Pandas .describe()" },
+        { icon: "ðŸ¤–", name: "Model", desc: "Apply statistics or machine learning to quantify patterns and make predictions.", tools: "scikit-learn, statsmodels, XGBoost" },
+        { icon: "ðŸ“Š", name: "Communicate", desc: "Present findings with clear charts and plain-language summaries so stakeholders can act on them.", tools: "Jupyter Notebooks, dashboards, presentations" }
+      ];
+      var activeIdx = 0;
+      var detailBox = el("div", { class: "step-detail" });
+
+      function renderDetail(i) {
+        detailBox.innerHTML = "";
+        detailBox.appendChild(el("p", null, el("strong", { text: stages[i].name + ": " }), stages[i].desc));
+        detailBox.appendChild(el("div", { class: "tools", text: "Typical tools: " + stages[i].tools }));
+      }
+
+      var stepper = el("div", { class: "stepper" });
+      var stepEls = [];
+      stages.forEach(function (s, i) {
+        var stepEl = el("div", { class: "step" + (i === 0 ? " active" : "") },
+          el("span", { class: "step-icon", text: s.icon }),
+          el("span", { class: "step-title", text: s.name }),
+          el("span", { class: "step-num", text: "Step " + (i + 1) })
+        );
+        stepEl.addEventListener("click", function () {
+          stepEls.forEach(function (se) { se.classList.remove("active"); });
+          stepEl.classList.add("active");
+          activeIdx = i;
+          renderDetail(i);
+        });
+        stepEls.push(stepEl);
+        stepper.appendChild(stepEl);
+      });
+
+      renderDetail(0);
+      var w = DS.widget("Interactive Lifecycle Stepper", "ðŸ”„", "Interactive", stepper, detailBox);
+      root.appendChild(w);
+
+      /* Why Python */
+      root.appendChild(el("h2", { text: "Why Python?" }));
+      root.appendChild(el("p", { text: "Python has become the lingua franca of data science because of three key libraries:" }));
+      var pills = el("div", { class: "chips" },
+        el("span", { class: "chip active", text: "ðŸ”¢ NumPy â€” fast arrays" }),
+        el("span", { class: "chip active", text: "ðŸ¼ Pandas â€” tabular data" }),
+        el("span", { class: "chip active", text: "ðŸ“ˆ Matplotlib â€” visualization" })
+      );
+      root.appendChild(pills);
+      root.appendChild(el("p", { text: "Together, they let you go from raw CSV to polished chart in just a few lines of code. This course teaches each one hands-on." }));
+
+      /* Quiz */
+      root.appendChild(el("h2", { text: "Check your understanding" }));
+      root.appendChild(DS.quiz({
+        title: "Intro Quiz",
+        questions: [
+          {
+            q: "What percentage of a data scientist's time is typically spent on data cleaning?",
+            options: ["10%", "30%", "80%", "50%"],
+            answer: 2,
+            explain: "Data cleaning (fixing missing values, removing duplicates, standardizing formats) typically takes up about 80% of a data project's time."
+          },
+          {
+            q: "What is the FIRST step in the data science lifecycle?",
+            options: ["Collect data", "Ask a question", "Build a model", "Clean data"],
+            answer: 1,
+            explain: "Everything starts with a clear question. Without a good question, you don't know what data to collect."
+          },
+          {
+            q: "What does EDA stand for?",
+            options: ["Electronic Data Analysis", "Exploratory Data Analysis", "Extended Data Application", "External Data Aggregation"],
+            answer: 1,
+            explain: "Exploratory Data Analysis (EDA) is the step where you visualize and summarize data to find patterns before formal modeling."
+          }
+        ]
+      }));
+
+      root.appendChild(DS.doneToggle("intro"));
+      root.appendChild(DS.pageNav("intro"));
+    }
+  });
+})();
+
+  </script>
+  <script>
+(function () {
+  "use strict";
+  var el = DS.el;
+
+  DS.registerTopic({
+    id: "python",
+    title: "Python Basics",
+    icon: "ðŸ",
+    subtitle: "Variables, lists, dicts, loops, functions â€” the essentials",
+    order: 2,
+    countable: true,
+    render: function (root) {
+      root.appendChild(el("h1", { text: "ðŸ Python Basics" }));
+      root.appendChild(el("p", { class: "section-intro", text: "Before diving into data libraries, you need comfortable shoes. Here are the Python essentials every data scientist uses daily." }));
+
+      /* Variables & types */
+      root.appendChild(el("h2", { text: "Variables & types" }));
+      root.appendChild(el("p", { text: "Python figures out the type for you â€” no need to declare int or float." }));
+      root.appendChild(DS.runnable(
+        'name = "Alice"\nage = 30\nheight = 5.6\nis_student = False\n\nprint(type(name))    # <class \'str\'>\nprint(type(age))     # <class \'int\'>\nprint(type(height))  # <class \'float\'>',
+        "<class 'str'>\n<class 'int'>\n<class 'float'>"
+      ));
+
+      /* Lists */
+      root.appendChild(el("h2", { text: "Lists â€” indexing & slicing" }));
+      root.appendChild(el("p", { text: "Lists are ordered, mutable collections. Indexing starts at 0; negative indices count from the end." }));
+      root.appendChild(DS.runnable(
+        'fruits = ["apple", "banana", "cherry", "date", "elderberry"]\n\nprint(fruits[0])      # apple\nprint(fruits[-1])     # elderberry\nprint(fruits[1:3])    # [\'banana\', \'cherry\']\nprint(fruits[:2])     # [\'apple\', \'banana\']\nprint(len(fruits))    # 5',
+        "apple\nelderberry\n['banana', 'cherry']\n['apple', 'banana']\n5"
+      ));
+
+      /* Dicts */
+      root.appendChild(el("h2", { text: "Dictionaries" }));
+      root.appendChild(el("p", { text: "Key-value pairs â€” perfect for structured data before you learn Pandas." }));
+      root.appendChild(DS.runnable(
+        'person = {"name": "Alice", "age": 30, "city": "Pune"}\n\nprint(person["name"])         # Alice\nprint(person.get("email", "N/A"))  # N/A\nperson["email"] = "a@b.com"\nprint(person.keys())          # dict_keys([...])',
+        "Alice\nN/A\ndict_keys(['name', 'age', 'city', 'email'])"
+      ));
+
+      /* Loops */
+      root.appendChild(el("h2", { text: "Loops, enumerate & f-strings" }));
+      root.appendChild(DS.runnable(
+        'fruits = ["apple", "banana", "cherry"]\n\nfor i, fruit in enumerate(fruits):\n    print(f"{i}: {fruit}")',
+        "0: apple\n1: banana\n2: cherry"
+      ));
+
+      /* Functions */
+      root.appendChild(el("h2", { text: "Functions" }));
+      root.appendChild(DS.runnable(
+        'def greet(name, greeting="Hello"):\n    return f"{greeting}, {name}!"\n\nprint(greet("Alice"))\nprint(greet("Bob", "Hi"))',
+        "Hello, Alice!\nHi, Bob!"
+      ));
+
+      /* List Comprehension Builder */
+      root.appendChild(el("h2", { text: "Interactive: List Comprehension Builder" }));
+
+      var nSlider, exprSelect, filterSelect, kSlider, kControl;
+      var codeOut, resultOut;
+
+      function update() {
+        var n = parseInt(nSlider.value, 10);
+        var expr = exprSelect.value;
+        var filt = filterSelect.value;
+        var k = parseInt(kSlider.value, 10);
+
+        kControl.style.display = filt === "gt_k" ? "flex" : "none";
+
+        var exprStr = expr === "x" ? "x" : expr === "x2" ? "x**2" : expr === "x*2" ? "x * 2" : "x * 10";
+        var filterStr = "";
+        if (filt === "even") filterStr = " if x % 2 == 0";
+        else if (filt === "odd") filterStr = " if x % 2 != 0";
+        else if (filt === "gt_k") filterStr = " if x > " + k;
+
+        var code = "result = [" + exprStr + " for x in range(" + n + ")" + filterStr + "]";
+
+        // Compute result
+        var items = [];
+        for (var x = 0; x < n; x++) {
+          if (filt === "even" && x % 2 !== 0) continue;
+          if (filt === "odd" && x % 2 === 0) continue;
+          if (filt === "gt_k" && x <= k) continue;
+          var v = expr === "x" ? x : expr === "x2" ? x * x : expr === "x*2" ? x * 2 : x * 10;
+          items.push(v);
+        }
+
+        codeOut.innerHTML = DS.pyHighlight(code);
+        resultOut.textContent = "[" + items.join(", ") + "]";
+      }
+
+      nSlider = el("input", { type: "range", min: "3", max: "12", value: "6" });
+      var nVal = el("span", { class: "val", text: "6" });
+      nSlider.addEventListener("input", function () { nVal.textContent = nSlider.value; update(); });
+
+      exprSelect = el("select", null,
+        el("option", { value: "x", text: "x" }),
+        el("option", { value: "x2", text: "x ** 2" }),
+        el("option", { value: "x*2", text: "x * 2" }),
+        el("option", { value: "x*10", text: "x * 10" })
+      );
+      exprSelect.addEventListener("change", update);
+
+      filterSelect = el("select", null,
+        el("option", { value: "none", text: "No filter" }),
+        el("option", { value: "even", text: "Even only (x % 2 == 0)" }),
+        el("option", { value: "odd", text: "Odd only (x % 2 != 0)" }),
+        el("option", { value: "gt_k", text: "x > k" })
+      );
+      filterSelect.addEventListener("change", update);
+
+      kSlider = el("input", { type: "range", min: "0", max: "11", value: "3" });
+      var kVal = el("span", { class: "val", text: "3" });
+      kSlider.addEventListener("input", function () { kVal.textContent = kSlider.value; update(); });
+
+      kControl = el("div", { class: "control", style: { display: "none" } },
+        el("label", { text: "k" }),
+        kSlider, kVal
+      );
+
+      var controls = el("div", { class: "controls" },
+        el("div", { class: "control" }, el("label", { text: "range(n)" }), nSlider, nVal),
+        el("div", { class: "control" }, el("label", { text: "Expression" }), exprSelect),
+        el("div", { class: "control" }, el("label", { text: "Filter" }), filterSelect),
+        kControl
+      );
+
+      codeOut = el("pre", { style: { fontFamily: "var(--font-mono)", fontSize: ".9rem", margin: "12px 0", padding: "12px 16px", background: "var(--code-bg)", color: "var(--code-text)", borderRadius: "var(--radius-sm)", overflowX: "auto" } });
+      resultOut = el("div", { class: "output" });
+
+      var w = DS.widget("List Comprehension Builder", "ðŸ”§", "Interactive",
+        controls, codeOut,
+        el("div", null, el("strong", { text: "Result: " })),
+        resultOut
+      );
+      root.appendChild(w);
+      update();
+
+      /* Quiz */
+      root.appendChild(el("h2", { text: "Check your understanding" }));
+      root.appendChild(DS.quiz({
+        title: "Python Basics Quiz",
+        questions: [
+          {
+            q: "What does fruits[-1] return if fruits = ['a', 'b', 'c']?",
+            options: ["'a'", "'c'", "Error", "None"],
+            answer: 1,
+            explain: "Negative indices count from the end. -1 is the last element."
+          },
+          {
+            q: "What is the output of [x**2 for x in range(4)]?",
+            options: ["[1, 4, 9, 16]", "[0, 1, 4, 9]", "[0, 2, 4, 6]", "[1, 2, 3, 4]"],
+            answer: 1,
+            explain: "range(4) = [0,1,2,3], squared = [0,1,4,9]."
+          },
+          {
+            q: "What type does {'a': 1} create?",
+            options: ["list", "set", "dict", "tuple"],
+            answer: 2,
+            explain: "Curly braces with key:value pairs create a dictionary (dict)."
+          }
+        ]
+      }));
+
+      root.appendChild(DS.doneToggle("python"));
+      root.appendChild(DS.pageNav("python"));
+    }
+  });
+})();
+
+  </script>
+  <script>
+(function () {
+  "use strict";
+  var el = DS.el;
+
+  DS.registerTopic({
+    id: "numpy",
+    title: "NumPy",
+    icon: "ðŸ”¢",
+    subtitle: "Fast numeric arrays â€” the foundation",
+    order: 3,
+    countable: true,
+    render: function (root) {
+      root.appendChild(el("h1", { text: "ðŸ”¢ NumPy" }));
+      root.appendChild(el("p", { class: "section-intro", text: "NumPy (Numerical Python) gives you fast, memory-efficient arrays and vectorized operations. It's the foundation that Pandas, Matplotlib, and scikit-learn are all built on." }));
+
+      /* Why not a list */
+      root.appendChild(el("h2", { text: "Why not a plain Python list?" }));
+      root.appendChild(DS.tabs([
+        {
+          label: "Plain Python loop",
+          content: function () {
+            return DS.runnable(
+              '# Multiply every element by 2 â€” Python list\ndata = [1, 2, 3, 4, 5]\nresult = []\nfor x in data:\n    result.append(x * 2)\nprint(result)  # [2, 4, 6, 8, 10]',
+              "[2, 4, 6, 8, 10]"
+            );
+          }
+        },
+        {
+          label: "Vectorized NumPy",
+          content: function () {
+            return DS.runnable(
+              'import numpy as np\n\ndata = np.array([1, 2, 3, 4, 5])\nresult = data * 2       # no loop needed!\nprint(result)  # [ 2  4  6  8 10]',
+              "[ 2  4  6  8 10]"
+            );
+          }
+        }
+      ]));
+
+      /* Creating arrays */
+      root.appendChild(el("h2", { text: "Creating arrays" }));
+      root.appendChild(DS.runnable(
+        'import numpy as np\n\na = np.array([1, 2, 3])\nb = np.zeros(4)\nc = np.arange(0, 10, 2)\nd = np.linspace(0, 1, 5)\n\nprint(a)  # [1 2 3]\nprint(b)  # [0. 0. 0. 0.]\nprint(c)  # [0 2 4 6 8]\nprint(d)  # [0.   0.25 0.5  0.75 1.  ]',
+        "[1 2 3]\n[0. 0. 0. 0.]\n[0 2 4 6 8]\n[0.   0.25 0.5  0.75 1.  ]"
+      ));
+
+      /* Shape Explorer */
+      root.appendChild(el("h2", { text: "Shape Explorer" }));
+      var shapeRows, shapeCols, shapeGrid, shapeInfo;
+      function updateShape() {
+        var r = parseInt(shapeRows.value, 10);
+        var c = parseInt(shapeCols.value, 10);
+        shapeGrid.innerHTML = "";
+        shapeGrid.style.gridTemplateColumns = "repeat(" + c + ", 46px)";
+        var val = 0;
+        for (var i = 0; i < r; i++) {
+          for (var j = 0; j < c; j++) {
+            shapeGrid.appendChild(el("div", { class: "np-cell", text: val++ }));
+          }
+        }
+        shapeInfo.textContent = "shape: (" + r + ", " + c + ")  ndim: 2  size: " + (r * c) + "  dtype: int64";
+      }
+      shapeRows = el("input", { type: "range", min: "1", max: "6", value: "3" });
+      shapeCols = el("input", { type: "range", min: "1", max: "6", value: "4" });
+      var rVal = el("span", { class: "val", text: "3" });
+      var cVal = el("span", { class: "val", text: "4" });
+      shapeRows.addEventListener("input", function () { rVal.textContent = shapeRows.value; updateShape(); });
+      shapeCols.addEventListener("input", function () { cVal.textContent = shapeCols.value; updateShape(); });
+      shapeGrid = el("div", { class: "np-grid" });
+      shapeInfo = el("div", { class: "np-result" });
+      root.appendChild(DS.widget("Shape Explorer", "ðŸ“", "Interactive",
+        el("div", { class: "controls" },
+          el("div", { class: "control" }, el("label", { text: "Rows" }), shapeRows, rVal),
+          el("div", { class: "control" }, el("label", { text: "Cols" }), shapeCols, cVal)
+        ),
+        shapeGrid, shapeInfo
+      ));
+      updateShape();
+
+      /* Slicing Playground */
+      root.appendChild(el("h2", { text: "Slicing Playground" }));
+      root.appendChild(el("p", { text: "The array below is np.arange(20).reshape(4, 5). Type a NumPy-style slice to select cells." }));
+
+      var MATRIX = [];
+      for (var i = 0; i < 4; i++) {
+        MATRIX.push([]);
+        for (var j = 0; j < 5; j++) MATRIX[i].push(i * 5 + j);
+      }
+
+      var sliceInput = el("input", { type: "text", value: "1:3, 1:4", style: { width: "200px" } });
+      var sliceGrid = el("div", { class: "np-grid", style: { gridTemplateColumns: "repeat(5, 46px)" } });
+      var sliceResult = el("div", { class: "np-result" });
+      var sliceError = el("div", { class: "error-msg" });
+
+      function renderSlice() {
+        sliceGrid.innerHTML = "";
+        sliceError.textContent = "";
+        sliceResult.textContent = "";
+        var input = sliceInput.value.trim();
+
+        // Parse axes
+        var parts;
+        if (input.startsWith("[") || input.startsWith("a[")) {
+          var inner = input.replace(/^a?\[/, "").replace(/\]$/, "");
+          parts = inner.split(",");
+        } else {
+          parts = input.split(",");
+        }
+        if (parts.length > 2) { sliceError.textContent = "Too many dimensions (max 2 for a 4Ã—5 array)"; renderPlainGrid(); return; }
+
+        try {
+          var rowSpec = DS.parseSlice(parts[0]);
+          var colSpec = parts.length > 1 ? DS.parseSlice(parts[1]) : { type: "slice", start: null, stop: null, step: 1 };
+
+          var selectedRows, selectedCols;
+          var dropRow = false, dropCol = false;
+
+          if (rowSpec.type === "index") {
+            var ri = rowSpec.value < 0 ? rowSpec.value + 4 : rowSpec.value;
+            if (ri < 0 || ri >= 4) throw "row index out of bounds";
+            selectedRows = [ri]; dropRow = true;
+          } else {
+            selectedRows = DS.adjustSlice(4, rowSpec.start, rowSpec.stop, rowSpec.step);
+          }
+
+          if (colSpec.type === "index") {
+            var ci = colSpec.value < 0 ? colSpec.value + 5 : colSpec.value;
+            if (ci < 0 || ci >= 5) throw "column index out of bounds";
+            selectedCols = [ci]; dropCol = true;
+          } else {
+            selectedCols = DS.adjustSlice(5, colSpec.start, colSpec.stop, colSpec.step);
+          }
+
+          var activeSet = {};
+          selectedRows.forEach(function (r) {
+            selectedCols.forEach(function (c) {
+              activeSet[r + "," + c] = true;
+            });
+          });
+
+          // Render grid
+          for (var r = 0; r < 4; r++) {
+            for (var c = 0; c < 5; c++) {
+              var isActive = activeSet[r + "," + c];
+              sliceGrid.appendChild(el("div", {
+                class: "np-cell" + (isActive ? " active" : ""),
+                text: MATRIX[r][c]
+              }));
+            }
+          }
+
+          // Build result
+          var result = [];
+          selectedRows.forEach(function (r) {
+            var row = [];
+            selectedCols.forEach(function (c) { row.push(MATRIX[r][c]); });
+            result.push(row);
+          });
+
+          // Shape
+          var shape;
+          if (dropRow && dropCol) {
+            shape = "()" ;
+            sliceResult.textContent = "Result: " + result[0][0] + "    shape: scalar";
+          } else if (dropRow) {
+            shape = "(" + selectedCols.length + ",)";
+            sliceResult.textContent = "Result: [" + result[0].join(", ") + "]    shape: " + shape;
+          } else if (dropCol) {
+            shape = "(" + selectedRows.length + ",)";
+            var flat = result.map(function (r) { return r[0]; });
+            sliceResult.textContent = "Result: [" + flat.join(", ") + "]    shape: " + shape;
+          } else {
+            shape = "(" + selectedRows.length + ", " + selectedCols.length + ")";
+            var rows = result.map(function (r) { return "[" + r.join(", ") + "]"; });
+            sliceResult.textContent = "Result: [" + rows.join(", ") + "]    shape: " + shape;
+          }
+        } catch (e) {
+          sliceError.textContent = "Error: " + e;
+          renderPlainGrid();
+        }
+      }
+
+      function renderPlainGrid() {
+        sliceGrid.innerHTML = "";
+        for (var r = 0; r < 4; r++) {
+          for (var c = 0; c < 5; c++) {
+            sliceGrid.appendChild(el("div", { class: "np-cell", text: MATRIX[r][c] }));
+          }
+        }
+      }
+
+      sliceInput.addEventListener("input", renderSlice);
+      var sliceControls = el("div", { class: "controls" },
+        el("div", { class: "control" },
+          el("label", { text: "a[...]" }),
+          sliceInput
+        )
+      );
+      root.appendChild(DS.widget("Slicing Playground", "âœ‚ï¸", "Interactive",
+        sliceControls, sliceGrid, sliceResult, sliceError
+      ));
+      renderSlice();
+
+      /* Element-wise math */
+      root.appendChild(el("h2", { text: "Element-wise math" }));
+      root.appendChild(DS.runnable(
+        'import numpy as np\n\na = np.array([10, 20, 30, 40, 50])\nprint(a + 5)     # [15 25 35 45 55]\nprint(a * 2)     # [ 20  40  60  80 100]\nprint(a > 25)    # [False False  True  True  True]\nprint(np.sqrt(a))',
+        "[15 25 35 45 55]\n[ 20  40  60  80 100]\n[False False  True  True  True]\n[3.16227766 4.47213595 5.47722558 6.32455532 7.07106781]"
+      ));
+
+      /* Axis Aggregator */
+      root.appendChild(el("h2", { text: "Axis Aggregator" }));
+
+      var axisOp, axisChips;
+      var axisGrid = el("div", { class: "np-grid", style: { gridTemplateColumns: "repeat(5, 46px)" } });
+      var axisResult = el("div", { class: "np-result" });
+      var axisCode = el("div", { class: "np-result", style: { fontFamily: "var(--font-mono)", fontSize: ".85rem", marginTop: "6px", background: "var(--code-bg)", color: "var(--code-text)", padding: "10px 14px", borderRadius: "var(--radius-sm)" } });
+      var currentAxis = null; // null, 0, 1
+
+      function updateAxis() {
+        axisGrid.innerHTML = "";
+        for (var r = 0; r < 4; r++) {
+          for (var c = 0; c < 5; c++) {
+            axisGrid.appendChild(el("div", { class: "np-cell", text: MATRIX[r][c] }));
+          }
+        }
+
+        var op = axisOp.value;
+        var result, shape, caption;
+
+        if (currentAxis === null) {
+          // no axis â€” flatten
+          var flat = [];
+          MATRIX.forEach(function (r) { r.forEach(function (v) { flat.push(v); }); });
+          if (op === "sum") result = DS.sum(flat);
+          else if (op === "mean") result = DS.round(DS.mean(flat));
+          else result = Math.max.apply(null, flat);
+          shape = "scalar";
+          caption = op + " of all elements â†’ single number";
+          axisCode.textContent = "a." + op + "()  â†’  " + result;
+          axisResult.textContent = "Result: " + result + "    shape: " + shape + "\n" + caption;
+        } else if (currentAxis === 0) {
+          // collapse rows
+          var cols = [];
+          for (var c = 0; c < 5; c++) {
+            var col = [];
+            for (var r = 0; r < 4; r++) col.push(MATRIX[r][c]);
+            if (op === "sum") cols.push(DS.sum(col));
+            else if (op === "mean") cols.push(DS.round(DS.mean(col)));
+            else cols.push(Math.max.apply(null, col));
+          }
+          shape = "(5,)";
+          caption = "Collapse rows â†“ â€” one result per column";
+          axisCode.textContent = "a." + op + "(axis=0)  â†’  [" + cols.join(", ") + "]";
+          axisResult.textContent = "Result: [" + cols.join(", ") + "]    shape: " + shape + "\n" + caption;
+        } else {
+          // collapse cols
+          var rows = [];
+          for (var r = 0; r < 4; r++) {
+            if (op === "sum") rows.push(DS.sum(MATRIX[r]));
+            else if (op === "mean") rows.push(DS.round(DS.mean(MATRIX[r])));
+            else rows.push(Math.max.apply(null, MATRIX[r]));
+          }
+          shape = "(4,)";
+          caption = "Collapse columns â†’ â€” one result per row";
+          axisCode.textContent = "a." + op + "(axis=1)  â†’  [" + rows.join(", ") + "]";
+          axisResult.textContent = "Result: [" + rows.join(", ") + "]    shape: " + shape + "\n" + caption;
+        }
+      }
+
+      axisOp = el("select", null,
+        el("option", { value: "sum", text: "sum" }),
+        el("option", { value: "mean", text: "mean" }),
+        el("option", { value: "max", text: "max" })
+      );
+      axisOp.addEventListener("change", updateAxis);
+
+      var axisOptions = [
+        { label: "None (flatten)", value: null },
+        { label: "0 â†“ (collapse rows)", value: 0 },
+        { label: "1 â†’ (collapse cols)", value: 1 }
+      ];
+      var chipEls = [];
+      var axisChipWrap = el("div", { class: "chips" });
+      axisOptions.forEach(function (opt, i) {
+        var chip = el("span", { class: "chip" + (i === 0 ? " active" : ""), text: opt.label });
+        chip.addEventListener("click", function () {
+          chipEls.forEach(function (c) { c.classList.remove("active"); });
+          chip.classList.add("active");
+          currentAxis = opt.value;
+          updateAxis();
+        });
+        chipEls.push(chip);
+        axisChipWrap.appendChild(chip);
+      });
+
+      root.appendChild(DS.widget("Axis Aggregator", "ðŸ“", "Interactive",
+        el("div", { class: "controls" },
+          el("div", { class: "control" }, el("label", { text: "Operation" }), axisOp),
+          el("div", { class: "control" }, el("label", { text: "Axis" }), axisChipWrap)
+        ),
+        axisGrid, axisCode, axisResult
+      ));
+      updateAxis();
+
+      /* Quiz */
+      root.appendChild(el("h2", { text: "Check your understanding" }));
+      root.appendChild(DS.quiz({
+        title: "NumPy Quiz",
+        questions: [
+          {
+            q: "What does np.arange(20).reshape(4,5) create?",
+            options: ["A list of 20 items", "A 4Ã—5 matrix with values 0-19", "A 5Ã—4 matrix", "A 20Ã—1 vector"],
+            answer: 1,
+            explain: "arange(20) creates [0..19], reshape(4,5) arranges them into 4 rows Ã— 5 columns."
+          },
+          {
+            q: "Given a 4Ã—5 matrix, what does a.sum(axis=0) produce?",
+            options: ["A single number", "An array of 4 values (one per row)", "An array of 5 values (one per column)", "A 4Ã—5 matrix"],
+            answer: 2,
+            explain: "axis=0 collapses rows, leaving one sum per column â†’ 5 values."
+          },
+          {
+            q: "What is a[:, 2] on a 4Ã—5 array?",
+            options: ["Row 2", "Column 2 (4 values)", "A 2Ã—5 slice", "An error"],
+            answer: 1,
+            explain: "[:, 2] means 'all rows, column index 2' â†’ a 1D array of 4 values."
+          }
+        ]
+      }));
+
+      root.appendChild(DS.doneToggle("numpy"));
+      root.appendChild(DS.pageNav("numpy"));
+    }
+  });
+})();
+
+  </script>
+  <script>
+(function () {
+  "use strict";
+  var el = DS.el;
+
+  /* ===== Exact coffee dataset ===== */
+  var DATA = [
+    { region: "North", product: "Latte", units: 30, price: 3.5 },
+    { region: "North", product: "Mocha", units: 20, price: 4.0 },
+    { region: "South", product: "Latte", units: 45, price: 3.5 },
+    { region: "South", product: "Tea",   units: 15, price: 2.5 },
+    { region: "East",  product: "Mocha", units: 25, price: 4.0 },
+    { region: "East",  product: "Latte", units: 35, price: 3.5 },
+    { region: "North", product: "Tea",   units: 40, price: 2.5 },
+    { region: "South", product: "Mocha", units: 22, price: 4.0 },
+    { region: "East",  product: "Tea",   units: 18, price: 2.5 }
+  ];
+  DATA.forEach(function (r) { r.revenue = DS.round(r.units * r.price, 2); });
+
+  /* ===== Exact orders for crosstab ===== */
+  var ORDERS = [
+    { day_part: "Morning", drink: "Latte", spend: 4.0 },
+    { day_part: "Morning", drink: "Latte", spend: 4.0 },
+    { day_part: "Morning", drink: "Latte", spend: 5.0 },
+    { day_part: "Morning", drink: "Mocha", spend: 4.5 },
+    { day_part: "Morning", drink: "Tea",   spend: 3.0 },
+    { day_part: "Morning", drink: "Latte", spend: 4.5 },
+    { day_part: "Afternoon", drink: "Tea",   spend: 3.5 },
+    { day_part: "Afternoon", drink: "Tea",   spend: 3.0 },
+    { day_part: "Afternoon", drink: "Mocha", spend: 4.0 },
+    { day_part: "Afternoon", drink: "Latte", spend: 4.5 },
+    { day_part: "Afternoon", drink: "Tea",   spend: 3.5 },
+    { day_part: "Afternoon", drink: "Mocha", spend: 4.5 }
+  ];
+
+  DS.registerTopic({
+    id: "pandas",
+    title: "Pandas",
+    icon: "ðŸ¼",
+    subtitle: "DataFrames â€” filter, group, aggregate tabular data",
+    order: 4,
+    countable: true,
+    render: function (root) {
+      root.appendChild(el("h1", { text: "ðŸ¼ Pandas" }));
+      root.appendChild(el("p", { class: "section-intro", text: "Pandas gives you the DataFrame â€” a powerful 2D table with labeled rows and columns. Think of it as a programmable spreadsheet." }));
+
+      /* Series vs DataFrame */
+      root.appendChild(el("h2", { text: "Series vs DataFrame" }));
+      root.appendChild(DS.runnable(
+        'import pandas as pd\n\n# Series â€” a single column\ns = pd.Series([10, 20, 30], name="sales")\nprint(s)\n\n# DataFrame â€” a table\ndf = pd.DataFrame({\n    "product": ["Latte", "Mocha", "Tea"],\n    "units": [30, 20, 15]\n})\nprint(df)',
+        "0    10\n1    20\n2    30\nName: sales, dtype: int64\n\n  product  units\n0   Latte     30\n1   Mocha     20\n2     Tea     15"
+      ));
+
+      /* Sample dataset */
+      root.appendChild(el("h2", { text: "Our coffee-shop dataset" }));
+      root.appendChild(el("p", { text: "We'll use this 9-row dataset throughout the Pandas section:" }));
+      root.appendChild(DS.buildTable(DATA, ["region", "product", "units", "price", "revenue"]));
+
+      /* DataFrame Explorer */
+      root.appendChild(el("h2", { text: "DataFrame Explorer" }));
+
+      var allCols = ["region", "product", "units", "price", "revenue"];
+      var visibleCols = allCols.slice();
+      var filterEnabled = false;
+      var filterCol = "units";
+      var filterOp = ">";
+      var filterVal = "30";
+      var sortCol = null;
+      var sortAsc = true;
+      var explorerOutput = el("div");
+      var explorerCode = el("div", { class: "np-result", style: { fontFamily: "var(--font-mono)", fontSize: ".82rem", marginTop: "8px", background: "var(--code-bg)", color: "var(--code-text)", padding: "10px 14px", borderRadius: "var(--radius-sm)", whiteSpace: "pre-wrap" } });
+
+      function updateExplorer() {
+        var rows = DATA.slice();
+        var codeParts = ["result = df"];
+        if (filterEnabled) {
+          var v = parseFloat(filterVal);
+          if (!isNaN(v)) {
+            rows = rows.filter(function (r) {
+              var rv = r[filterCol];
+              if (filterOp === ">") return rv > v;
+              if (filterOp === ">=") return rv >= v;
+              if (filterOp === "<") return rv < v;
+              if (filterOp === "<=") return rv <= v;
+              return rv === v;
+            });
+            codeParts.push("result = result[result['" + filterCol + "'] " + filterOp + " " + filterVal + "]");
+          }
+        }
+        if (sortCol) {
+          rows.sort(function (a, b) {
+            return sortAsc ? (a[sortCol] > b[sortCol] ? 1 : -1) : (a[sortCol] < b[sortCol] ? 1 : -1);
+          });
+          codeParts.push("result = result.sort_values('" + sortCol + "'" + (sortAsc ? "" : ", ascending=False") + ")");
+        }
+        if (visibleCols.length < allCols.length) {
+          codeParts.push("result = result[['" + visibleCols.join("', '") + "']]");
+        }
+        explorerOutput.innerHTML = "";
+        explorerOutput.appendChild(DS.buildTable(rows, visibleCols, {
+          onSort: function (col) {
+            if (sortCol === col) sortAsc = !sortAsc;
+            else { sortCol = col; sortAsc = true; }
+            updateExplorer();
+          }
+        }));
+        explorerCode.textContent = codeParts.join("\n");
+      }
+
+      // Column chips
+      var colChips = el("div", { class: "chips" });
+      allCols.forEach(function (col) {
+        var chip = el("span", { class: "chip active", text: col });
+        chip.addEventListener("click", function () {
+          chip.classList.toggle("active");
+          if (chip.classList.contains("active")) {
+            if (visibleCols.indexOf(col) === -1) visibleCols.push(col);
+          } else {
+            visibleCols = visibleCols.filter(function (c) { return c !== col; });
+          }
+          visibleCols.sort(function (a, b) { return allCols.indexOf(a) - allCols.indexOf(b); });
+          updateExplorer();
+        });
+        colChips.appendChild(chip);
+      });
+
+      // Filter row
+      var fCheck = el("input", { type: "checkbox" });
+      var fColSel = el("select");
+      ["units", "price", "revenue"].forEach(function (c) { fColSel.appendChild(el("option", { value: c, text: c })); });
+      var fOpSel = el("select");
+      [">", ">=", "<", "<=", "=="].forEach(function (op) { fOpSel.appendChild(el("option", { value: op, text: op })); });
+      var fValInput = el("input", { type: "text", value: "30", style: { width: "60px" } });
+
+      fCheck.addEventListener("change", function () { filterEnabled = fCheck.checked; updateExplorer(); });
+      fColSel.addEventListener("change", function () { filterCol = fColSel.value; updateExplorer(); });
+      fOpSel.addEventListener("change", function () { filterOp = fOpSel.value; updateExplorer(); });
+      fValInput.addEventListener("input", function () { filterVal = fValInput.value; updateExplorer(); });
+
+      var filterRow = el("div", { class: "filter-row" },
+        fCheck,
+        el("label", { text: "Filter:" }),
+        fColSel, fOpSel, fValInput
+      );
+
+      root.appendChild(DS.widget("DataFrame Explorer", "ðŸ”", "Interactive",
+        el("div", null, el("label", { text: "Columns: ", style: { fontSize: ".82rem", fontWeight: "600", color: "var(--muted)" } }), colChips),
+        filterRow, explorerOutput, explorerCode
+      ));
+      updateExplorer();
+
+      /* GroupBy Builder */
+      root.appendChild(el("h2", { text: "GroupBy Builder" }));
+
+      var gbGroup = "region", gbCol = "revenue";
+      var gbFuncs = ["sum"];
+      var gbOutput = el("div");
+      var gbCode = el("div", { class: "np-result", style: { fontFamily: "var(--font-mono)", fontSize: ".82rem", marginTop: "8px", background: "var(--code-bg)", color: "var(--code-text)", padding: "10px 14px", borderRadius: "var(--radius-sm)", whiteSpace: "pre-wrap" } });
+
+      function updateGroupby() {
+        var groups = {};
+        DATA.forEach(function (r) {
+          var key = r[gbGroup];
+          if (!groups[key]) groups[key] = [];
+          groups[key].push(r[gbCol]);
+        });
+
+        var resultRows = [];
+        Object.keys(groups).sort().forEach(function (key) {
+          var row = {};
+          row[gbGroup] = key;
+          gbFuncs.forEach(function (fn) {
+            var vals = groups[key];
+            var res;
+            if (fn === "sum") res = DS.sum(vals);
+            else if (fn === "mean") res = DS.round(DS.mean(vals));
+            else if (fn === "count") res = vals.length;
+            else if (fn === "max") res = Math.max.apply(null, vals);
+            else if (fn === "min") res = Math.min.apply(null, vals);
+            else if (fn === "std") res = DS.round(DS.std(vals, false));
+            row[fn] = res;
+          });
+          resultRows.push(row);
+        });
+
+        gbOutput.innerHTML = "";
+        gbOutput.appendChild(DS.buildTable(resultRows, [gbGroup].concat(gbFuncs)));
+
+        if (gbFuncs.length === 1) {
+          gbCode.textContent = "df.groupby('" + gbGroup + "')['" + gbCol + "']." + gbFuncs[0] + "()";
+        } else {
+          gbCode.textContent = "df.groupby('" + gbGroup + "')['" + gbCol + "'].agg(['" + gbFuncs.join("', '") + "'])";
+        }
+      }
+
+      var gbGroupSel = el("select");
+      ["region", "product"].forEach(function (c) { gbGroupSel.appendChild(el("option", { value: c, text: c })); });
+      gbGroupSel.addEventListener("change", function () { gbGroup = gbGroupSel.value; updateGroupby(); });
+
+      var gbColSel = el("select");
+      ["revenue", "units", "price"].forEach(function (c) { gbColSel.appendChild(el("option", { value: c, text: c })); });
+      gbColSel.addEventListener("change", function () { gbCol = gbColSel.value; updateGroupby(); });
+
+      var gbFuncChips = el("div", { class: "chips" });
+      var allFuncs = ["sum", "mean", "min", "max", "count", "std"];
+      var funcChipEls = [];
+      allFuncs.forEach(function (fn) {
+        var chip = el("span", { class: "chip" + (fn === "sum" ? " active" : ""), text: fn });
+        chip.addEventListener("click", function () {
+          chip.classList.toggle("active");
+          gbFuncs = [];
+          funcChipEls.forEach(function (c, i) {
+            if (c.classList.contains("active")) gbFuncs.push(allFuncs[i]);
+          });
+          if (gbFuncs.length === 0) { chip.classList.add("active"); gbFuncs.push(fn); }
+          updateGroupby();
+        });
+        funcChipEls.push(chip);
+        gbFuncChips.appendChild(chip);
+      });
+
+      root.appendChild(DS.widget("GroupBy Builder", "ðŸ“Š", "Interactive",
+        el("div", { class: "controls" },
+          el("div", { class: "control" }, el("label", { text: "Group by" }), gbGroupSel),
+          el("div", { class: "control" }, el("label", { text: "Column" }), gbColSel),
+          el("div", { class: "control" }, el("label", { text: "Functions" }), gbFuncChips)
+        ),
+        gbOutput, gbCode
+      ));
+      updateGroupby();
+
+      /* Three ways tabs */
+      root.appendChild(DS.tabs([
+        {
+          label: "List of funcs",
+          content: function () {
+            return DS.runnable(
+              "df.groupby('region')['revenue'].agg(['sum', 'mean', 'std'])",
+              "         sum    mean      std\nregion\nEast   267.5  89.17   39.87\nNorth  285.0  95.00   13.23\nSouth  283.0  94.33   60.25"
+            );
+          }
+        },
+        {
+          label: "Dict per column",
+          content: function () {
+            return DS.runnable(
+              "df.groupby('region').agg({\n    'revenue': 'sum',\n    'units': 'mean'\n})",
+              "         revenue  units\nregion\nEast      267.5  26.00\nNorth     285.0  30.00\nSouth     283.0  27.33"
+            );
+          }
+        },
+        {
+          label: "Named aggregation",
+          content: function () {
+            return DS.runnable(
+              "df.groupby('region').agg(\n    total_rev=('revenue', 'sum'),\n    avg_units=('units', 'mean')\n)",
+              "         total_rev  avg_units\nregion\nEast        267.5      26.00\nNorth       285.0      30.00\nSouth       283.0      27.33"
+            );
+          }
+        }
+      ]));
+
+      /* Cross-tabulation */
+      root.appendChild(el("h2", { text: "Cross-tabulation" }));
+      root.appendChild(el("p", { text: "pd.crosstab() creates a frequency table showing how often combinations of categories appear." }));
+
+      root.appendChild(DS.runnable(
+        "orders = pd.DataFrame([\n    {'day_part':'Morning','drink':'Latte','spend':4.0},\n    {'day_part':'Morning','drink':'Latte','spend':4.0},\n    {'day_part':'Morning','drink':'Latte','spend':5.0},\n    {'day_part':'Morning','drink':'Mocha','spend':4.5},\n    {'day_part':'Morning','drink':'Tea','spend':3.0},\n    {'day_part':'Morning','drink':'Latte','spend':4.5},\n    {'day_part':'Afternoon','drink':'Tea','spend':3.5},\n    {'day_part':'Afternoon','drink':'Tea','spend':3.0},\n    {'day_part':'Afternoon','drink':'Mocha','spend':4.0},\n    {'day_part':'Afternoon','drink':'Latte','spend':4.5},\n    {'day_part':'Afternoon','drink':'Tea','spend':3.5},\n    {'day_part':'Afternoon','drink':'Mocha','spend':4.5},\n])\npd.crosstab(orders['day_part'], orders['drink'])",
+        "drink      Latte  Mocha  Tea\nday_part\nAfternoon      1      2    3\nMorning        4      1    1"
+      ));
+
+      /* Crosstab Builder */
+      var ctRows = "day_part", ctCols = "drink", ctMode = "count", ctMargins = false;
+      var ctOutput = el("div");
+      var ctCode = el("div", { class: "np-result", style: { fontFamily: "var(--font-mono)", fontSize: ".82rem", marginTop: "8px", background: "var(--code-bg)", color: "var(--code-text)", padding: "10px 14px", borderRadius: "var(--radius-sm)", whiteSpace: "pre-wrap" } });
+
+      function updateCrosstab() {
+        var rowKey = ctRows, colKey = ctCols;
+        var rowVals = []; var colVals = [];
+        ORDERS.forEach(function (o) {
+          if (rowVals.indexOf(o[rowKey]) === -1) rowVals.push(o[rowKey]);
+          if (colVals.indexOf(o[colKey]) === -1) colVals.push(o[colKey]);
+        });
+        rowVals.sort(); colVals.sort();
+
+        // Build cross-table
+        var table = {};
+        rowVals.forEach(function (rv) {
+          table[rv] = {};
+          colVals.forEach(function (cv) { table[rv][cv] = []; });
+        });
+        ORDERS.forEach(function (o) {
+          table[o[rowKey]][o[colKey]].push(o.spend);
+        });
+
+        // Compute cell values
+        var displayRows = [];
+        rowVals.forEach(function (rv) {
+          var row = {};
+          row[rowKey] = rv;
+          colVals.forEach(function (cv) {
+            var vals = table[rv][cv];
+            if (ctMode === "count") row[cv] = vals.length;
+            else if (ctMode === "mean") row[cv] = vals.length ? DS.round(DS.mean(vals)) : 0;
+            else row[cv] = DS.round(DS.sum(vals.map(function (v) { return v; })));
+          });
+          displayRows.push(row);
+        });
+
+        // Margins
+        if (ctMargins) {
+          // Row totals (All column)
+          displayRows.forEach(function (row) {
+            // Compute from underlying raw data
+            var allVals = [];
+            colVals.forEach(function (cv) {
+              allVals = allVals.concat(table[row[rowKey]][cv]);
+            });
+            if (ctMode === "count") row["All"] = allVals.length;
+            else if (ctMode === "mean") row["All"] = allVals.length ? DS.round(DS.mean(allVals)) : 0;
+            else row["All"] = DS.round(DS.sum(allVals));
+          });
+
+          // Column totals (All row)
+          var allRow = {};
+          allRow[rowKey] = "All";
+          colVals.forEach(function (cv) {
+            var allVals = [];
+            rowVals.forEach(function (rv) {
+              allVals = allVals.concat(table[rv][cv]);
+            });
+            if (ctMode === "count") allRow[cv] = allVals.length;
+            else if (ctMode === "mean") allRow[cv] = allVals.length ? DS.round(DS.mean(allVals)) : 0;
+            else allRow[cv] = DS.round(DS.sum(allVals));
+          });
+          // Grand total
+          var grandVals = [];
+          ORDERS.forEach(function (o) { grandVals.push(o.spend); });
+          if (ctMode === "count") allRow["All"] = grandVals.length;
+          else if (ctMode === "mean") allRow["All"] = grandVals.length ? DS.round(DS.mean(grandVals)) : 0;
+          else allRow["All"] = DS.round(DS.sum(grandVals));
+
+          displayRows.push(allRow);
+        }
+
+        var displayCols = [rowKey].concat(colVals);
+        if (ctMargins) displayCols.push("All");
+
+        ctOutput.innerHTML = "";
+        ctOutput.appendChild(DS.buildTable(displayRows, displayCols, { showIndex: false }));
+
+        var codeStr = "pd.crosstab(orders['" + rowKey + "'], orders['" + colKey + "']";
+        if (ctMode === "mean") codeStr += ", values=orders['spend'], aggfunc='mean'";
+        else if (ctMode === "sum") codeStr += ", values=orders['spend'], aggfunc='sum'";
+        if (ctMargins) codeStr += ", margins=True";
+        codeStr += ")";
+        ctCode.textContent = codeStr;
+      }
+
+      var ctRowSel = el("select");
+      ["day_part", "drink"].forEach(function (c) { ctRowSel.appendChild(el("option", { value: c, text: c })); });
+      ctRowSel.addEventListener("change", function () { ctRows = ctRowSel.value; updateCrosstab(); });
+      var ctColSel = el("select");
+      ["drink", "day_part"].forEach(function (c) { ctColSel.appendChild(el("option", { value: c, text: c })); });
+      ctColSel.addEventListener("change", function () { ctCols = ctColSel.value; updateCrosstab(); });
+      var ctModeSel = el("select");
+      [["count", "count"], ["mean", "mean of spend"], ["sum", "sum of spend"]].forEach(function (c) { ctModeSel.appendChild(el("option", { value: c[0], text: c[1] })); });
+      ctModeSel.addEventListener("change", function () { ctMode = ctModeSel.value; updateCrosstab(); });
+      var ctMarginCheck = el("input", { type: "checkbox" });
+      ctMarginCheck.addEventListener("change", function () { ctMargins = ctMarginCheck.checked; updateCrosstab(); });
+
+      root.appendChild(DS.widget("Crosstab Builder", "ðŸ“‹", "Interactive",
+        el("div", { class: "controls" },
+          el("div", { class: "control" }, el("label", { text: "Rows" }), ctRowSel),
+          el("div", { class: "control" }, el("label", { text: "Cols" }), ctColSel),
+          el("div", { class: "control" }, el("label", { text: "Cells" }), ctModeSel),
+          el("div", { class: "control" }, el("label", null, ctMarginCheck, " margins=True"))
+        ),
+        ctOutput, ctCode
+      ));
+      updateCrosstab();
+
+      /* Normalize runnable */
+      root.appendChild(DS.runnable(
+        "pd.crosstab(orders['day_part'], orders['drink'], normalize='index')",
+        "drink      Latte     Mocha       Tea\nday_part\nAfternoon  0.166667  0.333333  0.500000\nMorning    0.666667  0.166667  0.166667"
+      ));
+
+      /* Cheat-sheet tabs */
+      root.appendChild(el("h2", { text: "Pandas Cheat Sheet" }));
+      root.appendChild(DS.tabs([
+        { label: "Peek", content: function () { return DS.codeBlock("df.head()        # first 5 rows\ndf.tail(3)       # last 3 rows\ndf.shape         # (rows, cols)\ndf.dtypes        # column types\ndf.describe()    # summary stats"); } },
+        { label: "Select", content: function () { return DS.codeBlock("df['col']           # single column (Series)\ndf[['a','b']]       # multiple columns\ndf.loc[0:2, 'col']  # by label\ndf.iloc[0:2, 0:3]   # by position"); } },
+        { label: "Clean", content: function () { return DS.codeBlock("df.dropna()         # remove missing\ndf.fillna(0)        # fill missing\ndf.drop_duplicates()\ndf.rename(columns={'old':'new'})"); } },
+        { label: "New columns", content: function () { return DS.codeBlock("df['revenue'] = df['units'] * df['price']\ndf['upper'] = df['name'].str.upper()\ndf['log_rev'] = np.log(df['revenue'])"); } },
+        { label: "Aggregate", content: function () { return DS.codeBlock("df.groupby('col').sum()\ndf.groupby('col').agg(['mean','std'])\ndf.groupby('col').agg(total=('val','sum'))\npd.crosstab(df['a'], df['b'])"); } }
+      ]));
+
+      /* Quiz */
+      root.appendChild(el("h2", { text: "Check your understanding" }));
+      root.appendChild(DS.quiz({
+        title: "Pandas Quiz",
+        questions: [
+          {
+            q: "What is the difference between a Series and a DataFrame?",
+            options: ["Series is 2D, DataFrame is 1D", "Series is 1D (one column), DataFrame is 2D (table)", "They are the same", "Series can only hold numbers"],
+            answer: 1,
+            explain: "A Series is a single column of data. A DataFrame is a table made of multiple Series."
+          },
+          {
+            q: "How do you filter rows where units > 30?",
+            options: ["df.filter(units > 30)", "df[df['units'] > 30]", "df.where('units', '>', 30)", "df.query(units > 30)"],
+            answer: 1,
+            explain: "Boolean masking: df[df['units'] > 30] creates a True/False mask and keeps only True rows."
+          },
+          {
+            q: "What does df.groupby('region')['revenue'].sum() return?",
+            options: ["A DataFrame with all columns", "A single number", "A Series with one sum per region", "An error"],
+            answer: 2,
+            explain: "Grouping by region and summing revenue produces one sum per unique region â€” returned as a Series."
+          },
+          {
+            q: "What is the default index of a new DataFrame?",
+            options: ["Column names", "0, 1, 2, ...", "Random IDs", "No index"],
+            answer: 1,
+            explain: "By default, Pandas assigns a RangeIndex: 0, 1, 2, ..."
+          },
+          {
+            q: "What does .agg(['sum', 'mean']) do?",
+            options: ["Returns sum and mean as two columns", "Returns sum and mean as two rows", "Applies both functions and returns results for each", "Errors because you can only pass one function"],
+            answer: 2,
+            explain: ".agg() with a list applies each function and returns results in a table with one column per function."
+          },
+          {
+            q: "What does pd.crosstab() count by default?",
+            options: ["Sum of values", "Mean of values", "Frequency (counts)", "Unique values"],
+            answer: 2,
+            explain: "By default, crosstab counts how many times each combination appears (frequency table)."
+          }
+        ]
+      }));
+
+      root.appendChild(DS.doneToggle("pandas"));
+      root.appendChild(DS.pageNav("pandas"));
+    }
+  });
+})();
+
+  </script>
+  <script>
+(function () {
+  "use strict";
+  var el = DS.el;
+
+  var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+  var REV = [12, 19, 15, 25, 22, 30];
+  var SCORES = [];
+  // ~50 fixed scores for histogram
+  var _sr = DS.mulberry32(99999);
+  for (var i = 0; i < 50; i++) SCORES.push(Math.round(40 + 50 * _sr()));
+  var PIE_LABELS = ["Latte", "Mocha", "Tea", "Cold Brew"];
+  var PIE_VALUES = [45, 25, 20, 10];
+
+  DS.registerTopic({
+    id: "matplotlib",
+    title: "Matplotlib",
+    icon: "ðŸ“ˆ",
+    subtitle: "Visualization â€” from simple lines to full dashboards",
+    order: 5,
+    countable: true,
+    render: function (root) {
+      root.appendChild(el("h1", { text: "ðŸ“ˆ Matplotlib" }));
+      root.appendChild(el("p", { class: "section-intro", text: "Matplotlib is the most-used plotting library in Python. It gives you full control over every element of a chart." }));
+
+      /* Simplest plot */
+      root.appendChild(el("h2", { text: "Your first plot" }));
+      root.appendChild(DS.runnable(
+        "import matplotlib.pyplot as plt\n\nmonths = ['Jan','Feb','Mar','Apr','May','Jun']\nrevenue = [12, 19, 15, 25, 22, 30]\n\nplt.plot(months, revenue)\nplt.title('Monthly Revenue')\nplt.show()",
+        "[Chart displayed â€” see the interactive widget below]"
+      ));
+
+      /* Figure Anatomy */
+      root.appendChild(el("h2", { text: "Figure Anatomy" }));
+      var showTitle = true, showAxLabels = true, showLegend = true, showMarkers = true, showGrid = true;
+      var anatomyCanvas = el("canvas", { style: { height: "320px", width: "100%", background: "var(--bg-elev-2)", borderRadius: "var(--radius-sm)" } });
+
+      function drawAnatomy() {
+        if (typeof DS.mountChart === "function") {
+          DS.mountChart(anatomyCanvas, function () {
+            return {
+              type: "line",
+              categories: MONTHS,
+              series: [
+                { y: REV, label: "2023", markers: showMarkers },
+                { y: [10, 15, 18, 20, 26, 28], label: "2024", markers: showMarkers }
+              ],
+              xLabel: showAxLabels ? "Month" : undefined,
+              yLabel: showAxLabels ? "Revenue ($k)" : undefined,
+              grid: showGrid
+            };
+          });
+        } else {
+          DS.chart(anatomyCanvas, {
+            type: "line",
+            categories: MONTHS,
+            series: [
+              { y: REV, label: "2023", markers: showMarkers },
+              { y: [10, 15, 18, 20, 26, 28], label: "2024", markers: showMarkers }
+            ],
+            xLabel: showAxLabels ? "Month" : undefined,
+            yLabel: showAxLabels ? "Revenue ($k)" : undefined,
+            grid: showGrid
+          });
+        }
+      }
+
+      function makeToggle(label, checked, desc, onChange) {
+        var cb = el("input", { type: "checkbox", checked: checked });
+        cb.addEventListener("change", function () { onChange(cb.checked); drawAnatomy(); });
+        return el("div", { style: { display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" } },
+          cb, el("strong", { text: label }), el("span", { text: " â€” " + desc, style: { fontSize: ".82rem", color: "var(--text-soft)" } })
+        );
+      }
+
+      var toggles = el("div", { style: { marginTop: "12px" } },
+        makeToggle("Title", true, "plt.title()", function (v) { showTitle = v; }),
+        makeToggle("Axis labels", true, "plt.xlabel() / ylabel()", function (v) { showAxLabels = v; }),
+        makeToggle("Legend", true, "plt.legend()", function (v) { showLegend = v; }),
+        makeToggle("Markers", true, "marker='o'", function (v) { showMarkers = v; }),
+        makeToggle("Gridlines", true, "plt.grid(True)", function (v) { showGrid = v; })
+      );
+
+      root.appendChild(DS.widget("Figure Anatomy", "ðŸ”¬", "Interactive",
+        anatomyCanvas, toggles
+      ));
+      setTimeout(drawAnatomy, 50);
+
+      /* Chart Builder */
+      root.appendChild(el("h2", { text: "Chart Builder" }));
+      var chartType = "line";
+      var chartTitle = "Monthly Revenue";
+      var chartXLabel = "Month";
+      var chartYLabel = "Revenue ($k)";
+      var chartColor = null;
+      var chartBins = 8;
+      var builderCanvas = el("canvas", { style: { height: "320px", width: "100%", background: "var(--bg-elev-2)", borderRadius: "var(--radius-sm)" } });
+      var builderCode = el("div", { class: "np-result", style: { fontFamily: "var(--font-mono)", fontSize: ".82rem", marginTop: "8px", background: "var(--code-bg)", color: "var(--code-text)", padding: "10px 14px", borderRadius: "var(--radius-sm)", whiteSpace: "pre-wrap" } });
+      var binsControl;
+
+      function drawBuilder() {
+        var spec = { type: chartType };
+        var code = "import matplotlib.pyplot as plt\n\n";
+        if (chartType === "line") {
+          spec.categories = MONTHS; spec.series = [{ y: REV, color: chartColor }];
+          spec.xLabel = chartXLabel; spec.yLabel = chartYLabel;
+          code += "months = ['Jan','Feb','Mar','Apr','May','Jun']\nrev = [12,19,15,25,22,30]\nplt.plot(months, rev";
+          if (chartColor) code += ", color='" + chartColor + "'";
+          code += ")";
+        } else if (chartType === "bar") {
+          spec.categories = MONTHS; spec.series = [{ y: REV, color: chartColor }];
+          spec.xLabel = chartXLabel; spec.yLabel = chartYLabel;
+          code += "plt.bar(months, rev";
+          if (chartColor) code += ", color='" + chartColor + "'";
+          code += ")";
+        } else if (chartType === "scatter") {
+          spec.series = [{ y: REV, x: [0, 1, 2, 3, 4, 5], color: chartColor }];
+          spec.xLabel = chartXLabel; spec.yLabel = chartYLabel;
+          code += "plt.scatter(range(6), rev";
+          if (chartColor) code += ", color='" + chartColor + "'";
+          code += ")";
+        } else if (chartType === "hist") {
+          spec.data = SCORES; spec.bins = chartBins; spec.color = chartColor;
+          spec.xLabel = chartXLabel; spec.yLabel = "Frequency";
+          code += "scores = [" + SCORES.slice(0, 8).join(",") + ",...]\nplt.hist(scores, bins=" + chartBins;
+          if (chartColor) code += ", color='" + chartColor + "'";
+          code += ")";
+        } else if (chartType === "pie") {
+          spec.labels = PIE_LABELS; spec.values = PIE_VALUES;
+          if (chartColor) spec.colors = [chartColor, "#0d9488", "#f59e0b", "#ef4444"];
+          code += "plt.pie([45,25,20,10], labels=['Latte','Mocha','Tea','Cold Brew'], autopct='%1.0f%%')";
+        }
+        if (chartType !== "pie") {
+          if (chartTitle) code += "\nplt.title('" + chartTitle + "')";
+          if (chartXLabel) code += "\nplt.xlabel('" + chartXLabel + "')";
+          if (chartYLabel) code += "\nplt.ylabel('" + chartYLabel + "')";
+        } else {
+          if (chartTitle) code += "\nplt.title('" + chartTitle + "')";
+        }
+        code += "\nplt.show()";
+        builderCode.textContent = code;
+        DS.chart(builderCanvas, spec);
+        binsControl.style.display = chartType === "hist" ? "flex" : "none";
+      }
+
+      var typeChips = el("div", { class: "chips" });
+      var typeEls = [];
+      ["line", "bar", "scatter", "hist", "pie"].forEach(function (t) {
+        var chip = el("span", { class: "chip" + (t === "line" ? " active" : ""), text: t });
+        chip.addEventListener("click", function () {
+          typeEls.forEach(function (c) { c.classList.remove("active"); });
+          chip.classList.add("active");
+          chartType = t;
+          drawBuilder();
+        });
+        typeEls.push(chip);
+        typeChips.appendChild(chip);
+      });
+
+      var titleInput = el("input", { type: "text", value: "Monthly Revenue", style: { width: "160px" } });
+      titleInput.addEventListener("input", function () { chartTitle = titleInput.value; drawBuilder(); });
+      var xlInput = el("input", { type: "text", value: "Month", style: { width: "100px" } });
+      xlInput.addEventListener("input", function () { chartXLabel = xlInput.value; drawBuilder(); });
+      var ylInput = el("input", { type: "text", value: "Revenue ($k)", style: { width: "100px" } });
+      ylInput.addEventListener("input", function () { chartYLabel = ylInput.value; drawBuilder(); });
+
+      var swatches = el("div", { style: { display: "flex", gap: "6px" } });
+      var swatchColors = ["#4f46e5", "#0d9488", "#f59e0b", "#ef4444", "#8b5cf6"];
+      swatchColors.forEach(function (c) {
+        var sw = el("div", { class: "color-swatch", style: { background: c } });
+        sw.addEventListener("click", function () {
+          swatches.querySelectorAll(".color-swatch").forEach(function (s) { s.classList.remove("active"); });
+          sw.classList.add("active");
+          chartColor = c;
+          drawBuilder();
+        });
+        swatches.appendChild(sw);
+      });
+
+      var binsSlider = el("input", { type: "range", min: "4", max: "20", value: "8" });
+      var binsVal = el("span", { class: "val", text: "8" });
+      binsSlider.addEventListener("input", function () { binsVal.textContent = binsSlider.value; chartBins = parseInt(binsSlider.value); drawBuilder(); });
+      binsControl = el("div", { class: "control", style: { display: "none" } }, el("label", { text: "Bins" }), binsSlider, binsVal);
+
+      root.appendChild(DS.widget("Chart Builder", "ðŸŽ¨", "Interactive",
+        el("div", { class: "controls" },
+          el("div", { class: "control" }, el("label", { text: "Type" }), typeChips)
+        ),
+        el("div", { class: "controls" },
+          el("div", { class: "control" }, el("label", { text: "Title" }), titleInput),
+          el("div", { class: "control" }, el("label", { text: "X label" }), xlInput),
+          el("div", { class: "control" }, el("label", { text: "Y label" }), ylInput),
+          el("div", { class: "control" }, el("label", { text: "Color" }), swatches),
+          binsControl
+        ),
+        builderCanvas, builderCode
+      ));
+      setTimeout(drawBuilder, 80);
+
+      /* Which chart when */
+      root.appendChild(el("h2", { text: "Which chart when?" }));
+      var chartGuide = [
+        { icon: "ðŸ“ˆ", title: "Line", desc: "Trends over time â€” sequential data" },
+        { icon: "ðŸ“Š", title: "Bar", desc: "Compare categories â€” discrete groups" },
+        { icon: "âš¬", title: "Scatter", desc: "Relationships between two numeric variables" },
+        { icon: "ðŸ“‰", title: "Histogram", desc: "Distribution shape of one variable" },
+        { icon: "ðŸ¥§", title: "Pie", desc: "Parts of a whole â€” use sparingly!" }
+      ];
+      var guideGrid = el("div", { class: "p-grid" });
+      chartGuide.forEach(function (g) {
+        guideGrid.appendChild(el("div", { class: "feat" },
+          el("div", { class: "f-icon", text: g.icon }),
+          el("div", { class: "f-title", text: g.title }),
+          el("div", { class: "f-desc", text: g.desc })
+        ));
+      });
+      root.appendChild(guideGrid);
+
+      root.appendChild(DS.callout("tip", "<strong>Pro tip:</strong> Start simple. A clean line or bar chart communicates more than a flashy 3D visualization."));
+
+      /* Quiz */
+      root.appendChild(el("h2", { text: "Check your understanding" }));
+      root.appendChild(DS.quiz({
+        title: "Matplotlib Quiz",
+        questions: [
+          {
+            q: "Which chart type is best for showing trends over time?",
+            options: ["Pie chart", "Line chart", "Scatter plot", "Histogram"],
+            answer: 1,
+            explain: "Line charts connect sequential points, making trends and changes over time easy to see."
+          },
+          {
+            q: "What does plt.xlabel() do?",
+            options: ["Sets the chart title", "Labels the x-axis", "Labels the y-axis", "Adds a legend"],
+            answer: 1,
+            explain: "plt.xlabel() sets the label text displayed along the x-axis."
+          },
+          {
+            q: "When should you use a histogram?",
+            options: ["To compare categories", "To show parts of a whole", "To see the distribution of one variable", "To show correlations"],
+            answer: 2,
+            explain: "Histograms bin a continuous variable and show frequency, revealing the shape of the distribution."
+          }
+        ]
+      }));
+
+      root.appendChild(DS.doneToggle("matplotlib"));
+      root.appendChild(DS.pageNav("matplotlib"));
+    }
+  });
+})();
+
+  </script>
+  <script>
+(function () {
+  "use strict";
+  var el = DS.el;
+
+  /* Distribution data â€” deterministic */
+  var DIST_DATA = DS.normalSeq(200, 12345).map(function (z) { return Math.round(50 + 12 * z); });
+
+  /* Correlation data seeds */
+  var COR_N = 60;
+  var COR_XS = DS.normalSeq(60, 777);
+  var COR_NOISE = DS.normalSeq(60, 4242);
+
+  DS.registerTopic({
+    id: "statistics",
+    title: "Statistics",
+    icon: "ðŸ“Š",
+    subtitle: "Center, spread, correlation â€” the math behind the insights",
+    order: 6,
+    countable: true,
+    render: function (root) {
+      root.appendChild(el("h1", { text: "ðŸ“Š Statistics" }));
+      root.appendChild(el("p", { class: "section-intro", text: "Statistics gives you the tools to summarize data, measure uncertainty, and test hypotheses. Here we cover the essentials: center, spread, and correlation." }));
+
+      /* Center measures */
+      root.appendChild(el("h2", { text: "Measures of center" }));
+      root.appendChild(el("p", { html: "<strong>Mean</strong> â€” the arithmetic average. <strong>Median</strong> â€” the middle value when sorted. <strong>Mode</strong> â€” the most frequent value." }));
+      root.appendChild(DS.callout("info", "The <strong>median</strong> is more robust to outliers. If your data is skewed (e.g., incomes), report the median."));
+
+      /* Center & Spread Explorer */
+      root.appendChild(el("h2", { text: "Center & Spread Explorer" }));
+
+      var dataInput = el("input", { type: "text", value: "4, 8, 15, 16, 23, 42", style: { width: "100%", maxWidth: "400px" } });
+      var statsRow = el("div", { class: "stat-row" });
+      var numberLine = el("div", { class: "number-line", style: { height: "90px" } });
+      var errorMsg = el("div", { class: "error-msg" });
+
+      var presets = [
+        { label: "Simple", data: "4, 8, 15, 16, 23, 42" },
+        { label: "Symmetric", data: "10, 20, 30, 40, 50" },
+        { label: "Outlier", data: "10, 32, 35, 38, 40, 900" },
+        { label: "Repeats", data: "5, 5, 10, 10, 10, 15, 20" }
+      ];
+
+      function updateStats() {
+        errorMsg.textContent = "";
+        var raw = dataInput.value.split(",").map(function (s) { return parseFloat(s.trim()); }).filter(function (v) { return !isNaN(v); });
+        if (raw.length < 2) { errorMsg.textContent = "Enter at least 2 numbers"; return; }
+
+        var m = DS.mean(raw), med = DS.median(raw), mod = DS.mode(raw);
+        var sd = DS.std(raw, false), mn = Math.min.apply(null, raw), mx = Math.max.apply(null, raw);
+
+        statsRow.innerHTML = "";
+        [
+          { label: "Mean", val: DS.round(m) },
+          { label: "Median", val: DS.round(med) },
+          { label: "Mode", val: mod !== null ? mod : "â€”" },
+          { label: "Std (sample)", val: DS.round(sd) },
+          { label: "Min", val: mn },
+          { label: "Max", val: mx }
+        ].forEach(function (s) {
+          statsRow.appendChild(el("div", { class: "stat-v" },
+            el("div", { class: "s-val", text: s.val }),
+            el("div", { class: "s-lab", text: s.label })
+          ));
+        });
+
+        /* Number line */
+        numberLine.innerHTML = "";
+        var pad = 20;
+        var range = mx - mn || 1;
+        var track = el("div", { class: "nl-track" });
+        numberLine.appendChild(track);
+
+        // Points
+        raw.forEach(function (v) {
+          var pct = ((v - mn) / range) * 100;
+          var p = el("div", { class: "nl-point", style: { left: "calc(" + pad + "px + " + pct + "% * (1 - " + (2 * pad) + "px / 100%))" } });
+          p.style.left = (pad + pct * (1 - 2 * pad / numberLine.offsetWidth || 0.9)) + "px";
+          numberLine.appendChild(p);
+        });
+        // Recalc with actual width after render
+        setTimeout(function () {
+          var w = numberLine.offsetWidth;
+          var usable = w - 2 * pad;
+          numberLine.querySelectorAll(".nl-point").forEach(function (pt, i) {
+            var pct = (raw[i] - mn) / range;
+            pt.style.left = (pad + pct * usable) + "px";
+          });
+
+          // Mean marker
+          var meanPct = (m - mn) / range;
+          var meanM = el("div", { class: "nl-marker", style: { left: (pad + meanPct * usable) + "px", height: "28px", top: "18%", background: "var(--brand)" } });
+          numberLine.appendChild(meanM);
+          numberLine.appendChild(el("div", { class: "nl-label", style: { left: (pad + meanPct * usable) + "px", color: "var(--brand)" }, text: "mean" }));
+
+          // Median marker
+          var medPct = (med - mn) / range;
+          var medM = el("div", { class: "nl-marker", style: { left: (pad + medPct * usable) + "px", height: "28px", top: "18%", background: "var(--accent)" } });
+          numberLine.appendChild(medM);
+          numberLine.appendChild(el("div", { class: "nl-label", style: { left: (pad + medPct * usable + 20) + "px", color: "var(--accent)" }, text: "median" }));
+
+          // Std band
+          var lo = (DS.clamp(m - sd, mn, mx) - mn) / range;
+          var hi = (DS.clamp(m + sd, mn, mx) - mn) / range;
+          var band = el("div", { class: "nl-band", style: { left: (pad + lo * usable) + "px", width: ((hi - lo) * usable) + "px", background: "var(--brand)" } });
+          numberLine.appendChild(band);
+        }, 30);
+      }
+
+      var presetChips = el("div", { class: "chips" });
+      presets.forEach(function (p) {
+        var chip = el("span", { class: "chip", text: p.label });
+        chip.addEventListener("click", function () {
+          dataInput.value = p.data;
+          updateStats();
+        });
+        presetChips.appendChild(chip);
+      });
+
+      dataInput.addEventListener("input", updateStats);
+
+      root.appendChild(DS.widget("Center & Spread Explorer", "ðŸ“", "Interactive",
+        el("div", { class: "controls" },
+          el("div", { class: "control", style: { flex: "1" } }, el("label", { text: "Data (comma-separated)" }), dataInput)
+        ),
+        el("div", { style: { marginTop: "8px" } }, el("label", { text: "Presets: ", style: { fontSize: ".78rem", color: "var(--muted)" } }), presetChips),
+        statsRow, numberLine, errorMsg
+      ));
+      setTimeout(updateStats, 30);
+
+      /* Distribution Shape */
+      root.appendChild(el("h2", { text: "Distribution Shape" }));
+      var distCanvas = el("canvas", { style: { height: "280px", width: "100%", background: "var(--bg-elev-2)", borderRadius: "var(--radius-sm)" } });
+      var distBins = 12;
+
+      function drawDist() {
+        DS.chart(distCanvas, {
+          type: "hist", data: DIST_DATA, bins: distBins,
+          xLabel: "Value", yLabel: "Frequency"
+        });
+      }
+
+      var distSlider = el("input", { type: "range", min: "4", max: "30", value: "12" });
+      var distVal = el("span", { class: "val", text: "12" });
+      distSlider.addEventListener("input", function () {
+        distVal.textContent = distSlider.value;
+        distBins = parseInt(distSlider.value);
+        drawDist();
+      });
+
+      root.appendChild(DS.widget("Distribution Shape", "ðŸ””", "Interactive",
+        el("div", { class: "controls" },
+          el("div", { class: "control" }, el("label", { text: "Bins" }), distSlider, distVal)
+        ),
+        distCanvas
+      ));
+      setTimeout(drawDist, 80);
+
+      /* Correlation Explorer */
+      root.appendChild(el("h2", { text: "Correlation Explorer" }));
+      root.appendChild(el("p", { text: "Pearson's r measures linear association: +1 = perfect positive, 0 = none, âˆ’1 = perfect negative." }));
+
+      var corCanvas = el("canvas", { style: { height: "300px", width: "100%", background: "var(--bg-elev-2)", borderRadius: "var(--radius-sm)" } });
+      var corR = 0.7;
+      var corInfo = el("div", { class: "stat-row" });
+
+      function drawCorrelation() {
+        var ys = COR_XS.map(function (x, i) {
+          return corR * x + Math.sqrt(Math.max(0, 1 - corR * corR)) * COR_NOISE[i];
+        });
+        var measuredR = DS.pearsonR(COR_XS, ys);
+        var absR = Math.abs(measuredR);
+        var strength = absR > 0.8 ? "Strong" : absR > 0.5 ? "Moderate" : absR > 0.2 ? "Weak" : "Very weak / none";
+        var direction = measuredR > 0.05 ? "positive" : measuredR < -0.05 ? "negative" : "none";
+
+        corInfo.innerHTML = "";
+        corInfo.appendChild(el("div", { class: "stat-v" },
+          el("div", { class: "s-val", text: DS.round(measuredR) }),
+          el("div", { class: "s-lab", text: "Pearson r" })
+        ));
+        corInfo.appendChild(el("div", { class: "stat-v" },
+          el("div", { class: "s-val", text: strength }),
+          el("div", { class: "s-lab", text: "Strength" })
+        ));
+        corInfo.appendChild(el("div", { class: "stat-v" },
+          el("div", { class: "s-val", text: direction }),
+          el("div", { class: "s-lab", text: "Direction" })
+        ));
+
+        // Fit line
+        var fit = DS.linearFit(COR_XS, ys);
+        var xsSort = COR_XS.slice().sort(function (a, b) { return a - b; });
+        var lineX = [xsSort[0], xsSort[xsSort.length - 1]];
+        var lineY = lineX.map(function (x) { return fit.slope * x + fit.intercept; });
+
+        DS.chart(corCanvas, {
+          type: "scatter",
+          series: [
+            { x: COR_XS, y: ys, label: "Data" },
+            { x: lineX, y: lineY, kind: "line", label: "Fit", markers: false, color: "var(--accent)" }
+          ],
+          xLabel: "x", yLabel: "y"
+        });
+      }
+
+      var corSlider = el("input", { type: "range", min: "-100", max: "100", value: "70", style: { width: "260px" } });
+      var corSliderVal = el("span", { class: "val", text: "0.70" });
+      corSlider.addEventListener("input", function () {
+        corR = parseInt(corSlider.value) / 100;
+        corSliderVal.textContent = corR.toFixed(2);
+        drawCorrelation();
+      });
+
+      root.appendChild(DS.widget("Correlation Explorer", "ðŸ”—", "Interactive",
+        el("div", { class: "controls" },
+          el("div", { class: "control" }, el("label", { text: "Target r" }), corSlider, corSliderVal)
+        ),
+        corCanvas, corInfo
+      ));
+      setTimeout(drawCorrelation, 100);
+
+      root.appendChild(DS.callout("warn", "âš ï¸ <strong>Correlation â‰  causation.</strong> Ice cream sales and drowning are correlated â€” but ice cream doesn't cause drowning. The hidden variable is summer heat."));
+
+      /* Quiz */
+      root.appendChild(el("h2", { text: "Check your understanding" }));
+      root.appendChild(DS.quiz({
+        title: "Statistics Quiz",
+        questions: [
+          {
+            q: "Which measure of center is most appropriate for skewed data?",
+            options: ["Mean", "Median", "Mode", "Range"],
+            answer: 1,
+            explain: "The median is robust to outliers and skew, making it more representative of the 'typical' value."
+          },
+          {
+            q: "A large standard deviation means the data is:",
+            options: ["Clustered near the mean", "Widely spread out", "Normally distributed", "Skewed left"],
+            answer: 1,
+            explain: "Standard deviation measures spread. A large value means data points are far from the mean on average."
+          },
+          {
+            q: "What does r = âˆ’0.9 indicate?",
+            options: ["No relationship", "Weak positive correlation", "Strong negative correlation", "Causation"],
+            answer: 2,
+            explain: "|r| = 0.9 is very strong. The negative sign means as x increases, y decreases."
+          },
+          {
+            q: "Correlation does NOT imply:",
+            options: ["Association", "Linear relationship", "Causation", "Co-movement"],
+            answer: 2,
+            explain: "Correlation measures association, but cannot prove that one variable causes changes in another."
+          }
+        ]
+      }));
+
+      root.appendChild(DS.doneToggle("statistics"));
+      root.appendChild(DS.pageNav("statistics"));
+    }
+  });
+})();
+
+  </script>
+  <script>
+(function () {
+  "use strict";
+  var el = DS.el;
+
+  /* Generate tips data with seeded RNG */
+  var R = DS.mulberry32(20240815);
+  var TIPS = [];
+  for (var i = 0; i < 40; i++) {
+    var size = 1 + Math.floor(R() * 4);
+    var day = ["Thur", "Fri", "Sat", "Sun"][Math.floor(R() * 4)];
+    var time = R() < 0.5 ? "Lunch" : "Dinner";
+    var total_bill = DS.round(2 + 8 * size + 4.5 * R() + 12 * R() * R(), 2);
+    var tip = DS.round(total_bill * (0.15 + R() * 0.08 - R() * 0.05), 2);
+    if (tip < 0.5) tip = 0.5;
+    TIPS.push({ total_bill: total_bill, tip: tip, size: size, day: day, time: time });
+  }
+
+  DS.registerTopic({
+    id: "seaborn",
+    title: "Seaborn",
+    icon: "ðŸŒŠ",
+    subtitle: "Beautiful statistical charts â€” one line at a time",
+    order: 7,
+    countable: true,
+    render: function (root) {
+      root.appendChild(el("h1", { text: "ðŸŒŠ Seaborn" }));
+      root.appendChild(el("p", { class: "section-intro", text: "Seaborn is built on top of Matplotlib. It speaks Pandas, does statistics for you, and ships with beautiful defaults. Think of it as a \"point-and-shoot camera\" compared to Matplotlib's full manual SLR." }));
+
+      /* Getting started */
+      root.appendChild(el("h2", { text: "Getting started" }));
+      root.appendChild(DS.runnable(
+        "import seaborn as sns\nimport matplotlib.pyplot as plt\n\nsns.set_theme()  # beautiful defaults\ntips = sns.load_dataset('tips')\nsns.scatterplot(data=tips, x='total_bill', y='tip', hue='time')\nplt.show()",
+        "[Scatter plot displayed â€” see the interactive gallery below]"
+      ));
+
+      /* Tips Sample Data */
+      root.appendChild(el("h2", { text: "Tips Sample Data" }));
+      root.appendChild(el("p", { text: "This is our seeded sample dataset (~40 rows). Here are the first 8 rows:" }));
+      root.appendChild(DS.buildTable(TIPS.slice(0, 8), ["total_bill", "tip", "size", "day", "time"]));
+
+      /* Plot Gallery */
+      root.appendChild(el("h2", { text: "Seaborn Plot Gallery" }));
+      root.appendChild(el("p", { text: "Click a chart type to see it rendered with the tips data, the one-line code, and what Seaborn does for you." }));
+
+      var galleryCanvas = el("canvas", { style: { height: "300px", width: "100%", background: "var(--bg-elev-2)", borderRadius: "var(--radius-sm)" } });
+      var galleryCode = el("div", { class: "np-result", style: { fontFamily: "var(--font-mono)", fontSize: ".82rem", marginTop: "8px", background: "var(--code-bg)", color: "var(--code-text)", padding: "10px 14px", borderRadius: "var(--radius-sm)", whiteSpace: "pre-wrap" } });
+      var galleryNote = el("div", { class: "callout tip", style: { marginTop: "8px" } });
+      var heatmapArea = el("div", { style: { display: "none" } });
+      var activeChart = "scatterplot";
+
+      function drawGallery() {
+        galleryCanvas.style.display = "block";
+        heatmapArea.style.display = "none";
+
+        if (activeChart === "scatterplot") {
+          var lunch = TIPS.filter(function (t) { return t.time === "Lunch"; });
+          var dinner = TIPS.filter(function (t) { return t.time === "Dinner"; });
+          DS.chart(galleryCanvas, {
+            type: "scatter",
+            series: [
+              { x: lunch.map(function (t) { return t.total_bill; }), y: lunch.map(function (t) { return t.tip; }), label: "Lunch", color: "var(--brand)" },
+              { x: dinner.map(function (t) { return t.total_bill; }), y: dinner.map(function (t) { return t.tip; }), label: "Dinner", color: "var(--accent)" }
+            ],
+            xLabel: "total_bill", yLabel: "tip"
+          });
+          galleryCode.textContent = "sns.scatterplot(data=tips, x='total_bill', y='tip', hue='time')";
+          galleryNote.innerHTML = "ðŸŽ¨ Seaborn automatically <strong>colors by group</strong> (hue) and adds a legend.";
+        } else if (activeChart === "barplot") {
+          var days = ["Thur", "Fri", "Sat", "Sun"];
+          var means = days.map(function (d) {
+            var vals = TIPS.filter(function (t) { return t.day === d; }).map(function (t) { return t.tip; });
+            return vals.length ? DS.round(DS.mean(vals)) : 0;
+          });
+          DS.chart(galleryCanvas, {
+            type: "bar", categories: days, series: [{ y: means }],
+            xLabel: "day", yLabel: "mean tip"
+          });
+          galleryCode.textContent = "sns.barplot(data=tips, x='day', y='tip')";
+          galleryNote.innerHTML = "ðŸ“Š Seaborn computes the <strong>mean</strong> and adds confidence interval error bars automatically.";
+        } else if (activeChart === "histplot") {
+          DS.chart(galleryCanvas, {
+            type: "hist", data: TIPS.map(function (t) { return t.total_bill; }), bins: 10,
+            xLabel: "total_bill", yLabel: "Count"
+          });
+          galleryCode.textContent = "sns.histplot(data=tips, x='total_bill')";
+          galleryNote.innerHTML = "ðŸ”” Seaborn picks sensible bin widths and can optionally overlay a <strong>KDE curve</strong>.";
+        } else if (activeChart === "lmplot") {
+          // mean tip by size
+          var sizes = [1, 2, 3, 4];
+          var avgTip = sizes.map(function (s) {
+            var vals = TIPS.filter(function (t) { return t.size === s; }).map(function (t) { return t.tip; });
+            return vals.length ? DS.round(DS.mean(vals)) : 0;
+          });
+          DS.chart(galleryCanvas, {
+            type: "line", categories: sizes.map(String),
+            series: [{ y: avgTip, label: "Mean tip" }],
+            xLabel: "Party size", yLabel: "Mean tip ($)"
+          });
+          galleryCode.textContent = "sns.lmplot(data=tips, x='size', y='tip')";
+          galleryNote.innerHTML = "ðŸ“ˆ lmplot fits a <strong>linear regression</strong> with a confidence band.";
+        } else if (activeChart === "regplot") {
+          var xs = TIPS.map(function (t) { return t.total_bill; });
+          var ys = TIPS.map(function (t) { return t.tip; });
+          var fit = DS.linearFit(xs, ys);
+          var xsSort = xs.slice().sort(function (a, b) { return a - b; });
+          var lineX = [xsSort[0], xsSort[xsSort.length - 1]];
+          var lineY = lineX.map(function (x) { return fit.slope * x + fit.intercept; });
+          DS.chart(galleryCanvas, {
+            type: "scatter",
+            series: [
+              { x: xs, y: ys, label: "Data" },
+              { x: lineX, y: lineY, kind: "line", label: "Fit", markers: false, color: "var(--accent)" }
+            ],
+            xLabel: "total_bill", yLabel: "tip"
+          });
+          galleryCode.textContent = "sns.regplot(data=tips, x='total_bill', y='tip')";
+          galleryNote.innerHTML = "ðŸ“ regplot adds a <strong>regression line + confidence band</strong> to a scatter plot.";
+        } else if (activeChart === "heatmap") {
+          galleryCanvas.style.display = "none";
+          heatmapArea.style.display = "block";
+          // Compute correlation matrix
+          var cols = ["total_bill", "tip", "size"];
+          var matrix = [];
+          cols.forEach(function (c1) {
+            var row = [];
+            cols.forEach(function (c2) {
+              var a = TIPS.map(function (t) { return t[c1]; });
+              var b = TIPS.map(function (t) { return t[c2]; });
+              row.push(DS.round(DS.pearsonR(a, b), 2));
+            });
+            matrix.push(row);
+          });
+
+          heatmapArea.innerHTML = "";
+          var grid = el("div", { class: "heatmap", style: { gridTemplateColumns: "80px repeat(" + cols.length + ", 64px)" } });
+          // Header
+          grid.appendChild(el("div", { class: "hm-label", text: "" }));
+          cols.forEach(function (c) { grid.appendChild(el("div", { class: "hm-label", text: c })); });
+          // Rows
+          matrix.forEach(function (row, ri) {
+            grid.appendChild(el("div", { class: "hm-label", text: cols[ri] }));
+            row.forEach(function (val) {
+              var c = DS.coolwarm(val);
+              grid.appendChild(el("div", { class: "hm-cell", style: { background: c.bg, color: c.fg }, text: val.toFixed(2) }));
+            });
+          });
+          heatmapArea.appendChild(grid);
+          galleryCode.textContent = "sns.heatmap(tips[['total_bill','tip','size']].corr(), annot=True, cmap='coolwarm')";
+          galleryNote.innerHTML = "ðŸ”¥ Seaborn <strong>colors the matrix</strong> with a diverging colormap and annotates each cell.";
+        }
+      }
+
+      var chartTypes = [
+        { id: "scatterplot", label: "scatterplot" },
+        { id: "barplot", label: "barplot" },
+        { id: "histplot", label: "histplot" },
+        { id: "lmplot", label: "lmplot" },
+        { id: "regplot", label: "regplot" },
+        { id: "heatmap", label: "heatmap" }
+      ];
+      var chartChips = el("div", { class: "chips" });
+      var chartChipEls = [];
+      chartTypes.forEach(function (ct) {
+        var chip = el("span", { class: "chip" + (ct.id === "scatterplot" ? " active" : ""), text: ct.label });
+        chip.addEventListener("click", function () {
+          chartChipEls.forEach(function (c) { c.classList.remove("active"); });
+          chip.classList.add("active");
+          activeChart = ct.id;
+          drawGallery();
+        });
+        chartChipEls.push(chip);
+        chartChips.appendChild(chip);
+      });
+
+      root.appendChild(DS.widget("Seaborn Plot Gallery", "ðŸ–¼ï¸", "Interactive",
+        chartChips, galleryCanvas, heatmapArea, galleryCode, galleryNote
+      ));
+      setTimeout(drawGallery, 100);
+
+      /* Matplotlib vs Seaborn */
+      root.appendChild(el("h2", { text: "Matplotlib vs Seaborn" }));
+      root.appendChild(DS.tabs([
+        {
+          label: "Matplotlib (manual)",
+          content: function () {
+            return DS.runnable(
+              "import matplotlib.pyplot as plt\n\nfor time_val in ['Lunch', 'Dinner']:\n    subset = tips[tips['time'] == time_val]\n    plt.scatter(subset['total_bill'], subset['tip'], label=time_val)\nplt.legend()\nplt.xlabel('total_bill')\nplt.ylabel('tip')\nplt.show()",
+              "[Scatter plot with manual loop + legend]"
+            );
+          }
+        },
+        {
+          label: "Seaborn (one line)",
+          content: function () {
+            return DS.runnable(
+              "import seaborn as sns\n\nsns.scatterplot(data=tips, x='total_bill', y='tip', hue='time')",
+              "[Same chart â€” one line!]"
+            );
+          }
+        }
+      ]));
+
+      /* More one-liners */
+      root.appendChild(el("h2", { text: "More Seaborn one-liners" }));
+      root.appendChild(DS.tabs([
+        {
+          label: "boxplot",
+          content: function () {
+            return DS.runnable(
+              "sns.boxplot(data=tips, x='day', y='total_bill')",
+              "[Box plot showing distribution per day]"
+            );
+          }
+        },
+        {
+          label: "violinplot",
+          content: function () {
+            return DS.runnable(
+              "sns.violinplot(data=tips, x='day', y='total_bill')",
+              "[Violin plot â€” KDE + box plot combined]"
+            );
+          }
+        },
+        {
+          label: "pairplot",
+          content: function () {
+            return DS.runnable(
+              "sns.pairplot(tips, hue='time')",
+              "[Grid of scatter + histogram for every numeric pair]"
+            );
+          }
+        },
+        {
+          label: "countplot",
+          content: function () {
+            return DS.runnable(
+              "sns.countplot(data=tips, x='day', hue='time')",
+              "[Grouped bar chart of counts per day/time]"
+            );
+          }
+        }
+      ]));
+
+      /* Quiz */
+      root.appendChild(el("h2", { text: "Check your understanding" }));
+      root.appendChild(DS.quiz({
+        title: "Seaborn Quiz",
+        questions: [
+          {
+            q: "What library is Seaborn built on top of?",
+            options: ["NumPy", "Pandas", "Matplotlib", "Plotly"],
+            answer: 2,
+            explain: "Seaborn is a high-level interface built on top of Matplotlib."
+          },
+          {
+            q: "What does the 'hue' parameter do?",
+            options: ["Changes the chart background", "Adjusts the brightness", "Colors data points by a categorical variable", "Filters the data"],
+            answer: 2,
+            explain: "hue= splits data by a category and assigns each group a different color."
+          },
+          {
+            q: "Which Seaborn function adds a regression line to a scatter plot?",
+            options: ["sns.scatterplot", "sns.barplot", "sns.regplot", "sns.histplot"],
+            answer: 2,
+            explain: "sns.regplot() draws scatter points plus a fitted regression line with confidence band."
+          },
+          {
+            q: "What does a heatmap of .corr() show?",
+            options: ["Raw data values", "Missing data locations", "Pairwise correlation coefficients", "Data types"],
+            answer: 2,
+            explain: "A heatmap of the correlation matrix shows how strongly each pair of numeric columns is linearly related."
+          }
+        ]
+      }));
+
+      root.appendChild(DS.doneToggle("seaborn"));
+      root.appendChild(DS.pageNav("seaborn"));
+    }
+  });
+})();
+
+  </script>
+  <script>
+(function () {
+  "use strict";
+  var DS = window.DS;
+
+  /* ===== mountChart ===== */
+  DS.mountChart = function (canvas, getSpec) {
+    function draw() {
+      var spec = typeof getSpec === "function" ? getSpec() : getSpec;
+      DS.chart(canvas, spec);
+    }
+    DS._charts.push(draw);
+    requestAnimationFrame(draw);
+    return draw;
+  };
+
+  function redrawCharts() {
+    DS._charts.forEach(function (d) { try { d(); } catch (e) { /* skip */ } });
+  }
+
+  /* ===== Theme ===== */
+  var store = {
+    get: function (k) { try { return localStorage.getItem("dse:" + k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem("dse:" + k, v); } catch (e) { /* noop */ } }
+  };
+
+  function getPreferredTheme() {
+    var saved = store.get("theme");
+    if (saved) return saved;
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
+    return "light";
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    store.set("theme", theme);
+    var btn = document.getElementById("theme-btn");
+    if (btn) btn.textContent = theme === "dark" ? "â˜€ï¸" : "ðŸŒ™";
+    requestAnimationFrame(function () { redrawCharts(); });
+    setTimeout(function () { redrawCharts(); }, 50);
+  }
+
+  applyTheme(getPreferredTheme());
+
+  /* ===== Build Sidebar ===== */
+  var sidebar = document.getElementById("sidebar");
+  var sidebarNav = sidebar.querySelector(".sidebar-nav");
+  var sorted = DS.topics.slice().sort(function (a, b) { return a.order - b.order; });
+
+  sorted.forEach(function (t) {
+    var a = document.createElement("a");
+    a.href = "#/" + t.id;
+    a.dataset.id = t.id;
+    a.innerHTML = '<span class="nav-icon">' + t.icon + '</span><span>' + t.title + '</span>';
+    var tail = document.createElement("span");
+    tail.className = "nav-tail";
+    tail.textContent = t.order;
+    a.appendChild(tail);
+    sidebarNav.appendChild(a);
+  });
+
+  function updateSidebarProgress() {
+    sidebarNav.querySelectorAll("a").forEach(function (a) {
+      var id = a.dataset.id;
+      var topic = null;
+      DS.topics.forEach(function (t) { if (t.id === id) topic = t; });
+      var tail = a.querySelector(".nav-tail");
+      if (topic && topic.countable && DS.progress.isDone(id)) {
+        tail.textContent = "âœ“";
+        tail.classList.add("nav-check");
+      } else if (topic) {
+        tail.textContent = topic.order;
+        tail.classList.remove("nav-check");
+      }
+    });
+    // Update progress pill
+    var countable = DS.topics.filter(function (t) { return t.countable; });
+    var done = countable.filter(function (t) { return DS.progress.isDone(t.id); }).length;
+    var pct = countable.length ? Math.round(done / countable.length * 100) : 0;
+    var pill = document.getElementById("progress-pill");
+    if (pill) pill.textContent = pct + "% complete";
+  }
+
+  window.addEventListener("dse:progress", updateSidebarProgress);
+  updateSidebarProgress();
+
+  /* ===== Router ===== */
+  var app = document.getElementById("app");
+
+  function route() {
+    var hash = location.hash.replace(/^#\/?/, "") || "home";
+    var topic = null;
+    DS.topics.forEach(function (t) { if (t.id === hash) topic = t; });
+    if (!topic) { topic = DS.topics.filter(function (t) { return t.id === "home"; })[0]; hash = "home"; }
+
+    // Clear app
+    app.innerHTML = "";
+    DS._charts = [];
+
+    // Update title
+    document.title = topic.title + " â€” Data Science Explorer";
+
+    // Render
+    topic.render(app);
+
+    // Active nav
+    sidebarNav.querySelectorAll("a").forEach(function (a) {
+      a.classList.toggle("active", a.dataset.id === hash);
+    });
+
+    // Close mobile menu
+    sidebar.classList.remove("open");
+    document.getElementById("scrim").classList.remove("open");
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+
+    // Redraw charts after layout settles
+    requestAnimationFrame(redrawCharts);
+    setTimeout(redrawCharts, 80);
+  }
+
+  window.addEventListener("hashchange", route);
+  route();
+
+  /* ===== Theme Button ===== */
+  document.getElementById("theme-btn").addEventListener("click", function () {
+    var current = document.documentElement.dataset.theme || "light";
+    applyTheme(current === "dark" ? "light" : "dark");
+  });
+
+  /* ===== Mobile Menu ===== */
+  var hamburger = document.getElementById("hamburger");
+  var scrim = document.getElementById("scrim");
+  hamburger.addEventListener("click", function () {
+    sidebar.classList.toggle("open");
+    scrim.classList.toggle("open");
+  });
+  scrim.addEventListener("click", function () {
+    sidebar.classList.remove("open");
+    scrim.classList.remove("open");
+  });
+
+  /* Sidebar link clicks close mobile menu */
+  sidebarNav.addEventListener("click", function () {
+    sidebar.classList.remove("open");
+    scrim.classList.remove("open");
+  });
+
+  /* ===== Reset Progress ===== */
+  document.getElementById("reset-btn").addEventListener("click", function () {
+    if (confirm("Reset all progress? This cannot be undone.")) {
+      DS.progress.reset();
+      updateSidebarProgress();
+      route();
+    }
+  });
+
+  /* ===== Resize redraw ===== */
+  var resizeTimer;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(redrawCharts, 150);
+  });
+
+})();
+
+  </script>
+</body>
+</html>
