@@ -202,4 +202,15 @@ document.addEventListener("DOMContentLoaded", () => {
       if (window.PlayerAPI) window.PlayerAPI.playNext();
     });
   }
+
+  const btnMute = document.getElementById("btn-mute");
+  if (btnMute) {
+    btnMute.addEventListener("click", () => {
+      if (window.PlayerAPI) {
+        const muted = window.PlayerAPI.toggleMute();
+        btnMute.textContent = muted ? "🔇" : "🔊";
+        btnMute.title = muted ? "आवाज़ चालू करें" : "आवाज़ बंद करें";
+      }
+    });
+  }
 });

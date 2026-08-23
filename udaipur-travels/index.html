@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html lang="hi">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>उदयपुर ट्रैवल्स — UDAIPUR TRAVELS | माटी • बोली • धुन</title>
-  <meta name="description"
-    content="एक सफ़र... राजस्थान की माटी, बोली और धुन के नाम। सुनो मारवाड़ी लोकगीत और अनुभव करो राजस्थान की खूबसूरत यात्रा।">
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚌</text></svg>">
-  <link rel="stylesheet" href="css/style.css?v=1">
+  <meta name="description" content="एक सफ़र... राजस्थान की माटी, बोली और धुन के नाम। सुनो मारवाड़ी लोकगीत और अनुभव करो राजस्थान की खूबसूरत यात्रा।">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚌</text></svg>">
+  <link rel="stylesheet" href="css/style.css?v=2">
 </head>
-
 <body>
 
   <!-- Fullscreen Background Video Wrap -->
   <div class="bg-video-wrap">
     <video class="bg-video" autoplay muted loop playsinline poster="assets/fallback-bg.jpg">
       <source src="assets/udaipur-travels.mp4" type="video/mp4">
+      <source src="assets/Udaiper_travels.mp4" type="video/mp4">
     </video>
     <div class="vignette-overlay"></div>
   </div>
@@ -52,15 +49,15 @@
     </div>
   </main>
 
-  <!-- Compact Translucent Floating Music Player -->
-  <footer id="mini-player" class="player-bar">
+  <!-- Redesigned Premium Translucent Music Player -->
+  <div id="mini-player" class="player-bar">
     <div class="player-info">
       <div id="player-thumb" class="player-artwork">
         <span class="art-icon">🪕</span>
       </div>
       <div class="player-text">
-        <span id="player-title" class="player-title font-rozha">उदयपुर ट्रैवल्स में पधारो</span>
-        <span id="player-artist" class="player-artist font-hi">धुन चालू करो</span>
+        <span id="player-title" class="player-title font-yatra">उदयपुर ट्रैवल्स में पधारो</span>
+        <span id="player-artist" class="player-artist font-hi">मारवाड़ी लोकधुन</span>
       </div>
     </div>
 
@@ -73,19 +70,41 @@
     </div>
 
     <div class="player-side">
-      <div id="equalizer" class="equalizer">
+      <!-- Equalizer Waveform -->
+      <div id="equalizer" class="equalizer" title="धुन तरंग">
         <span class="eq-bar"></span>
         <span class="eq-bar"></span>
         <span class="eq-bar"></span>
         <span class="eq-bar"></span>
       </div>
-    </div>
-  </footer>
 
-  <!-- Bottom Tagline -->
-  <div class="bottom-tagline font-hi">
-    राजस्थान की माटी से, दिल तक।
+      <!-- Mute Toggle -->
+      <button id="btn-mute" class="ctrl-sub-btn" aria-label="Toggle mute" title="आवाज़ चालू/बंद">🔊</button>
+
+      <!-- YouTube Music Link -->
+      <a id="btn-yt-link" href="https://music.youtube.com/playlist?list=PLSDY6YLTAlrc" target="_blank" rel="noopener" class="ctrl-sub-btn yt-badge" aria-label="Open on YouTube" title="YouTube पर खोलो">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M21.8 8.001a2.75 2.75 0 0 0-1.94-1.93C18.24 5.5 12 5.5 12 5.5s-6.24 0-7.86.57A2.75 2.75 0 0 0 2.2 8.001 28.7 28.7 0 0 0 1.75 12a28.7 28.7 0 0 0 .45 3.999 2.75 2.75 0 0 0 1.94 1.93c1.62.57 7.86.57 7.86.57s6.24 0 7.86-.57a2.75 2.75 0 0 0 1.94-1.93A28.7 28.7 0 0 0 22.25 12a28.7 28.7 0 0 0-.45-3.999ZM9.75 15.02V8.98L15.5 12l-5.75 3.02Z"/></svg>
+      </a>
+    </div>
   </div>
+
+  <!-- Rajasthani Art Motif Footer -->
+  <footer class="rajasthani-art-footer font-hi">
+    <div class="art-band">
+      <span class="art-motif">🐘</span>
+      <span class="art-dot">◆</span>
+      <span class="art-motif">🦚</span>
+      <span class="art-dot">◆</span>
+      <span class="art-motif">🐪</span>
+      <span class="art-dot">◆</span>
+      <span class="art-motif">🪷</span>
+      <span class="art-dot">◆</span>
+      <span class="art-motif">🐘</span>
+      <span class="art-dot">◆</span>
+      <span class="art-motif">🦚</span>
+    </div>
+    <p class="footer-credit">Made with ❤️ for Rajasthan by Mahi</p>
+  </footer>
 
   <!-- Journey Story Modal -->
   <div id="modal-about" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -106,18 +125,16 @@
   <!-- YouTube Error Fallback Message -->
   <div id="yt-error" class="yt-error-msg font-hi" hidden>
     <p>धुन आज थोड़ी रूठी है...</p>
-    <a href="https://music.youtube.com/playlist?list=PLSDY6YLTAlrc" target="_blank" rel="noopener">YouTube पर खोलें
-      →</a>
+    <a href="https://music.youtube.com/playlist?list=PLSDY6YLTAlrc" target="_blank" rel="noopener">YouTube पर खोलें →</a>
   </div>
 
   <!-- Hidden YouTube IFrame Container -->
   <div id="youtube-player-container"></div>
 
   <!-- JavaScript Modules -->
-  <script src="data/quotes.js?v=1"></script>
-  <script src="js/player.js?v=1"></script>
-  <script src="js/app.js?v=1"></script>
+  <script src="data/quotes.js?v=2"></script>
+  <script src="js/player.js?v=2"></script>
+  <script src="js/app.js?v=2"></script>
 
 </body>
-
 </html>

@@ -124,6 +124,22 @@ const PlayerAPI = {
   playPrev: () => {
     if (!isPlayerReady || !ytPlayer) return;
     ytPlayer.previousVideo();
+  },
+
+  toggleMute: () => {
+    if (!isPlayerReady || !ytPlayer) return false;
+    if (ytPlayer.isMuted()) {
+      ytPlayer.unMute();
+      return false;
+    } else {
+      ytPlayer.mute();
+      return true;
+    }
+  },
+
+  isMuted: () => {
+    if (!isPlayerReady || !ytPlayer) return false;
+    return ytPlayer.isMuted();
   }
 };
 

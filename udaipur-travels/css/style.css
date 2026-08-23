@@ -253,37 +253,38 @@ body.journey-started .cta-container {
   font-size: 0.95rem;
 }
 
-/* --- Compact Translucent Floating Music Player --- */
+/* --- Redesigned Premium Translucent Floating Music Player --- */
 .player-bar {
   position: fixed;
-  bottom: 24px;
+  bottom: 56px;
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 40px);
-  max-width: 520px;
-  height: 56px;
-  background: rgba(8, 12, 22, 0.65);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(229, 193, 88, 0.3);
+  max-width: 560px;
+  height: 58px;
+  background: linear-gradient(135deg, rgba(8, 12, 22, 0.75), rgba(40, 20, 15, 0.65));
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1.5px solid rgba(229, 193, 88, 0.4);
   border-radius: 40px;
-  padding: 4px 16px;
+  padding: 4px 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 50;
   box-shadow: 
     0 12px 36px rgba(0, 0, 0, 0.8),
-    0 0 20px rgba(229, 193, 88, 0.15);
-  transition: all 0.4s ease;
+    0 0 20px rgba(229, 193, 88, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body.music-playing .player-bar {
-  background: rgba(8, 12, 22, 0.82);
-  border-color: rgba(229, 193, 88, 0.5);
+  background: linear-gradient(135deg, rgba(8, 12, 22, 0.88), rgba(60, 25, 18, 0.8));
+  border-color: rgba(229, 193, 88, 0.65);
   box-shadow: 
-    0 14px 40px rgba(0, 0, 0, 0.85),
-    0 0 25px rgba(229, 193, 88, 0.25);
+    0 14px 45px rgba(0, 0, 0, 0.9),
+    0 0 30px rgba(229, 193, 88, 0.35);
 }
 
 .player-info {
@@ -295,21 +296,31 @@ body.music-playing .player-bar {
 }
 
 .player-artwork {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   background: linear-gradient(135deg, var(--clr-crimson), var(--clr-terracotta));
   background-size: cover;
   background-position: center;
-  border: 1.5px solid rgba(229, 193, 88, 0.6);
+  border: 1.5px solid rgba(229, 193, 88, 0.7);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
   overflow: hidden;
-  transition: background-image 0.4s ease;
+  transition: background-image 0.4s ease, transform 0.4s ease;
+}
+
+body.music-playing .player-artwork {
+  animation: vinylSpin 12s linear infinite;
+  border-color: var(--clr-gold);
+}
+
+@keyframes vinylSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .player-artwork.has-thumb .art-icon {
@@ -329,6 +340,7 @@ body.music-playing .player-bar {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: 0.5px;
 }
 
 .player-artist {
@@ -351,7 +363,7 @@ body.music-playing .player-bar {
   background: none;
   border: none;
   color: var(--clr-sand);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -365,14 +377,14 @@ body.music-playing .player-bar {
 }
 
 .play-pause-btn {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--clr-gold), var(--clr-terracotta));
   color: #fff;
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 0 15px rgba(229, 193, 88, 0.4);
-  font-size: 1.05rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 16px rgba(229, 193, 88, 0.5);
+  font-size: 1.1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -381,7 +393,7 @@ body.music-playing .player-bar {
 
 .play-pause-btn:hover {
   transform: scale(1.08);
-  box-shadow: 0 0 22px rgba(229, 193, 88, 0.7);
+  box-shadow: 0 0 24px rgba(229, 193, 88, 0.8);
   border-color: #fff;
 }
 
@@ -390,10 +402,11 @@ body.music-playing .player-bar {
 }
 
 .player-side {
-  flex: 0.8;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 10px;
 }
 
 .equalizer {
@@ -422,18 +435,72 @@ body.music-playing .player-bar {
   100% { height: 16px; opacity: 1; background: var(--clr-gold); box-shadow: 0 0 6px var(--clr-gold); }
 }
 
-/* --- Tiny Bottom Tagline --- */
-.bottom-tagline {
-  position: fixed;
-  bottom: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.75rem;
+.ctrl-sub-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(229, 193, 88, 0.25);
   color: var(--clr-sand);
-  opacity: 0.4;
-  letter-spacing: 1px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.ctrl-sub-btn:hover {
+  background: rgba(200, 75, 49, 0.6);
+  color: #fff;
+  border-color: var(--clr-gold);
+  transform: scale(1.08);
+}
+
+.yt-badge:hover {
+  background: rgba(255, 0, 0, 0.35);
+  border-color: #ff4e4e;
+}
+
+/* --- Beautiful Rajasthani Art Motif Footer --- */
+.rajasthani-art-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, transparent 0%, rgba(8, 12, 22, 0.95) 40%, rgba(8, 12, 22, 1) 100%);
+  padding: 8px 0 10px;
+  text-align: center;
   z-index: 15;
-  pointer-events: none;
+  pointer-events: auto;
+}
+
+.art-band {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0.6;
+  margin-bottom: 2px;
+}
+
+.art-motif {
+  font-size: 0.95rem;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.8));
+}
+
+.art-dot {
+  font-size: 0.5rem;
+  color: var(--clr-gold);
+}
+
+.footer-credit {
+  font-size: 0.78rem;
+  color: var(--clr-sand);
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
 /* --- Journey Modal Dialog ("सफ़र के बारे में") --- */
@@ -606,15 +673,15 @@ body.music-playing .player-bar {
   }
   
   .player-bar {
-    bottom: 14px;
-    width: calc(100% - 24px);
-    height: 48px;
+    bottom: 40px;
+    width: calc(100% - 20px);
+    height: 50px;
     padding: 4px 10px;
   }
   
   .player-artwork {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     font-size: 0.9rem;
   }
   
@@ -623,15 +690,29 @@ body.music-playing .player-bar {
   }
   
   .player-title {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
   }
   
   .equalizer {
     display: none;
   }
   
-  .bottom-tagline {
-    display: none;
+  .ctrl-sub-btn {
+    width: 26px;
+    height: 26px;
+    font-size: 0.85rem;
+  }
+
+  .rajasthani-art-footer {
+    padding: 4px 0 6px;
+  }
+
+  .art-motif {
+    font-size: 0.82rem;
+  }
+
+  .footer-credit {
+    font-size: 0.7rem;
   }
   
   .modal-card {
