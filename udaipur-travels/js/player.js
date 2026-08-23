@@ -25,6 +25,8 @@ function onYouTubeIframeAPIReady() {
       'controls': 0,
       'disablekb': 1,
       'rel': 0,
+      'autoplay': 1,
+      'mute': 1,
       'listType': 'playlist',
       'list': YOUTUBE_PLAYLIST_ID
     },
@@ -39,6 +41,8 @@ function onYouTubeIframeAPIReady() {
 function onPlayerReady(event) {
   isPlayerReady = true;
   console.log("Udaipur Travels YouTube Player Ready. Playlist ID:", YOUTUBE_PLAYLIST_ID);
+  // Auto-start: the playlist begins muted via playerVars autoplay+mute
+  document.body.classList.add("journey-started");
 }
 
 let lastReportedVideoId = "";
@@ -134,6 +138,13 @@ const PlayerAPI = {
     } else {
       ytPlayer.mute();
       return true;
+    }
+  },
+
+  unmute: () => {
+    if (!isPlayerReady || !ytPlayer) return;
+    if (ytPlayer.isMuted()) {
+      ytPlayer.unMute();
     }
   },
 

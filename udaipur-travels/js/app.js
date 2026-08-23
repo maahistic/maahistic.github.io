@@ -213,4 +213,21 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // --- Auto-Unmute on First User Interaction Anywhere on Page ---
+  const handleFirstInteraction = () => {
+    if (window.PlayerAPI && window.PlayerAPI.isMuted()) {
+      window.PlayerAPI.unmute();
+      if (btnMute) {
+        btnMute.textContent = "🔊";
+        btnMute.title = "आवाज़ बंद करें";
+      }
+    }
+    // Remove listeners after first interaction
+    document.removeEventListener("pointerdown", handleFirstInteraction);
+    document.removeEventListener("keydown", handleFirstInteraction);
+  };
+
+  document.addEventListener("pointerdown", handleFirstInteraction);
+  document.addEventListener("keydown", handleFirstInteraction);
 });
