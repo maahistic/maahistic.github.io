@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>उदयपुर ट्रैवल्स — UDAIPUR TRAVELS | माटी • बोली • धुन</title>
+  <meta name="description" content="एक सफ़र... राजस्थान की माटी, बोली और धुन के नाम। सुनो मारवाड़ी लोकगीत और अनुभव करो राजस्थान की खूबसूरत यात्रा।">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚌</text></svg>">
+  <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+
+  <!-- Fullscreen Background Video Wrap -->
+  <div class="bg-video-wrap">
+    <video class="bg-video" autoplay muted loop playsinline poster="assets/fallback-bg.jpg">
+      <source src="assets/Udaiper_travels.mp4" type="video/mp4">
+      <source src="assets/udaipur_travels.mp4" type="video/mp4">
+    </video>
+    <div class="vignette-overlay"></div>
+  </div>
+
+  <!-- Subtle Dust Particles Canvas -->
+  <canvas id="dust-canvas"></canvas>
+
+  <!-- Top Header Navigation Bar -->
+  <header class="header-bar">
+    <div class="header-brand">
+      <span class="brand-main font-yatra">उदयपुर ट्रैवल्स</span>
+      <span class="brand-en">UDAIPUR TRAVELS</span>
+    </div>
+
+    <div class="header-actions">
+      <button id="btn-about" class="btn-secondary font-hi" aria-label="Journey details">
+        ☰ सफ़र के बारे में
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Center Overlay -->
+  <main class="hero-center">
+    <div class="hero-title-group">
+      <h1 class="hero-main-title font-yatra">उदयपुर ट्रैवल्स</h1>
+      <div class="hero-subtitle font-hi">माटी • बोली • धुन</div>
+    </div>
+
+    <!-- Rotating Emotional Quote -->
+    <div class="quote-wrapper">
+      <div id="hero-quote" class="quote-line"></div>
+    </div>
+
+    <!-- Primary CTA Button -->
+    <div class="cta-container">
+      <button id="btn-start-music" class="btn-primary-cta font-hi">
+        <span class="play-symbol">▶</span> धुन चालू करो
+      </button>
+    </div>
+  </main>
+
+  <!-- Compact Translucent Floating Music Player -->
+  <footer id="mini-player" class="player-bar">
+    <div class="player-info">
+      <div id="player-thumb" class="player-artwork">
+        <span class="art-icon">🪕</span>
+      </div>
+      <div class="player-text">
+        <span id="player-title" class="player-title font-rozha">उदयपुर ट्रैवल्स में पधारो</span>
+        <span id="player-artist" class="player-artist font-hi">धुन चालू करो</span>
+      </div>
+    </div>
+
+    <div class="player-controls">
+      <button id="btn-prev" class="ctrl-btn" aria-label="Previous song" title="पिछली धुन">⏮</button>
+      <button id="btn-play-pause" class="ctrl-btn play-pause-btn" aria-label="Play music" title="चालू / बंद">
+        <span class="play-icon">▶</span>
+      </button>
+      <button id="btn-next" class="ctrl-btn" aria-label="Next song" title="अगली धुन">⏭</button>
+    </div>
+
+    <div class="player-side">
+      <div id="equalizer" class="equalizer">
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bottom Tagline -->
+  <div class="bottom-tagline font-hi">
+    राजस्थान की माटी से, दिल तक।
+  </div>
+
+  <!-- Journey Story Modal -->
+  <div id="modal-about" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <button id="btn-close-modal" class="modal-close" aria-label="Close dialog">&times;</button>
+      <h2 id="modal-title" class="modal-title">उदयपुर ट्रैवल्स</h2>
+      <div class="modal-subtitle font-hi">माटी • बोली • धुन</div>
+      <p class="modal-body-text font-hi">
+        यह कोई साधारण यात्रा नहीं है — यह राजस्थान की माटी, लोकधुनों और यादों की एक चलती-फिरती digital महफिल है। 
+        ज़िंदगी के किसी भी मोड़ पर रहें, मारवाड़ और मेवाड़ की हवाएं हमेशा दिल को छू लेती हैं।
+      </p>
+      <div class="modal-footer-motto">
+        "रैओ कठै ही मूलक में, पण दिल में राजस्थान राखणो।"
+      </div>
+    </div>
+  </div>
+
+  <!-- YouTube Error Fallback Message -->
+  <div id="yt-error" class="yt-error-msg font-hi" hidden>
+    <p>धुन आज थोड़ी रूठी है...</p>
+    <a href="https://music.youtube.com/playlist?list=PLSDY6YLTAlrc" target="_blank" rel="noopener">YouTube पर खोलें →</a>
+  </div>
+
+  <!-- Hidden YouTube IFrame Container -->
+  <div id="youtube-player-container"></div>
+
+  <!-- JavaScript Modules -->
+  <script src="data/quotes.js?v=1"></script>
+  <script src="js/player.js?v=1"></script>
+  <script src="js/app.js?v=1"></script>
+
+</body>
+</html>
