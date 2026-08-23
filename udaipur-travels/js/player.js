@@ -43,6 +43,10 @@ function onPlayerReady(event) {
   console.log("Udaipur Travels YouTube Player Ready. Playlist ID:", YOUTUBE_PLAYLIST_ID);
   // Auto-start: the playlist begins muted via playerVars autoplay+mute
   document.body.classList.add("journey-started");
+  
+  if (window.hasUserInteracted) {
+    PlayerAPI.unmute();
+  }
 }
 
 let lastReportedVideoId = "";
@@ -134,6 +138,7 @@ const PlayerAPI = {
     if (!isPlayerReady || !ytPlayer) return false;
     if (ytPlayer.isMuted()) {
       ytPlayer.unMute();
+      ytPlayer.setVolume(100);
       return false;
     } else {
       ytPlayer.mute();
@@ -143,8 +148,14 @@ const PlayerAPI = {
 
   unmute: () => {
     if (!isPlayerReady || !ytPlayer) return;
-    if (ytPlayer.isMuted()) {
+    try {
       ytPlayer.unMute();
+      ytPlayer.setVolume(100);
+      if (typeof ytPlayer.getPlayerState === 'function' && ytPlayer.getPlayerState() !== YT.PlayerState.PLAYING) {
+        ytPlayer.playVideo();
+      }
+    } catch (e) {
+      console.warn("Unmute failed:", e);
     }
   },
 

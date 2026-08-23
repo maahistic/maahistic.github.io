@@ -163,6 +163,12 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.toggle("music-playing", isPlaying);
         if (window.setWarmGlowState) window.setWarmGlowState(isPlaying);
 
+        if (btnMute && window.PlayerAPI) {
+          const isMuted = window.PlayerAPI.isMuted();
+          btnMute.textContent = isMuted ? "🔇" : "🔊";
+          btnMute.title = isMuted ? "आवाज़ चालू करें" : "आवाज़ बंद करें";
+        }
+
         if (state === 3 /* BUFFERING */) {
           document.body.classList.add("buffering");
         } else {
@@ -215,8 +221,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- Auto-Unmute on First User Interaction Anywhere on Page ---
+  window.hasUserInteracted = false;
+
   const handleFirstInteraction = () => {
-    if (window.PlayerAPI && window.PlayerAPI.isMuted()) {
+    window.hasUserInteracted = true;
+    if (window.PlayerAPI) {
       window.PlayerAPI.unmute();
       if (btnMute) {
         btnMute.textContent = "🔊";
@@ -224,10 +233,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
     // Remove listeners after first interaction
-    document.removeEventListener("pointerdown", handleFirstInteraction);
-    document.removeEventListener("keydown", handleFirstInteraction);
+    ["click", "pointerdown", "touchstart", "keydown"].forEach((evt) => {
+      document.removeEventListener(evt, handleFirstInteraction, true);
+    });
   };
 
-  document.addEventListener("pointerdown", handleFirstInteraction);
-  document.addEventListener("keydown", handleFirstInteraction);
+  ["click", "pointerdown", "touchstart", "keydown"].forEach((evt) => {
+    document.addEventListener(evt, handleFirstInteraction, true);
+  });
 });
