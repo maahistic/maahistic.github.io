@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>म्हारो मारवाड़ — Rajasthani Folk Music</title>
+  <meta name="description" content="माटी, बोली और लोकधुनों की एक छोटी सी digital महफिल। सुनो राजस्थानी लोकगीत, घूमर, और मारवाड़ की रातों की धुन।">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪕</text></svg>">
+  <link rel="stylesheet" href="css/style.css?v=8">
+</head>
+<body class="site-body">
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <canvas id="fireflies-canvas"></canvas>
+
+    <div class="hero-image-wrap">
+      <img src="assets/images/bg.jpg" class="hero-bg-img" alt="Rajasthani Desert Folk Scene">
+    </div>
+
+    <div class="hero-overlay">
+      <h1 class="brand-title font-yatra">म्हारो मारवाड़</h1>
+      <div class="brand-subtitle font-hi">माटी • बोली • धुन</div>
+
+      <div class="quote-container font-rozha">
+        <div id="hero-quote" class="quote-text"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rajasthani Block Print Footer -->
+  <footer class="block-print-footer">
+    <div class="block-print-band">
+      <span class="bp-motif">🐘</span><span class="bp-dot">◆</span><span class="bp-motif">🌿</span><span class="bp-dot">◆</span><span class="bp-motif">🐘</span><span class="bp-dot">◆</span><span class="bp-motif">🌿</span><span class="bp-dot">◆</span><span class="bp-motif">🐘</span><span class="bp-dot">◆</span><span class="bp-motif">🌿</span><span class="bp-dot">◆</span><span class="bp-motif">🐘</span>
+    </div>
+    <p class="bp-credit font-hi">Made with ❤️ for Rajasthan</p>
+  </footer>
+
+  <!-- Floating Pill Player -->
+  <div id="mini-player" class="player-bar">
+    <span class="player-ornament">🪕</span>
+    <button id="btn-prev" class="ctrl-btn" aria-label="Previous" title="पिछली धुन">⏮</button>
+    <button id="btn-play-pause" class="ctrl-btn play-pause-btn" aria-label="Play/Pause" title="चालू / बंद">
+      <span class="play-icon">▶</span>
+    </button>
+    <button id="btn-next" class="ctrl-btn" aria-label="Next" title="अगली धुन">⏭</button>
+    <span class="player-ornament">🥁</span>
+  </div>
+
+  <!-- YouTube Error Fallback (hidden by default) -->
+  <div id="yt-error" class="yt-error-msg font-hi" hidden>
+    <p>धुन आज थोड़ी रूठी है...</p>
+    <a href="https://music.youtube.com/playlist?list=PLSDY6YLTAlrc" target="_blank" rel="noopener">YouTube पर खोलो →</a>
+  </div>
+
+  <!-- Hidden YouTube Player -->
+  <div id="youtube-player-container"></div>
+
+  <!-- Scripts (no songs.js) -->
+  <script src="data/quotes.js?v=8"></script>
+  <script src="js/player.js?v=8"></script>
+  <script src="js/app.js?v=8"></script>
+
+</body>
+</html>
