@@ -463,28 +463,6 @@ body.music-playing .player-artwork {
   border-color: #ff4e4e;
 }
 
-/* --- Beautiful Rajasthani Art Motif Footer --- */
-.rajasthani-art-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(180deg, transparent 0%, rgba(8, 12, 22, 0.95) 40%, rgba(8, 12, 22, 1) 100%);
-  padding: 8px 0 10px;
-  text-align: center;
-  z-index: 15;
-  pointer-events: auto;
-}
-
-.art-band {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  opacity: 0.6;
-  margin-bottom: 2px;
-}
-
 .art-motif {
   font-size: 0.95rem;
   filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.8));
@@ -501,6 +479,36 @@ body.music-playing .player-artwork {
   opacity: 0.8;
   letter-spacing: 0.5px;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.insta-link {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(229, 193, 88, 0.25);
+  color: var(--clr-sand);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.insta-link:hover {
+  background: rgba(200, 75, 49, 0.6);
+  color: #fff;
+  border-color: var(--clr-gold);
+  transform: scale(1.08);
 }
 
 /* --- Journey Modal Dialog ("सफ़र के बारे में") --- */
