@@ -463,6 +463,27 @@ body.music-playing .player-artwork {
   border-color: #ff4e4e;
 }
 
+/* --- Beautiful Rajasthani Art Motif Footer --- */
+.rajasthani-art-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, transparent 0%, rgba(8, 12, 22, 0.95) 40%, rgba(8, 12, 22, 1) 100%);
+  padding: 8px 20px 10px;
+  z-index: 15;
+  pointer-events: auto;
+}
+
+.art-band {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0.6;
+  margin-bottom: 2px;
+}
+
 .art-motif {
   font-size: 0.95rem;
   filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.8));
@@ -487,6 +508,7 @@ body.music-playing .player-artwork {
   justify-content: flex-end;
   gap: 8px;
   margin-top: 2px;
+  padding-right: 4px;
 }
 
 .insta-link {
@@ -712,15 +734,29 @@ body.music-playing .player-artwork {
   }
 
   .rajasthani-art-footer {
-    padding: 4px 0 6px;
+    padding: 4px 10px 6px;
   }
 
   .art-motif {
     font-size: 0.82rem;
   }
 
+  .footer-right {
+    gap: 6px;
+  }
+
   .footer-credit {
     font-size: 0.7rem;
+  }
+
+  .insta-link {
+    width: 24px;
+    height: 24px;
+  }
+
+  .insta-link svg {
+    width: 12px;
+    height: 12px;
   }
   
   .modal-card {
