@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Mahendranath Jogi | Java Full Stack Engineer</title>
+  <meta name="description" content="Portfolio of Mahendranath Jogi — Java Full Stack Module Lead building Spring Boot microservices, Apache Camel middleware, Hazelcast caching and Angular front-ends."/>
+  <meta name="theme-color" content="#07090d"/>
+  <!-- Open Graph -->
+  <meta property="og:title" content="Mahendranath Jogi | Java Full Stack Engineer"/>
+  <meta property="og:description" content="Java Full Stack Module Lead — Spring Boot, Microservices, Apache Camel, Hazelcast, Kafka, Angular, AWS"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://maahistic.github.io/"/>
+  <meta property="og:image" content="https://maahistic.github.io/assets/resources/profile.jpg"/>
+  <meta property="og:image:alt" content="Mahendranath Jogi — Java Full Stack Engineer"/>
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="Mahendranath Jogi | Java Full Stack Engineer"/>
+  <meta name="twitter:description" content="Java Full Stack Module Lead — Spring Boot, Microservices, Angular, AWS"/>
+  <meta name="twitter:image" content="https://maahistic.github.io/assets/resources/profile.jpg"/>
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%2307090d'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='700' font-size='30' fill='%2334d399'>mj</text></svg>"/>
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin/>
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/styles/styles.css"/>
+  <!-- Apply saved theme before paint to avoid a flash -->
+  <script>
+    (function () {
+      var saved = localStorage.getItem('portfolio-theme');
+      var light = saved ? saved === 'light-theme' : window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.documentElement.dataset.theme = light ? 'light' : 'dark';
+    })();
+  </script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W58QDHM8Q0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-W58QDHM8Q0');
+  </script>
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Mahendranath Jogi",
+    "url": "https://maahistic.github.io/",
+    "image": "https://maahistic.github.io/assets/resources/profile.jpg",
+    "jobTitle": "Java Full Stack Module Lead",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Mphasis"
+    },
+    "knowsAbout": ["Java", "Spring Boot", "Microservices", "Apache Camel", "Hazelcast", "Angular", "AWS", "Docker", "Kafka"],
+    "sameAs": [
+      "https://www.linkedin.com/in/maahistic",
+      "https://github.com/maahistic"
+    ],
+    "email": "mtech.chauhan@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Pune",
+      "addressRegion": "Maharashtra",
+      "addressCountry": "IN"
+    }
+  }
+  </script>
+</head>
+<body>
+
+<a href="#about" class="skip-link">Skip to main content</a>
+
+<div class="scroll-progress" aria-hidden="true"><span></span></div>
+<div class="cursor-glow" aria-hidden="true"></div>
+
+<!-- ========== NAVBAR ========== -->
+<header class="nav" role="banner">
+  <nav class="nav-inner" aria-label="Main navigation">
+    <a href="#top" class="brand" aria-label="Mahendranath Jogi — home">
+      <span class="brand-bracket">&lt;</span>mj<span class="brand-slash">/</span><span class="brand-bracket">&gt;</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about"><span class="nav-idx">01</span>About</a></li>
+      <li><a href="#experience"><span class="nav-idx">02</span>Experience</a></li>
+      <li><a href="#stack"><span class="nav-idx">03</span>Stack</a></li>
+      <li><a href="#projects"><span class="nav-idx">04</span>Projects</a></li>
+      <li><a href="#credentials"><span class="nav-idx">05</span>Credentials</a></li>
+      <li><a href="#contact"><span class="nav-idx">06</span>Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="kbd-btn" type="button" data-open-palette aria-label="Open command palette">
+        <i class="fas fa-terminal" aria-hidden="true"></i><kbd>Ctrl</kbd><kbd>K</kbd>
+      </button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle light/dark theme">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+      </button>
+      <button class="icon-btn hamburger" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="hero" aria-label="Introduction">
+  <canvas class="topology" aria-hidden="true"></canvas>
+  <div class="hero-grid container">
+    <div class="hero-copy">
+      <div class="status-pill">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <span class="pill-role">Module Lead @ Mphasis</span>
+        <span class="sep pill-role" aria-hidden="true">/</span>
+        <span>Pune, IN</span>
+        <span class="sep" aria-hidden="true">/</span>
+        <span class="mono" id="local-time" aria-label="Local time in Pune">--:--</span> IST
+      </div>
+      <h1 class="hero-title">
+        <span class="hero-hello mono">// hello, world. I'm</span>
+        <span class="hero-name" data-scramble>Mahendranath Jogi</span>
+      </h1>
+      <p class="hero-role mono">
+        <span class="prompt">&gt;</span> <span id="typed-text"></span><span class="caret" aria-hidden="true"></span>
+      </p>
+      <p class="hero-desc">
+        I design and ship <strong>resilient microservices</strong>, <strong>integration middleware</strong> and
+        <strong>Angular front-ends</strong> for a top global custodian bank — and I lead the team that builds them.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary magnetic">
+          <span>View my work</span><i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a href="assets/resources/CV_Mahendranath.pdf" download class="btn btn-ghost magnetic">
+          <i class="fas fa-download" aria-hidden="true"></i><span>Download CV</span>
+        </a>
+      </div>
+      <dl class="hero-stats">
+        <div class="stat">
+          <dt>Years engineering</dt>
+          <dd><span data-count-years="2018-10-01">0</span>+</dd>
+        </div>
+        <div class="stat">
+          <dt>Enterprise orgs</dt>
+          <dd><span data-count="3">0</span></dd>
+        </div>
+        <div class="stat">
+          <dt>Java in prod</dt>
+          <dd>v<span data-count="21">0</span></dd>
+        </div>
+        <div class="stat">
+          <dt>Live side projects</dt>
+          <dd><span data-count="4">0</span></dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="terminal reveal" role="region" aria-label="Interactive terminal">
+      <div class="term-bar">
+        <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
+        <span class="term-title mono">mahendranath@prod: ~/engineer</span>
+        <span class="term-badge mono">zsh</span>
+      </div>
+      <div class="term-body mono" tabindex="0">
+        <div class="term-output" aria-live="polite"></div>
+        <form class="term-input" autocomplete="off">
+          <label for="term-cmd" class="prompt-label"><span class="ps1-user">guest</span><span class="ps1-at">@</span><span class="ps1-host">mj</span> <span class="ps1-path">~</span> $</label>
+          <input id="term-cmd" type="text" spellcheck="false" placeholder="type 'help'" aria-label="Terminal command"/>
+        </form>
+      </div>
+    </div>
+  </div>
+  <a href="#about" class="scroll-hint mono" aria-label="Scroll to about section">
+    <span>scroll</span><span class="scroll-line" aria-hidden="true"></span>
+  </a>
+</section>
+
+<!-- ========== ABOUT ========== -->
+<section class="section" id="about">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="section-idx mono">01 / about</span>
+      <h2 data-scramble>Engineer first. Lead by example.</h2>
+    </header>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p class="lead">
+          Java Full Stack Module Lead with a track record of leading Agile teams that deliver scalable
+          microservices and middleware with <span class="hl">Spring Boot</span>, <span class="hl">Apache Camel</span>
+          and <span class="hl">Angular</span>.
+        </p>
+        <p>
+          My day-to-day sits where reliability matters most: distributed caching with Hazelcast, messaging with
+          Kafka, ActiveMQ and IBM MQ, cloud-native services on AWS, and Docker-based delivery. I care about the
+          unglamorous parts that keep production calm — CI/CD automation in GitLab, test depth with JUnit 5 and
+          mutation testing, SonarQube quality gates and well-documented APIs with Swagger.
+        </p>
+        <p>
+          As a lead I practise SAFe Agile, run story grooming and estimation, and turn business goals into
+          technical designs the team can ship with confidence.
+        </p>
+        <ul class="principles">
+          <li><i class="fas fa-shield-halved" aria-hidden="true"></i><div><strong>Reliability over cleverness</strong><span>Idempotent flows, retries and observability by default.</span></div></li>
+          <li><i class="fas fa-vial-circle-check" aria-hidden="true"></i><div><strong>Tests as a contract</strong><span>Unit, integration and mutation tests guard every change.</span></div></li>
+          <li><i class="fas fa-people-group" aria-hidden="true"></i><div><strong>Teams that scale</strong><span>Clear stories, honest estimates, shared ownership.</span></div></li>
+        </ul>
+      </div>
+
+      <div class="about-side reveal">
+        <figure class="portrait">
+          <img src="assets/resources/profile.jpg" alt="Portrait of Mahendranath Jogi" width="420" height="420" loading="lazy"/>
+          <span class="portrait-scan" aria-hidden="true"></span>
+          <figcaption class="mono"><span class="pulse-dot" aria-hidden="true"></span> status: <b>UP</b> · region: ap-south</figcaption>
+        </figure>
+        <div class="code-card" aria-label="Profile written as Java code">
+          <div class="code-tabs mono"><span class="tab active"><i class="fab fa-java" aria-hidden="true"></i> Engineer.java</span><span class="tab">application.yml</span></div>
+<pre class="code mono"><code><span class="c-ann">@Service</span>
+<span class="c-kw">public final class</span> <span class="c-type">Mahendranath</span> <span class="c-kw">implements</span> <span class="c-type">Engineer</span> {
+
+  <span class="c-kw">private final</span> <span class="c-type">String</span> role = <span class="c-str">"Module Lead"</span>;
+  <span class="c-kw">private final</span> <span class="c-type">List</span>&lt;<span class="c-type">String</span>&gt; stack = <span class="c-type">List</span>.<span class="c-fn">of</span>(
+    <span class="c-str">"Java 21"</span>, <span class="c-str">"Spring Boot"</span>, <span class="c-str">"Camel"</span>,
+    <span class="c-str">"Hazelcast"</span>, <span class="c-str">"Kafka"</span>, <span class="c-str">"Angular"</span>);
+
+  <span class="c-ann">@Override</span>
+  <span class="c-kw">public</span> <span class="c-type">Release</span> <span class="c-fn">deliver</span>(<span class="c-type">Requirement</span> req) {
+    <span class="c-kw">return</span> <span class="c-fn">design</span>(req)
+      .<span class="c-fn">build</span>()
+      .<span class="c-fn">test</span>(<span class="c-type">Coverage</span>.<span class="c-const">MUTATION</span>)
+      .<span class="c-fn">ship</span>(<span class="c-type">Pipeline</span>.<span class="c-const">GITLAB_CI</span>);
+  }
+}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== EXPERIENCE ========== -->
+<section class="section" id="experience">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="section-idx mono">02 / experience</span>
+      <h2 data-scramble>git log --career</h2>
+      <p class="section-sub">Every role shipped something. Most recent first.</p>
+    </header>
+
+    <div class="gitlog-wrap">
+      <span class="gitlog-rail" aria-hidden="true"><span class="gitlog-fill"></span></span>
+      <ol class="gitlog">
+
+        <li class="commit reveal">
+          <span class="commit-node head" aria-hidden="true"></span>
+          <article class="commit-card spotlight">
+            <div class="commit-meta mono">
+              <span class="hash">a7f3c21</span>
+              <span class="ref ref-head">HEAD -&gt; main</span>
+              <span class="ref">mphasis</span>
+              <span class="commit-date" id="mphasis-duration">April 2024 – Present</span>
+            </div>
+            <h3>Module Lead <span class="at">@ Mphasis</span></h3>
+            <p class="commit-msg">Leading a Java Full Stack team for a top global custodian bank.</p>
+            <ul class="diff">
+              <li><span class="plus">+</span> Lead a team of Java Full Stack developers through SAFe Agile delivery.</li>
+              <li><span class="plus">+</span> Build resilient microservices on Java 21/17 and Spring Boot with Hazelcast distributed caching.</li>
+              <li><span class="plus">+</span> Develop micro-frontend applications with Angular (v10+).</li>
+              <li><span class="plus">+</span> Guard quality with JUnit, integration and mutation testing and SonarQube compliance.</li>
+              <li><span class="plus">+</span> Drive story grooming, cross-verification and story-point estimation.</li>
+            </ul>
+            <div class="chips">
+              <span>Java 21</span><span>Spring Boot</span><span>Angular</span><span>Hazelcast</span><span>Docker</span>
+              <span>Kafka</span><span>ActiveMQ</span><span>GitLab CI/CD</span><span>SonarQube</span><span>Nexus</span>
+            </div>
+          </article>
+        </li>
+
+        <li class="commit reveal">
+          <span class="commit-node" aria-hidden="true"></span>
+          <article class="commit-card spotlight">
+            <div class="commit-meta mono">
+              <span class="hash">5e19b08</span>
+              <span class="ref">worldline</span>
+              <span class="commit-date" id="worldline-duration">October 2021 – April 2024</span>
+            </div>
+            <h3>Consultant <span class="at">@ Worldline Global Services</span></h3>
+            <p class="commit-msg">Middleware and microservices on Spring Boot and Apache Camel.</p>
+            <ul class="diff">
+              <li><span class="plus">+</span> Built middleware applications and microservices on JDK 8/11 with Spring Boot and Apache Camel.</li>
+              <li><span class="plus">+</span> Used AWS cloud services (EC2, Lambda) and Docker for deployment.</li>
+              <li><span class="plus">+</span> Developed applications with Angular 10 and Java 8.</li>
+              <li><span class="plus">+</span> Wrote JUnit 5 tests and configured SonarQube to raise code quality.</li>
+              <li><span class="plus">+</span> Planned and wrote deployment automation scripts; worked on legacy systems and Hazelcast caching.</li>
+            </ul>
+            <div class="chips">
+              <span>Java 11</span><span>Spring Boot</span><span>Apache Camel</span><span>AWS</span><span>Angular 10</span>
+              <span>Docker</span><span>Kafka</span><span>JUnit 5</span><span>SonarQube</span>
+            </div>
+          </article>
+        </li>
+
+        <li class="commit reveal">
+          <span class="commit-node" aria-hidden="true"></span>
+          <article class="commit-card spotlight">
+            <div class="commit-meta mono">
+              <span class="hash">c40d9e2</span>
+              <span class="ref">infosys</span>
+              <span class="commit-date">October 2018 – October 2021 · 3 yrs 1 mo</span>
+            </div>
+            <h3>System Engineer <span class="at">@ Infosys</span></h3>
+            <p class="commit-msg">Three projects across back-end engineering and business analysis.</p>
+            <div class="subprojects">
+              <div>
+                <h4 class="mono"><i class="fas fa-code-branch" aria-hidden="true"></i> CSCS — Spring Boot Developer</h4>
+                <p>Worked in Agile with CI/CD for continuous deployment. Built back-end infrastructure with microservices and AKS, RESTful APIs for code migration and new features, and high-level designs, technical mappings and APIs for enterprise applications.</p>
+              </div>
+              <div>
+                <h4 class="mono"><i class="fas fa-code-branch" aria-hidden="true"></i> Service Disruption — Spring Boot Developer</h4>
+                <p>Built back-end infrastructure with microservices and RESTful APIs for new functionality, hands-on with YAML, Spring Boot, Apache Camel, JPA and JUnit.</p>
+              </div>
+              <div>
+                <h4 class="mono"><i class="fas fa-code-branch" aria-hidden="true"></i> Depot Setup — Business Analyst</h4>
+                <p>Led the Depot Setup team supporting TNT FedEx and Infosys, coordinated business setup across regions and managed the full change process, including requirement analysis and elicitation.</p>
+              </div>
+            </div>
+            <div class="chips">
+              <span>Spring Boot</span><span>Apache Camel</span><span>JPA</span><span>JUnit</span><span>Jenkins</span>
+              <span>Swagger</span><span>AKS</span><span>SQL</span>
+            </div>
+          </article>
+        </li>
+
+        <li class="commit reveal">
+          <span class="commit-node minor" aria-hidden="true"></span>
+          <article class="commit-card spotlight compact">
+            <div class="commit-meta mono">
+              <span class="hash">8b2a6f4</span>
+              <span class="ref">tech-mahindra</span>
+              <span class="commit-date">Jun 2017 – July 2018 · 1 yr 1 mo</span>
+            </div>
+            <h3>Advisor <span class="at">@ Tech Mahindra</span></h3>
+            <p>Floor support and training for new employees, complex telecom issue resolution with on-site technicians, and corporate client relationships supporting sales and service quality.</p>
+          </article>
+        </li>
+
+        <li class="commit reveal">
+          <span class="commit-node minor" aria-hidden="true"></span>
+          <article class="commit-card spotlight compact">
+            <div class="commit-meta mono">
+              <span class="hash">0f1e3a9</span>
+              <span class="ref">init</span>
+              <span class="commit-date">July 2015 – Jun 2017 · 2 yrs 1 mo</span>
+            </div>
+            <h3>Grammar Faculty <span class="at">(Part-time)</span></h3>
+            <p>Structured English grammar lessons from basic to advanced levels, plus personality-development sessions on communication and confidence.</p>
+          </article>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ========== STACK / ARCHITECTURE ========== -->
+<section class="section" id="stack">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="section-idx mono">03 / stack</span>
+      <h2 data-scramble>The system I build, layer by layer</h2>
+      <p class="section-sub">Follow a request from the browser to production. Hover a layer to trace it.</p>
+    </header>
+
+    <div class="arch">
+      <div class="arch-flow" aria-hidden="true"><span class="arch-pulse"></span></div>
+
+      <div class="layer reveal" data-layer="client">
+        <div class="layer-label mono"><span class="layer-no">L1</span> Presentation</div>
+        <div class="layer-body">
+          <span class="node"><i class="fab fa-angular"></i> Angular 10+</span>
+          <span class="node"><i class="fas fa-code"></i> TypeScript</span>
+          <span class="node"><i class="fab fa-js"></i> JavaScript</span>
+          <span class="node"><i class="fab fa-html5"></i> HTML5</span>
+          <span class="node"><i class="fab fa-css3-alt"></i> CSS3</span>
+          <span class="node"><i class="fas fa-puzzle-piece"></i> Micro-frontends</span>
+        </div>
+        <span class="layer-proto mono">HTTPS · JSON</span>
+      </div>
+
+      <div class="layer reveal" data-layer="api">
+        <div class="layer-label mono"><span class="layer-no">L2</span> API &amp; Integration</div>
+        <div class="layer-body">
+          <span class="node"><i class="fas fa-plug"></i> REST APIs</span>
+          <span class="node"><i class="fas fa-route"></i> Apache Camel</span>
+          <span class="node"><i class="fas fa-file-code"></i> Swagger / OpenAPI</span>
+          <span class="node"><i class="fas fa-paper-plane"></i> Postman</span>
+        </div>
+        <span class="layer-proto mono">EIP · routing</span>
+      </div>
+
+      <div class="layer reveal" data-layer="service">
+        <div class="layer-label mono"><span class="layer-no">L3</span> Services</div>
+        <div class="layer-body">
+          <span class="node primary"><i class="fab fa-java"></i> Java 21 / 17</span>
+          <span class="node primary"><i class="fas fa-leaf"></i> Spring Boot</span>
+          <span class="node"><i class="fas fa-cubes"></i> Microservices</span>
+          <span class="node"><i class="fas fa-database"></i> JPA / Hibernate</span>
+          <span class="node"><i class="fas fa-table"></i> SQL</span>
+        </div>
+        <span class="layer-proto mono">domain logic</span>
+      </div>
+
+      <div class="layer reveal" data-layer="data">
+        <div class="layer-label mono"><span class="layer-no">L4</span> Messaging &amp; Cache</div>
+        <div class="layer-body">
+          <span class="node primary"><i class="fas fa-bolt"></i> Hazelcast IMDG</span>
+          <span class="node"><i class="fas fa-stream"></i> Apache Kafka</span>
+          <span class="node"><i class="fas fa-envelope-open"></i> ActiveMQ</span>
+          <span class="node"><i class="fas fa-envelope"></i> IBM MQ</span>
+        </div>
+        <span class="layer-proto mono">async · in-memory</span>
+      </div>
+
+      <div class="layer reveal" data-layer="infra">
+        <div class="layer-label mono"><span class="layer-no">L5</span> Platform &amp; Delivery</div>
+        <div class="layer-body">
+          <span class="node"><i class="fab fa-docker"></i> Docker</span>
+          <span class="node"><i class="fab fa-aws"></i> AWS EC2 · Lambda</span>
+          <span class="node"><i class="fas fa-dharmachakra"></i> AKS</span>
+          <span class="node"><i class="fab fa-gitlab"></i> GitLab CI/CD</span>
+          <span class="node"><i class="fab fa-jenkins"></i> Jenkins</span>
+          <span class="node"><i class="fas fa-box"></i> Nexus</span>
+        </div>
+        <span class="layer-proto mono">build · deploy</span>
+      </div>
+
+      <div class="layer reveal" data-layer="quality">
+        <div class="layer-label mono"><span class="layer-no">L6</span> Quality &amp; Process</div>
+        <div class="layer-body">
+          <span class="node"><i class="fas fa-vial"></i> JUnit 5</span>
+          <span class="node"><i class="fas fa-dna"></i> Mutation testing</span>
+          <span class="node"><i class="fas fa-bug"></i> SonarQube</span>
+          <span class="node"><i class="fas fa-users"></i> SAFe Agile</span>
+          <span class="node"><i class="fas fa-list-check"></i> Story estimation</span>
+        </div>
+        <span class="layer-proto mono">quality gates</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROJECTS ========== -->
+<section class="section" id="projects">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="section-idx mono">04 / projects</span>
+      <h2 data-scramble>Things I built after hours</h2>
+      <p class="section-sub">Live apps and interactive labs. No frameworks — plain HTML, CSS and JavaScript.</p>
+    </header>
+
+    <div class="projects">
+      <article class="project featured spotlight tilt reveal">
+        <a class="project-visual" href="batchroom/index.html" target="_blank" rel="noopener noreferrer" aria-label="Open Batch Room">
+          <img src="assets/resources/batchroom-preview.png" alt="Batch Room — college memory wall app" loading="lazy" width="640" height="360"/>
+          <span class="visual-chip mono"><span class="pulse-dot" aria-hidden="true"></span> live</span>
+        </a>
+        <div class="project-body">
+          <div class="project-kind mono">web app · realtime</div>
+          <h3>Batch Room</h3>
+          <p>A nostalgic memory wall where college batchmates reunite online: share memories, post anonymously and see where life has taken everyone. Real-time Firebase back-end with a warm, scrapbook-style UI.</p>
+          <ul class="features mono">
+            <li>Google Auth</li><li>Real-time updates</li><li>Anonymous posting</li><li>Batchmate profiles</li>
+          </ul>
+          <div class="chips"><span>JavaScript</span><span>Firebase</span><span>Firestore</span><span>HTML5</span><span>CSS3</span></div>
+          <div class="project-links">
+            <a href="batchroom/index.html" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer"><i class="fas fa-play" aria-hidden="true"></i><span>Live demo</span></a>
+            <a href="https://github.com/maahistic" class="btn btn-ghost btn-sm" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>Source</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project spotlight tilt reveal">
+        <a class="project-visual gen gen-charts" href="tutorials/datascience/index.html" aria-label="Open Data Science Explorer">
+          <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="visual-chip mono">interactive course</span>
+        </a>
+        <div class="project-body">
+          <div class="project-kind mono">learning lab · canvas</div>
+          <h3>Data Science Explorer</h3>
+          <p>Learn Python data science by playing with it: interactive widgets, live canvas charts and quizzes covering Python, NumPy, Pandas, Matplotlib, Statistics and Seaborn. Nothing to install.</p>
+          <div class="chips"><span>JavaScript</span><span>Canvas</span><span>Python</span><span>Pandas</span></div>
+          <a href="tutorials/datascience/index.html" class="link-arrow mono">start exploring <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </article>
+
+      <article class="project spotlight tilt reveal">
+        <a class="project-visual gen gen-matrix" href="tutorials/numpy/index.html" aria-label="Open NumPy Visual Explorer">
+          <span class="matrix" aria-hidden="true"></span>
+          <span class="visual-chip mono">7 visual labs</span>
+        </a>
+        <div class="project-body">
+          <div class="project-kind mono">learning lab · visual</div>
+          <h3>NumPy Visual Explorer</h3>
+          <p>Seven interactive visual labs that make NumPy click: arrays, vectorisation, broadcasting, masking, reductions and matrix maths, all animated step by step.</p>
+          <div class="chips"><span>JavaScript</span><span>NumPy</span><span>Linear algebra</span></div>
+          <a href="tutorials/numpy/index.html" class="link-arrow mono">open the labs <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </article>
+
+      <article class="project spotlight tilt reveal">
+        <a class="project-visual gen gen-dunes" href="udaipur-travels/index.html" target="_blank" rel="noopener noreferrer" aria-label="Open Udaipur Travels">
+          <span class="sun" aria-hidden="true"></span>
+          <span class="dune d1" aria-hidden="true"></span><span class="dune d2" aria-hidden="true"></span>
+          <span class="visual-chip mono">media experience</span>
+        </a>
+        <div class="project-body">
+          <div class="project-kind mono">web experience · audio</div>
+          <h3>Udaipur Travels</h3>
+          <p>A Rajasthani travel experience in Hindi: full-screen video, a custom folk-music player with a spinning vinyl, rotating quotes and drifting dust particles.</p>
+          <div class="chips"><span>JavaScript</span><span>HTML5 video</span><span>YouTube IFrame API</span><span>Canvas</span></div>
+          <a href="udaipur-travels/index.html" class="link-arrow mono" target="_blank" rel="noopener noreferrer">take the trip <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CREDENTIALS ========== -->
+<section class="section" id="credentials">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="section-idx mono">05 / credentials</span>
+      <h2 data-scramble>Education &amp; certifications</h2>
+    </header>
+    <div class="cred-grid">
+      <article class="edu-card spotlight reveal">
+        <i class="fas fa-graduation-cap edu-icon" aria-hidden="true"></i>
+        <span class="mono edu-years">2015 – 2018</span>
+        <h3>Bachelor of Computer Application</h3>
+        <p>P. D. Pandya Institute of Computer Application</p>
+      </article>
+      <ul class="cert-list reveal">
+        <li><a href="https://skillsoft.digitalbadges-eu.skillsoft.com/ecf88052-d49c-4ae5-a763-962aa21e9500#acc.e431H7g6" target="_blank" rel="noopener noreferrer"><i class="fas fa-certificate" aria-hidden="true"></i><span>Agile Project Planning</span><span class="mono verify">verify ↗</span></a></li>
+        <li><a href="https://skillsoft.digitalbadges-eu.skillsoft.com/70e46211-7a68-497d-b35c-41dc779c098d#acc.S7fn3j0F" target="_blank" rel="noopener noreferrer"><i class="fas fa-certificate" aria-hidden="true"></i><span>Agile Stakeholder Engagement</span><span class="mono verify">verify ↗</span></a></li>
+        <li><a href="https://skillsoft.digitalbadges-eu.skillsoft.com/53c927ae-9352-409e-a8c0-97ca11d68c1d#acc.v7v7F8ex" target="_blank" rel="noopener noreferrer"><i class="fas fa-certificate" aria-hidden="true"></i><span>Agile Project Scheduling and Monitoring</span><span class="mono verify">verify ↗</span></a></li>
+        <li><a href="https://skillsoft.digitalbadges-eu.skillsoft.com/53c927ae-9352-409e-a8c0-97ca11d68c1d#acc.Z6W8CSLz" target="_blank" rel="noopener noreferrer"><i class="fas fa-certificate" aria-hidden="true"></i><span>Agile Principles and Methodologies</span><span class="mono verify">verify ↗</span></a></li>
+        <li><a href="https://skillsoft.digitalbadges-eu.skillsoft.com/4566a0ba-5591-4b6c-87fe-075d72b26c8b#acc.N8NktcI0" target="_blank" rel="noopener noreferrer"><i class="fas fa-certificate" aria-hidden="true"></i><span>Agile Key Exam Concepts</span><span class="mono verify">verify ↗</span></a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="contact-panel spotlight reveal">
+      <span class="section-idx mono">06 / contact</span>
+      <h2 data-scramble>Let's build something reliable.</h2>
+      <p class="section-sub">Open to conversations about engineering leadership, distributed systems and full-stack delivery.</p>
+      <div class="contact-cta">
+        <button type="button" class="email-copy mono magnetic" data-copy="mtech.chauhan@gmail.com" aria-label="Copy email address">
+          <span class="email-text">mtech.chauhan@gmail.com</span>
+          <span class="copy-state"><i class="far fa-copy" aria-hidden="true"></i> copy</span>
+        </button>
+        <a href="mailto:mtech.chauhan@gmail.com" class="btn btn-primary magnetic"><i class="fas fa-paper-plane" aria-hidden="true"></i><span>Say hello</span></a>
+      </div>
+      <ul class="contact-links">
+        <li><a href="https://www.linkedin.com/in/maahistic" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in" aria-hidden="true"></i><span>LinkedIn</span><span class="mono">in/maahistic</span></a></li>
+        <li><a href="https://github.com/maahistic" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span><span class="mono">@maahistic</span></a></li>
+        <li><a href="https://wa.me/918866045958" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i><span>WhatsApp</span><span class="mono">+91 88660 45958</span></a></li>
+        <li><span class="contact-static"><i class="fas fa-location-dot" aria-hidden="true"></i><span>Location</span><span class="mono">Pune, Maharashtra, IN</span></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer" role="contentinfo">
+  <div class="container footer-inner mono">
+    <span>&copy; <span id="footer-year"></span> Mahendranath Jogi</span>
+    <span class="footer-build">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      build passing · vanilla HTML/CSS/JS · rendered in <b id="render-time">--</b> ms
+    </span>
+    <span class="footer-hint">press <kbd>Ctrl</kbd> <kbd>K</kbd></span>
+  </div>
+</footer>
+
+<button class="to-top icon-btn" type="button" aria-label="Scroll to top"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+
+<!-- ========== COMMAND PALETTE ========== -->
+<div class="palette" role="dialog" aria-modal="true" aria-label="Command palette" hidden>
+  <div class="palette-backdrop" data-close-palette></div>
+  <div class="palette-box">
+    <div class="palette-search">
+      <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+      <input type="text" placeholder="Jump to a section or run a command…" aria-label="Search commands" spellcheck="false"/>
+      <kbd>esc</kbd>
+    </div>
+    <ul class="palette-list" role="listbox"></ul>
+  </div>
+</div>
+
+<div class="toast mono" role="status" aria-live="polite"></div>
+
+<script src="assets/scripts/script.js" defer></script>
+</body>
+</html>
